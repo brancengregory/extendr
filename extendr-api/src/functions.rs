@@ -185,7 +185,7 @@ pub fn parse(code: &str) -> Result<Expressions> {
 pub fn eval_string(code: &str) -> Result<Robj> {
     single_threaded(|| {
         let expr = parse(code)?;
-        let mut res = Robj::from(());
+        let mut res = Robj::null();
         if let Some(expr) = expr.as_expressions() {
             for lang in expr.values() {
                 res = lang.eval()?
@@ -215,7 +215,7 @@ pub fn eval_string_with_params(code: &str, values: &[&Robj]) -> Result<Robj> {
         }
 
         let expr = parse(code)?;
-        let mut res = Robj::from(());
+        let mut res = Robj::null();
         if let Some(expr) = expr.as_expressions() {
             for lang in expr.values() {
                 res = lang.eval_with_env(&env)?
