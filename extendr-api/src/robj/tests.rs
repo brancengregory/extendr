@@ -217,7 +217,7 @@ fn test_to_robj() {
 #[test]
 fn parse_test() {
     test! {
-    let p = parse("print(1L);print(1L);")?;
+    let p = Expressions::from_str("print(1L);print(1L);")?;
     let q = Expressions::from_values(&[
         r!(Language::from_values(&[r!(Symbol::from_string("print")), r!(1)])),
         r!(Language::from_values(&[r!(Symbol::from_string("print")), r!(1)]))
