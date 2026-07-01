@@ -256,7 +256,7 @@ pub trait Types: GetSexp {
     ///     assert_eq!(r!(1.0).rtype(), Rtype::Doubles);
     ///     assert_eq!(r!("1").rtype(), Rtype::Strings);
     ///     assert_eq!(r!(List::from_values(&[1, 2])).rtype(), Rtype::List);
-    ///     assert_eq!(parse("x + y")?.rtype(), Rtype::Expressions);
+    ///     assert_eq!(Expressions::from_str("x + y")?.rtype(), Rtype::Expressions);
     ///     assert_eq!(r!(Raw::from_bytes(&[1_u8, 2, 3])).rtype(), Rtype::Raw);
     /// }
     /// ```

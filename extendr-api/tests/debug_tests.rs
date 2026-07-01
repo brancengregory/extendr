@@ -55,7 +55,7 @@ fn test_debug() {
         assert_eq!(format!("{:?}", r), "list!(1, 2)");
         let r : List = list!(1, b=2);
         assert_eq!(format!("{:?}", r), "list!(1, b=2)");
-        let r : Expressions = parse("1 + 2").unwrap();
+        let r : Expressions = Expressions::from_str("1 + 2").unwrap();
         assert_eq!(format!("{:?}", r), "Expressions { values: [lang!(sym!(+), 1.0, 2.0)] }");
         let r : Raw = Raw::new(2);
         assert_eq!(format!("{:02x?}", r), "Raw[00, 00]");
