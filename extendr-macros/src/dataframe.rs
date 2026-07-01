@@ -17,7 +17,7 @@ fn parse_struct(input: &DeriveInput, datastruct: &DataStruct) -> TokenStream {
                     #(#a.push(val.#a);)*
                 }
                 let caller = extendr_api::functions::eval_string("data.frame")?;
-                let res = caller.call(extendr_api::wrapper::Pairlist::from_pairs(&[
+                let res = caller.call(extendr_api::wrapper::PairList::from_pairs(&[
                     #((stringify!(#a), extendr_api::robj::Robj::from(#a))),*
                 ]))?;
                 res.try_into()
@@ -35,7 +35,7 @@ fn parse_struct(input: &DeriveInput, datastruct: &DataStruct) -> TokenStream {
                     #(#a.push(val.#a);)*
                 }
                 let caller = extendr_api::functions::eval_string("data.frame")?;
-                let res = caller.call(extendr_api::wrapper::Pairlist::from_pairs(&[
+                let res = caller.call(extendr_api::wrapper::PairList::from_pairs(&[
                     #((stringify!(#a), extendr_api::robj::Robj::from(#a))),*
                 ]))?;
                 res.try_into()

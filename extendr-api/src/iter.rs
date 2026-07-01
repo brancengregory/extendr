@@ -128,7 +128,7 @@ macro_rules! impl_iter_debug {
 }
 
 impl_iter_debug!(ListIter);
-impl_iter_debug!(PairlistIter);
+impl_iter_debug!(PairListIter);
 impl_iter_debug!(StrIter);
 impl_iter_debug!(EnvIter);
 

@@ -92,16 +92,16 @@ fn make_with_function() -> Robj {
     })
 }
 
-// Test struct with Pairlist field
+// Test struct with PairList field
 #[derive(Debug, IntoList)]
-pub struct WithPairlist {
+pub struct WithPairList {
     pub description: String,
-    pub pairs: Pairlist,
+    pub pairs: PairList,
 }
 
 #[extendr]
 fn make_with_pairlist() -> Robj {
-    WithPairlist {
+    WithPairList {
         description: String::from("pairlist container"),
         pairs: pairlist!(a = 10, b = 20, c = 30),
     }
@@ -240,7 +240,7 @@ pub struct AllRTypes {
     pub list_field: List,
     pub robj_field: Robj,
     pub function_field: Function,
-    pub pairlist_field: Pairlist,
+    pub pairlist_field: PairList,
     pub environment_field: Environment,
 }
 

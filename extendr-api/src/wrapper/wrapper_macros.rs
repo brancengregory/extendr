@@ -109,7 +109,7 @@ macro_rules! make_getsexp {
     };
 }
 
-make_conversions!(Pairlist, ExpectedPairlist, is_pairlist, "Not a pairlist");
+make_conversions!(PairList, ExpectedPairList, is_pairlist, "Not a pairlist");
 
 make_conversions!(
     Function,
@@ -232,18 +232,18 @@ pub trait Conversions: GetSexp {
         Language::try_from(self.as_robj()).ok()
     }
 
-    /// Convert a pair list object (LISTSXP) to a Pairlist wrapper.
+    /// Convert a pair list object (LISTSXP) to a PairList wrapper.
     /// ```
     /// use extendr_api::prelude::*;
     /// test! {
     ///     let names_and_values = vec![("a", r!(1)), ("b", r!(2)), ("", r!(3))];
-    ///     let pairlist = Pairlist::from_pairs(names_and_values);
+    ///     let pairlist = PairList::from_pairs(names_and_values);
     ///     let robj = r!(pairlist.clone());
     ///     assert_eq!(robj.as_pairlist().unwrap(), pairlist);
     /// }
     /// ```
-    fn as_pairlist(&self) -> Option<Pairlist> {
-        Pairlist::try_from(self.as_robj()).ok()
+    fn as_pairlist(&self) -> Option<PairList> {
+        PairList::try_from(self.as_robj()).ok()
     }
 
     /// Convert a list object (VECSXP) to a List wrapper.

@@ -99,7 +99,7 @@ pub trait Operators: Rinternals {
     ///     assert_eq!(function.call(pairlist!(a=1, b=2)).unwrap(), r!(3));
     /// }
     /// ```
-    fn call(&self, args: Pairlist) -> Result<Robj> {
+    fn call(&self, args: PairList) -> Result<Robj> {
         if self.is_function() {
             single_threaded(|| unsafe {
                 let call = Robj::from_sexp(Rf_lcons(self.get(), args.get()));

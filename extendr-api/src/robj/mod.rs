@@ -246,7 +246,7 @@ pub trait Types: GetSexp {
     /// test! {
     ///     assert_eq!(r!(NULL).rtype(), Rtype::Null);
     ///     assert_eq!(sym!(xyz).rtype(), Rtype::Symbol);
-    ///     assert_eq!(r!(Pairlist::from_pairs(vec![("a", r!(1))])).rtype(), Rtype::Pairlist);
+    ///     assert_eq!(r!(PairList::from_pairs(vec![("a", r!(1))])).rtype(), Rtype::PairList);
     ///     assert_eq!(R!("function() {}")?.rtype(), Rtype::Function);
     ///     assert_eq!(Environment::new_with_parent(Environment::global()).rtype(), Rtype::Environment);
     ///     assert_eq!(lang!("+", 1, 2).rtype(), Rtype::Language);
@@ -265,7 +265,7 @@ pub trait Types: GetSexp {
         match self.sexptype() {
             NILSXP => Rtype::Null,
             SYMSXP => Rtype::Symbol,
-            LISTSXP => Rtype::Pairlist,
+            LISTSXP => Rtype::PairList,
             CLOSXP => Rtype::Function,
             ENVSXP => Rtype::Environment,
             PROMSXP => Rtype::Promise,
@@ -300,7 +300,7 @@ pub trait Types: GetSexp {
             match self.sexptype() {
                 NILSXP => Rany::Null(self.as_robj()),
                 SYMSXP => Rany::Symbol(std::mem::transmute::<&Robj, &Symbol>(self.as_robj())),
-                LISTSXP => Rany::Pairlist(std::mem::transmute::<&Robj, &Pairlist>(self.as_robj())),
+                LISTSXP => Rany::PairList(std::mem::transmute::<&Robj, &PairList>(self.as_robj())),
                 CLOSXP => Rany::Function(std::mem::transmute::<&Robj, &Function>(self.as_robj())),
                 ENVSXP => {
                     Rany::Environment(std::mem::transmute::<&Robj, &Environment>(self.as_robj()))

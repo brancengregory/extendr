@@ -5,7 +5,7 @@ use crate::na::CanBeNA;
 use crate::robj::{Attributes, GetSexp, Length, Rinternals, Types};
 use crate::scalar::{Rbool, Rfloat, Rint};
 use crate::wrapper::{
-    Doubles, Environment, Expressions, Function, Integers, Language, Logicals, Pairlist, Primitive,
+    Doubles, Environment, Expressions, Function, Integers, Language, Logicals, PairList, Primitive,
     Promise, Raw, Rstr, Symbol, S4,
 };
 use crate::{List, Rany, Robj};
@@ -547,7 +547,7 @@ impl ser::Serialize for S4 {
     }
 }
 
-impl ser::Serialize for Pairlist {
+impl ser::Serialize for PairList {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: ser::Serializer,
@@ -742,7 +742,7 @@ impl ser::Serialize for Robj {
         match self.as_any() {
             Rany::Null(_) => serializer.serialize_unit(),
             Rany::Symbol(value) => value.serialize(serializer),
-            Rany::Pairlist(value) => value.serialize(serializer),
+            Rany::PairList(value) => value.serialize(serializer),
             Rany::Function(value) => value.serialize(serializer),
             Rany::Environment(value) => value.serialize(serializer),
             Rany::Promise(value) => value.serialize(serializer),

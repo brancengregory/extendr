@@ -37,9 +37,9 @@ impl Language {
         })
     }
 
-    pub fn iter(&self) -> PairlistIter {
+    pub fn iter(&self) -> PairListIter {
         unsafe {
-            PairlistIter {
+            PairListIter {
                 robj: self.robj.clone(),
                 list_elem: self.robj.get(),
             }

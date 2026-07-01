@@ -66,7 +66,7 @@ fn test_serialize_robj() {
         assert_eq!(to_robj(&s).unwrap(), expected);
 
         #[derive(Serialize)]
-        struct Plist(Pairlist);
+        struct Plist(PairList);
         let s = Plist(pairlist!(a=1, b=2));
         let expected = list!(a=1, b=2);
         assert_eq!(to_robj(&s).unwrap(), Robj::from(expected));

@@ -7,7 +7,7 @@ fn test_debug() {
         assert_eq!(format!("{:?}", r), "()");
         let r : Symbol = sym!("xyz").try_into().unwrap();
         assert_eq!(format!("{:?}", r), "sym!(\"xyz\")");
-        let r : Pairlist = pairlist!(x=1);
+        let r : PairList = pairlist!(x=1);
         assert_eq!(format!("{:?}", r), "pairlist!(x=1)");
         let r : Function = R!("function() 1").unwrap().try_into().unwrap();
         assert_eq!(format!("{:?}", r), "function () 1");

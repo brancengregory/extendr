@@ -160,12 +160,12 @@ mod tests {
     fn test_into_list_with_pairlist() {
         test! {
             #[derive(IntoList, Debug)]
-            struct WithPairlist {
-                data: Pairlist,
+            struct WithPairList {
+                data: PairList,
                 count: i32,
             }
 
-            let rust_struct = WithPairlist {
+            let rust_struct = WithPairList {
                 data: pairlist!(a = 1, b = 2),
                 count: 2,
             };
@@ -177,7 +177,7 @@ mod tests {
             assert_eq!(list.len(), 2);
 
             // Verify pairlist field
-            let pairlist: Pairlist = list.elt(0).unwrap().try_into().unwrap();
+            let pairlist: PairList = list.elt(0).unwrap().try_into().unwrap();
             assert_eq!(pairlist.len(), 2);
         }
     }

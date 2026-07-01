@@ -136,9 +136,9 @@ pub fn extendr_module(item: TokenStream) -> TokenStream {
     extendr_module::extendr_module(item)
 }
 
-/// Create a Pairlist R object from a list of name-value pairs.
+/// Create a PairList R object from a list of name-value pairs.
 /// ```rust,ignore
-///     assert_eq!(pairlist!(a=1, 2, 3), Pairlist::from_pairs(&[("a", 1), ("", 2), ("", 3)]));
+///     assert_eq!(pairlist!(a=1, 2, 3), PairList::from_pairs(&[("a", 1), ("", 2), ("", 3)]));
 /// ```
 #[proc_macro]
 pub fn pairlist(item: TokenStream) -> TokenStream {

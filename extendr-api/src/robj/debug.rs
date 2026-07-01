@@ -26,7 +26,7 @@ impl std::fmt::Debug for Robj {
         match self.as_any() {
             Rany::Null(_) => write!(f, "()"),
             Rany::Symbol(value) => value.fmt(f),
-            Rany::Pairlist(value) => value.fmt(f),
+            Rany::PairList(value) => value.fmt(f),
             Rany::Function(value) => value.fmt(f),
             Rany::Environment(value) => value.fmt(f),
             Rany::Promise(value) => value.fmt(f),

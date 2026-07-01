@@ -49,7 +49,7 @@ impl S4 {
     ///     let class = S4::set_class("fred", pairlist!(x="numeric"), r!(()))?;
     /// }
     /// ```
-    pub fn set_class(name: &str, representation: Pairlist, contains: Robj) -> Result<S4> {
+    pub fn set_class(name: &str, representation: PairList, contains: Robj) -> Result<S4> {
         use crate as extendr_api;
         let res = R!(r#"setClass({{name}}, {{representation}}, {{contains}})"#)?;
         res.try_into()

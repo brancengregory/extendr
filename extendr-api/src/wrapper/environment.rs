@@ -182,7 +182,7 @@ impl Environment {
             } else {
                 EnvIter {
                     hash_table: hashtab.as_list().unwrap().values(),
-                    pairlist: PairlistIter::new(),
+                    pairlist: PairListIter::new(),
                 }
             }
         }
@@ -246,7 +246,7 @@ impl Environment {
 #[derive(Clone)]
 pub struct EnvIter {
     hash_table: ListIter,
-    pairlist: PairlistIter,
+    pairlist: PairListIter,
 }
 
 impl Iterator for EnvIter {

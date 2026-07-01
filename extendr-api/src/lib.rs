@@ -472,7 +472,7 @@ pub unsafe fn register_call_methods(info: *mut extendr_ffi::DllInfo, metadata: M
 pub enum Rtype {
     Null,        // NILSXP
     Symbol,      // SYMSXP
-    Pairlist,    // LISTSXP
+    PairList,    // LISTSXP
     Function,    // CLOSXP
     Environment, // ENVSXP
     Promise,     // PROMSXP
@@ -504,7 +504,7 @@ pub enum Rtype {
 pub enum Rany<'a> {
     Null(&'a Robj),               // NILSXP
     Symbol(&'a Symbol),           // SYMSXP
-    Pairlist(&'a Pairlist),       // LISTSXP
+    PairList(&'a PairList),       // LISTSXP
     Function(&'a Function),       // CLOSXP
     Environment(&'a Environment), // ENVSXP
     Promise(&'a Promise),         // PROMSXP
@@ -536,7 +536,7 @@ pub fn rtype_to_sxp(rtype: Rtype) -> SEXPTYPE {
     match rtype {
         Rtype::Null => SEXPTYPE::NILSXP,
         Rtype::Symbol => SEXPTYPE::SYMSXP,
-        Rtype::Pairlist => SEXPTYPE::LISTSXP,
+        Rtype::PairList => SEXPTYPE::LISTSXP,
         Rtype::Function => SEXPTYPE::CLOSXP,
         Rtype::Environment => SEXPTYPE::ENVSXP,
         Rtype::Promise => SEXPTYPE::PROMSXP,
@@ -570,7 +570,7 @@ pub fn sxp_to_rtype(sxptype: SEXPTYPE) -> Rtype {
     match sxptype {
         SEXPTYPE::NILSXP => Rtype::Null,
         SEXPTYPE::SYMSXP => Rtype::Symbol,
-        SEXPTYPE::LISTSXP => Rtype::Pairlist,
+        SEXPTYPE::LISTSXP => Rtype::PairList,
         SEXPTYPE::CLOSXP => Rtype::Function,
         SEXPTYPE::ENVSXP => Rtype::Environment,
         SEXPTYPE::PROMSXP => Rtype::Promise,
@@ -970,12 +970,12 @@ mod tests {
     #[test]
     fn pairlist_macro_works() {
         test! {
-            assert_eq!(pairlist!(1, 2, 3), Pairlist::from_pairs(&[("", 1), ("", 2), ("", 3)]));
-            assert_eq!(pairlist!(a=1, 2, 3), Pairlist::from_pairs(&[("a", 1), ("", 2), ("", 3)]));
-            assert_eq!(pairlist!(1, b=2, 3), Pairlist::from_pairs(&[("", 1), ("b", 2), ("", 3)]));
-            assert_eq!(pairlist!(a=1, b=2, c=3), Pairlist::from_pairs(&[("a", 1), ("b", 2), ("c", 3)]));
-            assert_eq!(pairlist!(a=NULL), Pairlist::from_pairs(&[("a", ())]));
-            assert_eq!(pairlist!(), Pairlist::from(()));
+            assert_eq!(pairlist!(1, 2, 3), PairList::from_pairs(&[("", 1), ("", 2), ("", 3)]));
+            assert_eq!(pairlist!(a=1, 2, 3), PairList::from_pairs(&[("a", 1), ("", 2), ("", 3)]));
+            assert_eq!(pairlist!(1, b=2, 3), PairList::from_pairs(&[("", 1), ("b", 2), ("", 3)]));
+            assert_eq!(pairlist!(a=1, b=2, c=3), PairList::from_pairs(&[("a", 1), ("b", 2), ("c", 3)]));
+            assert_eq!(pairlist!(a=NULL), PairList::from_pairs(&[("a", ())]));
+            assert_eq!(pairlist!(), PairList::from(()));
         }
     }
 

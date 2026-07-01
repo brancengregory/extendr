@@ -41,7 +41,7 @@ pub enum Error {
 
     ExpectedNull(Robj),
     ExpectedSymbol(Robj),
-    ExpectedPairlist(Robj),
+    ExpectedPairList(Robj),
     ExpectedFunction(Robj),
     ExpectedEnvironment(Robj),
     ExpectedPromise(Robj),
@@ -121,7 +121,7 @@ impl std::fmt::Display for Error {
 
             Error::ExpectedNull(robj) => write!(f, "Expected Null got {:?}", robj.rtype()),
             Error::ExpectedSymbol(robj) => write!(f, "Expected Symbol got {:?}", robj.rtype()),
-            Error::ExpectedPairlist(robj) => write!(f, "Expected Pairlist got {:?}", robj.rtype()),
+            Error::ExpectedPairList(robj) => write!(f, "Expected PairList got {:?}", robj.rtype()),
             Error::ExpectedFunction(robj) => write!(f, "Expected Function got {:?}", robj.rtype()),
             Error::ExpectedEnvironment(robj) => {
                 write!(f, "Expected Environment got {:?}", robj.rtype())

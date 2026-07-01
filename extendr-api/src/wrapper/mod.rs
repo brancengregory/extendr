@@ -49,7 +49,12 @@ pub use list::{FromList, List, ListIter};
 pub use logicals::Logicals;
 pub use matrix::{MatrixConversions, RArray, RColumn, RMatrix, RMatrix3D, RMatrix4D, RMatrix5D};
 pub use nullable::Nullable;
-pub use pairlist::{Pairlist, PairlistIter};
+pub use pairlist::{PairList, PairListIter};
+
+#[deprecated(note = "Use PairList instead", since = "0.9.0")]
+pub use pairlist::Pairlist;
+#[deprecated(note = "Use PairListIter instead", since = "0.9.0")]
+pub use pairlist::PairlistIter;
 pub use primitive::Primitive;
 pub use promise::Promise;
 pub use raw::Raw;
