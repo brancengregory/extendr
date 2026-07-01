@@ -16,7 +16,7 @@ fn logicals_sum(logicals: &[RBool]) -> i32 {
 }
 
 #[extendr]
-fn floats_mean(x: &[Rfloat]) -> f64 {
+fn floats_mean(x: &[RFloat]) -> f64 {
     let n = x.len();
 
     let x_sum = x.iter().fold(0.0, |acc, next| {

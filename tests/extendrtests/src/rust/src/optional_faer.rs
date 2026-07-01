@@ -17,8 +17,8 @@ fn mat_to_robj(x: Mat<f64>) -> Robj {
 }
 
 #[extendr]
-fn mat_to_rmatfloat(x: Mat<f64>) -> RMatrix<Rfloat> {
-    RMatrix::<Rfloat>::from(x)
+fn mat_to_rmatfloat(x: Mat<f64>) -> RMatrix<RFloat> {
+    RMatrix::<RFloat>::from(x)
 }
 
 // convert to Mat<f64> from other things

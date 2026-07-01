@@ -275,7 +275,7 @@ impl TryFrom<&Robj> for String {
 
 impl_typed_slice_conversions!(i32, ExpectedInteger, "an INTSXP object");
 impl_typed_slice_conversions!(RInt, ExpectedInteger, "an INTSXP object");
-impl_typed_slice_conversions!(Rfloat, ExpectedReal, "a REALSXP object");
+impl_typed_slice_conversions!(RFloat, ExpectedReal, "a REALSXP object");
 impl_typed_slice_conversions!(
     RBool,
     ExpectedInteger,
@@ -391,7 +391,7 @@ impl_try_from_robj!(isize);
 impl_try_from_robj!(bool);
 
 impl_try_from_robj!(RInt);
-impl_try_from_robj!(Rfloat);
+impl_try_from_robj!(RFloat);
 impl_try_from_robj!(RBool);
 impl_try_from_robj!(Rcplx);
 
@@ -400,7 +400,7 @@ impl_try_from_robj!(f64);
 
 impl_try_from_robj!(Vec::<String>);
 impl_try_from_robj!(Vec::<RInt>);
-impl_try_from_robj!(Vec::<Rfloat>);
+impl_try_from_robj!(Vec::<RFloat>);
 impl_try_from_robj!(Vec::<RBool>);
 impl_try_from_robj!(Vec::<Rcplx>);
 impl_try_from_robj!(Vec::<u8>);
@@ -531,7 +531,7 @@ macro_rules! impl_try_from_robj_for_arrays {
 }
 
 impl_try_from_robj_for_arrays!(RInt);
-impl_try_from_robj_for_arrays!(Rfloat);
+impl_try_from_robj_for_arrays!(RFloat);
 impl_try_from_robj_for_arrays!(RBool);
 impl_try_from_robj_for_arrays!(Rcplx);
 impl_try_from_robj_for_arrays!(u8);

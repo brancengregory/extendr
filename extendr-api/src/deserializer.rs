@@ -3,7 +3,7 @@
 use crate::error::{Error, Result};
 use crate::na::CanBeNA;
 use crate::robj::{Attributes, Length, Robj, Types};
-use crate::scalar::{RBool, RInt, Rfloat};
+use crate::scalar::{RBool, RFloat, RInt};
 use crate::wrapper::{Doubles, Integers, List, Logicals, Rstr, Strings};
 use crate::Rany;
 use serde::de::{
@@ -113,8 +113,8 @@ impl<'de> Deserializer<'de> for RInt {
     }
 }
 
-// Allow us to use Doubles and Rfloat.
-impl<'de> Deserializer<'de> for Rfloat {
+// Allow us to use Doubles and RFloat.
+impl<'de> Deserializer<'de> for RFloat {
     type Error = Error;
 
     fn deserialize_any<V>(self, visitor: V) -> Result<V::Value>
@@ -642,10 +642,10 @@ impl<'de> Deserialize<'de> for RInt {
     }
 }
 
-struct RfloatVisitor;
+struct RFloatVisitor;
 
-impl<'de> Visitor<'de> for RfloatVisitor {
-    type Value = Rfloat;
+impl<'de> Visitor<'de> for RFloatVisitor {
+    type Value = RFloat;
 
     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
         formatter.write_str("a floating point value")
@@ -662,16 +662,16 @@ impl<'de> Visitor<'de> for RfloatVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(Rfloat::na())
+        Ok(RFloat::na())
     }
 }
 
-impl<'de> Deserialize<'de> for Rfloat {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Rfloat, D::Error>
+impl<'de> Deserialize<'de> for RFloat {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<RFloat, D::Error>
     where
         D: Deserializer<'de>,
     {
-        deserializer.deserialize_f64(RfloatVisitor)
+        deserializer.deserialize_f64(RFloatVisitor)
     }
 }
 
@@ -951,7 +951,7 @@ impl<'de> Visitor<'de> for DoublesVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(Doubles::from_values([Rfloat::na()]))
+        Ok(Doubles::from_values([RFloat::na()]))
     }
 
     fn visit_some<D>(self, deserializer: D) -> std::result::Result<Self::Value, D::Error>
@@ -965,7 +965,7 @@ impl<'de> Visitor<'de> for DoublesVisitor {
     where
         A: SeqAccess<'de>,
     {
-        let mut values: Vec<Rfloat> = Vec::with_capacity(seq.size_hint().unwrap_or(8));
+        let mut values: Vec<RFloat> = Vec::with_capacity(seq.size_hint().unwrap_or(8));
         while let Some(value) = seq.next_element()? {
             values.push(value);
         }
@@ -976,7 +976,7 @@ impl<'de> Visitor<'de> for DoublesVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(Doubles::from_values([Rfloat::na()]))
+        Ok(Doubles::from_values([RFloat::na()]))
     }
 }
 

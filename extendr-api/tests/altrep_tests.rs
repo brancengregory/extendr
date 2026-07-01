@@ -76,11 +76,11 @@ fn test_altreal() {
         }
 
         impl AltRealImpl for MyCompactRealRange {
-            fn elt(&self, index: usize) -> Rfloat {
+            fn elt(&self, index: usize) -> RFloat {
                 if index == self.missing_index {
-                    Rfloat::na()
+                    RFloat::na()
                 } else {
-                    Rfloat::from(self.start + self.step * index as f64)
+                    RFloat::from(self.start + self.step * index as f64)
                 }
             }
         }
@@ -101,7 +101,7 @@ fn test_altreal() {
         let obj_w_missing = Altrep::from_state_and_class(mystate_w_missing, class, false);
         let robj_w_missing = Robj::from(obj_w_missing);
         let doubles_w_missing: Doubles = robj_w_missing.try_into()?;
-        assert_eq!(doubles_w_missing.elt(9), Rfloat::from(9.0));
+        assert_eq!(doubles_w_missing.elt(9), RFloat::from(9.0));
 
         // TODO: Win32 currently handles NA improperly. Re-enable this when the problem is fixed.
         if cfg!(not(target_arch = "x86")) {

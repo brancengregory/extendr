@@ -21,7 +21,7 @@ fn test_try_from_robj() {
         assert_eq!(<Vec::<i32>>::try_from(&Robj::from(1)), Ok(vec![1]));
         assert_eq!(<Vec::<f64>>::try_from(&Robj::from(1.)), Ok(vec![1.]));
         assert_eq!(<Vec::<RInt>>::try_from(Robj::from(1)), Ok(vec![RInt::from(1)]));
-        assert_eq!(<Vec::<Rfloat>>::try_from(Robj::from(1.)), Ok(vec![Rfloat::from(1.0)]));
+        assert_eq!(<Vec::<RFloat>>::try_from(Robj::from(1.)), Ok(vec![RFloat::from(1.0)]));
         assert_eq!(<Vec::<RBool>>::try_from(Robj::from(TRUE)), Ok(vec![TRUE]));
         assert_eq!(<Vec::<u8>>::try_from(Robj::from(0_u8)), Ok(vec![0_u8]));
 
@@ -119,8 +119,8 @@ fn test_try_from_robj() {
         );
         assert!(<Option<String>>::try_from(&Robj::from(["1", "2"])).is_err());
 
-        assert_eq!(f64::from(Rfloat::from(1.0)), 1.0);
-        assert!(f64::from(Rfloat::na()).is_na());
+        assert_eq!(f64::from(RFloat::from(1.0)), 1.0);
+        assert!(f64::from(RFloat::na()).is_na());
 
         assert_eq!(i32::from(RInt::from(1)), 1);
         assert!(RInt::from(i32::from(RInt::na())).is_na());
@@ -150,7 +150,7 @@ fn test_try_from_robj() {
         let robj = Robj::from(1);
         assert_eq!(<&[RInt]>::try_from(&robj), Ok(&[RInt::from(1)][..]));
         let robj = Robj::from(1.);
-        assert_eq!(<&[Rfloat]>::try_from(&robj), Ok(&[Rfloat::from(1.)][..]));
+        assert_eq!(<&[RFloat]>::try_from(&robj), Ok(&[RFloat::from(1.)][..]));
         let robj = Robj::from(TRUE);
         assert_eq!(<&[RBool]>::try_from(&robj), Ok(&[TRUE][..]));
         let robj = Robj::from(0_u8);
@@ -160,7 +160,7 @@ fn test_try_from_robj() {
         let robj = Robj::from(1.0);
         assert_eq!(<&[RInt]>::try_from(&robj), Err(Error::ExpectedInteger(r!(1.0))));
         let robj = Robj::from(1);
-        assert_eq!(<&[Rfloat]>::try_from(&robj), Err(Error::ExpectedReal(r!(1))));
+        assert_eq!(<&[RFloat]>::try_from(&robj), Err(Error::ExpectedReal(r!(1))));
         let robj = Robj::from(());
         assert_eq!(<&[RBool]>::try_from(&robj), Err(Error::ExpectedLogical(r!(()))));
         assert_eq!(<&[u8]>::try_from(&robj), Err(Error::ExpectedRaw(r!(()))));

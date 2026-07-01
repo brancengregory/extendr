@@ -1,4 +1,4 @@
-use crate::scalar::Rfloat;
+use crate::scalar::RFloat;
 use crate::*;
 use extendr_ffi::{R_IsNA, R_NaReal, Rcomplex};
 
@@ -53,12 +53,12 @@ impl Rcplx {
         Self(c64::new(re, im))
     }
 
-    pub fn re(&self) -> Rfloat {
-        Rfloat::from(self.0.re)
+    pub fn re(&self) -> RFloat {
+        RFloat::from(self.0.re)
     }
 
-    pub fn im(&self) -> Rfloat {
-        Rfloat::from(self.0.im)
+    pub fn im(&self) -> RFloat {
+        RFloat::from(self.0.im)
     }
 }
 
@@ -90,14 +90,14 @@ impl From<(f64, f64)> for Rcplx {
     }
 }
 
-impl From<(Rfloat, Rfloat)> for Rcplx {
-    fn from(val: (Rfloat, Rfloat)) -> Self {
+impl From<(RFloat, RFloat)> for Rcplx {
+    fn from(val: (RFloat, RFloat)) -> Self {
         Rcplx(c64::new(val.0 .0, val.1 .0))
     }
 }
 
-impl From<Rfloat> for Rcplx {
-    fn from(val: Rfloat) -> Self {
+impl From<RFloat> for Rcplx {
+    fn from(val: RFloat) -> Self {
         Rcplx(c64::from(val.0))
     }
 }

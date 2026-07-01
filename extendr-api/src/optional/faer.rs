@@ -1,6 +1,6 @@
 use faer::{mat, Mat, MatRef};
 
-use crate::scalar::Rfloat;
+use crate::scalar::RFloat;
 use crate::*;
 
 /// Convert a `faer::Mat<f64>` into an `RMatrix<f64>` which is not `NA` aware.
@@ -31,16 +31,16 @@ impl From<MatRef<'_, f64>> for Robj {
     }
 }
 
-impl From<Mat<f64>> for RMatrix<Rfloat> {
+impl From<Mat<f64>> for RMatrix<RFloat> {
     fn from(value: Mat<f64>) -> Self {
         RMatrix::new_matrix(value.nrows(), value.ncols(), |i, j| value.read(i, j).into())
     }
 }
 
-impl From<MatRef<'_, f64>> for RMatrix<Rfloat> {
+impl From<MatRef<'_, f64>> for RMatrix<RFloat> {
     fn from(value: MatRef<f64>) -> Self {
         RMatrix::new_matrix(value.nrows(), value.ncols(), |i, j| {
-            Rfloat::from(value.read(i, j))
+            RFloat::from(value.read(i, j))
         })
     }
 }

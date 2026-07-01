@@ -44,11 +44,11 @@ fn test_deserialize_robj() {
         assert_eq!(from_robj::<Float>(&r!(NULL)).is_err(), true);
 
         #[derive(Deserialize, PartialEq, Debug)]
-        struct RFloat(Rfloat);
-        assert_eq!(from_robj::<RFloat>(&r!(1)), Ok(RFloat(1.0.into())));
-        assert_eq!(from_robj::<RFloat>(&r!(1.0)), Ok(RFloat(1.0.into())));
-        assert_eq!(from_robj::<RFloat>(&r!(Rfloat::na())).is_err(), true);
-        assert_eq!(from_robj::<RFloat>(&r!(NULL)).is_err(), true);
+        struct RFloat1(RFloat);
+        assert_eq!(from_robj::<RFloat1>(&r!(1)), Ok(RFloat1(1.0.into())));
+        assert_eq!(from_robj::<RFloat1>(&r!(1.0)), Ok(RFloat1(1.0.into())));
+        assert_eq!(from_robj::<RFloat1>(&r!(RFloat::na())).is_err(), true);
+        assert_eq!(from_robj::<RFloat1>(&r!(NULL)).is_err(), true);
 
         #[derive(Deserialize, PartialEq, Debug)]
         struct Bool(bool);

@@ -82,7 +82,7 @@ macro_rules! impl_synonym_type {
         }
     };
 }
-impl_synonym_type!(Rfloat, f64);
-impl_synonym_type!(&Rfloat, f64);
+impl_synonym_type!(RFloat, f64);
+impl_synonym_type!(&RFloat, f64);
 impl_synonym_type!(RInt, i32);
 impl_synonym_type!(&RInt, i32);

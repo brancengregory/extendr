@@ -91,9 +91,9 @@ fn test_debug_scalar() {
             -4.141592653589793,
         ];
         for val in test_data {
-            assert_eq!(format!("{:?}", Rfloat::from(val)), format!("{:?}", val));
+            assert_eq!(format!("{:?}", RFloat::from(val)), format!("{:?}", val));
         }
-        assert_eq!(format!("{:?}", Rfloat::na()), "NA_REAL");
+        assert_eq!(format!("{:?}", RFloat::na()), "NA_REAL");
 
         let test_data = vec![
             (42., 42., "42.0 + 42.0i"),
@@ -130,7 +130,7 @@ fn test_debug_vectors() {
 
         let r: Doubles = Doubles::new(1);
         assert_eq!(format!("{:?}", r), "0.0");
-        let r: Doubles = Doubles::from_values([Rfloat::from(0.0), Rfloat::from(0.0), Rfloat::na()]);
+        let r: Doubles = Doubles::from_values([RFloat::from(0.0), RFloat::from(0.0), RFloat::na()]);
         assert_eq!(format!("{:?}", r), "[0.0, 0.0, NA_REAL]");
 
         let r: Strings = Strings::from_values(["xyz"]);

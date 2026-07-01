@@ -20,7 +20,7 @@ use extendr_ffi::{
     SEXPTYPE::*, STRING_ELT, STRING_PTR_RO, TYPEOF, XLENGTH,
 };
 
-use crate::scalar::{RBool, RInt, Rfloat};
+use crate::scalar::{RBool, RFloat, RInt};
 use crate::*;
 pub use into_robj::*;
 pub use iter::*;
@@ -822,7 +822,7 @@ make_typed_slice!(RBool, INTEGER, LGLSXP);
 make_typed_slice!(i32, INTEGER, INTSXP);
 make_typed_slice!(RInt, INTEGER, INTSXP);
 make_typed_slice!(f64, REAL, REALSXP);
-make_typed_slice!(Rfloat, REAL, REALSXP);
+make_typed_slice!(RFloat, REAL, REALSXP);
 make_typed_slice!(u8, RAW, RAWSXP);
 make_typed_slice!(Rstr, STRING_PTR_RO, STRSXP);
 make_typed_slice!(c64, COMPLEX, CPLXSXP);

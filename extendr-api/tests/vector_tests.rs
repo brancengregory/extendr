@@ -95,17 +95,17 @@ fn test_doubles() {
         assert_eq!(s.elt(2), 3.0);
         assert!(s.elt(3).is_na());
 
-        let v = s.iter().collect::<Vec<Rfloat>>();
+        let v = s.iter().collect::<Vec<RFloat>>();
         assert_eq!(v, [1.0, 2.0, 3.0]);
 
         s.set_elt(1, 5.0.into());
         assert_eq!(s.elt(1), 5.0);
 
-        let s : Doubles = [1.0, 2.0, 3.0].iter().map(|i| Rfloat::from(*i)).collect();
+        let s : Doubles = [1.0, 2.0, 3.0].iter().map(|i| RFloat::from(*i)).collect();
         let v = s.iter().collect::<Doubles>();
         assert_eq!(v, Doubles::from_values([1.0, 2.0, 3.0]));
 
-        // Bug: from_values should be Into<Rfloat>
+        // Bug: from_values should be Into<RFloat>
         //let s = Doubles::from_values([RInt::from(1), RInt::na(), RInt::from(3)]);
         //assert_eq!(s.elt(1).is_na(), true);
 
@@ -262,7 +262,7 @@ fn test_doubles_iter_mut() {
 fn test_doubles_iter() {
     test! {
         let vec = Doubles::from_values([0.0, 1.0, 2.0, 3.0]);
-        assert_eq!(vec.iter().sum::<Rfloat>(), 6.0);
+        assert_eq!(vec.iter().sum::<RFloat>(), 6.0);
     }
 }
 

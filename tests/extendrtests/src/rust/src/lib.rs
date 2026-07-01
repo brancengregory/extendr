@@ -86,8 +86,8 @@ fn double_vec(x: Vec<f64>) -> Vec<f64> {
 
 // NA-related tests
 #[extendr]
-fn try_rfloat_na() -> Rfloat {
-    Rfloat::na()
+fn try_rfloat_na() -> RFloat {
+    RFloat::na()
 }
 
 #[extendr]
@@ -96,7 +96,7 @@ fn try_rint_na() -> RInt {
 }
 
 #[extendr]
-fn check_rfloat_na(x: Rfloat) -> bool {
+fn check_rfloat_na(x: RFloat) -> bool {
     x.is_na()
 }
 
@@ -114,7 +114,7 @@ fn check_rint_na(x: RInt) -> bool {
 
 // Vector wrappers
 #[extendr]
-fn get_doubles_element(x: Doubles, i: i32) -> Rfloat {
+fn get_doubles_element(x: Doubles, i: i32) -> RFloat {
     x.elt(i as usize)
 }
 

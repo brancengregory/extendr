@@ -643,7 +643,7 @@ mod tests {
     use crate as extendr_api;
     use extendr_engine::with_r;
     use extendr_ffi::Rf_PrintValue;
-    use prelude::{RInt, Rcplx, Rfloat};
+    use prelude::{RFloat, RInt, Rcplx};
 
     #[test]
     fn test_empty_matrix_new() -> std::result::Result<(), Box<dyn Error>> {
@@ -655,7 +655,7 @@ mod tests {
             unsafe { Rf_PrintValue(m.get()) };
             let m: RMatrix<RInt> = RMatrix::new(5, 2);
             unsafe { Rf_PrintValue(m.get()) };
-            let m: RMatrix<Rfloat> = RMatrix::new(5, 2);
+            let m: RMatrix<RFloat> = RMatrix::new(5, 2);
             unsafe { Rf_PrintValue(m.get()) };
             let m: RMatrix<Rcplx> = RMatrix::new(5, 2);
             unsafe { Rf_PrintValue(m.get()) };
@@ -669,7 +669,7 @@ mod tests {
             let m: RMatrix<RInt> = RMatrix::new_with_na(10, 2);
             assert_eq!(R!("matrix(NA_integer_, 10, 2)").unwrap(), m.into_robj());
 
-            let m: RMatrix<Rfloat> = RMatrix::new_with_na(10, 2);
+            let m: RMatrix<RFloat> = RMatrix::new_with_na(10, 2);
             assert_eq!(R!("matrix(NA_real_, 10, 2)").unwrap(), m.into_robj());
 
             let m: RMatrix<Rcplx> = RMatrix::new_with_na(10, 2);

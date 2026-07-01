@@ -212,8 +212,8 @@ impl<T> Nullable<T> {
     /// ```
     /// use extendr_api::prelude::*;
     /// test! {
-    ///     assert_eq!(Nullable::<Rfloat>::Null.map(|x| x.abs()), Nullable::<Rfloat>::Null);
-    ///     assert_eq!(Nullable::<Rfloat>::NotNull(Rfloat::from(42.0)).map(|x| x.abs()), Nullable::<Rfloat>::NotNull(Rfloat::from(42.0)));
+    ///     assert_eq!(Nullable::<RFloat>::Null.map(|x| x.abs()), Nullable::<RFloat>::Null);
+    ///     assert_eq!(Nullable::<RFloat>::NotNull(RFloat::from(42.0)).map(|x| x.abs()), Nullable::<RFloat>::NotNull(RFloat::from(42.0)));
     /// }
     /// ```
     pub fn map<F, U>(self, f: F) -> Nullable<U>

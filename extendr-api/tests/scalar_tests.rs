@@ -159,25 +159,25 @@ fn test_rint_opassign() {
 #[test]
 fn test_rfloat() {
     test! {
-        let a = Rfloat::from(20.);
-        let b = Rfloat::from(10.);
-        assert_eq!(a + b, Rfloat::from(30.));
-        assert_eq!(a - b, Rfloat::from(10.));
-        assert_eq!(a * b, Rfloat::from(200.));
-        assert_eq!(a / b, Rfloat::from(2.));
-        assert_eq!(-a, Rfloat::from(-20.));
+        let a = RFloat::from(20.);
+        let b = RFloat::from(10.);
+        assert_eq!(a + b, RFloat::from(30.));
+        assert_eq!(a - b, RFloat::from(10.));
+        assert_eq!(a * b, RFloat::from(200.));
+        assert_eq!(a / b, RFloat::from(2.));
+        assert_eq!(-a, RFloat::from(-20.));
 
-        assert_eq!(a + b, Rfloat::from(30.));
-        assert_eq!(a - b, Rfloat::from(10.));
-        assert_eq!(a * b, Rfloat::from(200.));
-        assert_eq!(a / b, Rfloat::from(2.));
-        assert_eq!(-&a, Rfloat::from(-20.));
+        assert_eq!(a + b, RFloat::from(30.));
+        assert_eq!(a - b, RFloat::from(10.));
+        assert_eq!(a * b, RFloat::from(200.));
+        assert_eq!(a / b, RFloat::from(2.));
+        assert_eq!(-&a, RFloat::from(-20.));
 
-        assert!(Rfloat::na().is_na());
+        assert!(RFloat::na().is_na());
 
         // NA lhs
-        let a = Rfloat::na();
-        let b = Rfloat::from(10.);
+        let a = RFloat::na();
+        let b = RFloat::from(10.);
         assert!((a + b).is_na());
         assert!((a - b).is_na());
         assert!((a * b).is_na());
@@ -185,33 +185,33 @@ fn test_rfloat() {
         assert!((-a).is_na());
 
         // NA rhs
-        let a = Rfloat::from(10.);
-        let b = Rfloat::na();
+        let a = RFloat::from(10.);
+        let b = RFloat::na();
         assert!((a + b).is_na());
         assert!((a - b).is_na());
         assert!((a * b).is_na());
         assert!((a / b).is_na());
 
         // Inf is a single value, so can be tested for equality
-        let a = Rfloat::from(f64::INFINITY);
-        let b = Rfloat::from(42.);
+        let a = RFloat::from(f64::INFINITY);
+        let b = RFloat::from(42.);
         assert_eq!(a + b, a);
         assert_eq!(a - b, a);
-        assert_eq!(b - a, Rfloat::from(f64::NEG_INFINITY));
+        assert_eq!(b - a, RFloat::from(f64::NEG_INFINITY));
         assert_eq!(a * b, a);
         assert_eq!(a / b, a);
-        assert_eq!(-a, Rfloat::from(f64::NEG_INFINITY));
+        assert_eq!(-a, RFloat::from(f64::NEG_INFINITY));
 
-        let a = Rfloat::from(f64::NEG_INFINITY);
+        let a = RFloat::from(f64::NEG_INFINITY);
         assert_eq!(a + b, a);
         assert_eq!(a - b, a);
-        assert_eq!(b - a, Rfloat::from(f64::INFINITY));
+        assert_eq!(b - a, RFloat::from(f64::INFINITY));
         assert_eq!(a * b, a);
         assert_eq!(a / b, a);
-        assert_eq!(-a, Rfloat::from(f64::INFINITY));
+        assert_eq!(-a, RFloat::from(f64::INFINITY));
 
         // Operations with NaN produce NaN
-        let a = Rfloat::from(f64::NAN);
+        let a = RFloat::from(f64::NAN);
         assert!((a + b).is_nan());
         assert!((a - b).is_nan());
         assert!((a * b).is_nan());
@@ -219,25 +219,25 @@ fn test_rfloat() {
         assert!((-a).is_nan());
 
         // Signs
-        assert!(Rfloat::from(0.).is_sign_positive());
-        assert!(Rfloat::from(f64::INFINITY).is_sign_positive());
+        assert!(RFloat::from(0.).is_sign_positive());
+        assert!(RFloat::from(f64::INFINITY).is_sign_positive());
 
-        assert!(Rfloat::from(-0.).is_sign_negative());
-        assert!(Rfloat::from(f64::NEG_INFINITY).is_sign_negative());
+        assert!(RFloat::from(-0.).is_sign_negative());
+        assert!(RFloat::from(f64::NEG_INFINITY).is_sign_negative());
 
         // Infinity
-        assert!(Rfloat::from(f64::INFINITY).is_infinite());
-        assert!(Rfloat::from(f64::NEG_INFINITY).is_infinite());
-        assert!(!Rfloat::from(0.).is_infinite());
+        assert!(RFloat::from(f64::INFINITY).is_infinite());
+        assert!(RFloat::from(f64::NEG_INFINITY).is_infinite());
+        assert!(!RFloat::from(0.).is_infinite());
 
         // Some more, testing mixed binary operators
-        assert!((Rfloat::from(f64::INFINITY) + 1.).is_infinite());
-        assert!((42. - Rfloat::from(f64::INFINITY)).is_sign_negative());
+        assert!((RFloat::from(f64::INFINITY) + 1.).is_infinite());
+        assert!((42. - RFloat::from(f64::INFINITY)).is_sign_negative());
 
         // Absolute value
-        assert_eq!(Rfloat::from(-42.).abs(), Rfloat::from(42.));
-        assert_eq!(Rfloat::from(42.).abs(), Rfloat::from(42.));
-        assert_eq!(Rfloat::from(0.).abs(), Rfloat::from(0.));
+        assert_eq!(RFloat::from(-42.).abs(), RFloat::from(42.));
+        assert_eq!(RFloat::from(42.).abs(), RFloat::from(42.));
+        assert_eq!(RFloat::from(0.).abs(), RFloat::from(0.));
     }
 }
 
@@ -320,91 +320,91 @@ fn test_rcplx() {
 #[test]
 fn test_rfloat_opassign() {
     test! {
-        // LHS Rfloat, RHS Rfloat
-        let mut a = Rfloat::from(20.);
-        a += Rfloat::from(10.);
-        assert_eq!(a, Rfloat::from(30.));
-        a -= Rfloat::from(20.);
-        assert_eq!(a, Rfloat::from(10.));
-        a *= Rfloat::from(20.);
-        assert_eq!(a, Rfloat::from(200.));
-        a /= Rfloat::from(100.);
-        assert_eq!(a, Rfloat::from(2.));
+        // LHS RFloat, RHS RFloat
+        let mut a = RFloat::from(20.);
+        a += RFloat::from(10.);
+        assert_eq!(a, RFloat::from(30.));
+        a -= RFloat::from(20.);
+        assert_eq!(a, RFloat::from(10.));
+        a *= RFloat::from(20.);
+        assert_eq!(a, RFloat::from(200.));
+        a /= RFloat::from(100.);
+        assert_eq!(a, RFloat::from(2.));
 
-        // LHS &mut Rfloat, RHS Rfloat
-        let mut a = Rfloat::from(20.);
+        // LHS &mut RFloat, RHS RFloat
+        let mut a = RFloat::from(20.);
         let mut b = &mut a;
-        b += Rfloat::from(10.);
-        assert_eq!(b, &Rfloat::from(30.));
-        b -= Rfloat::from(20.);
-        assert_eq!(b, &Rfloat::from(10.));
-        b *= Rfloat::from(20.);
-        assert_eq!(b, &Rfloat::from(200.));
-        b /= Rfloat::from(100.);
-        assert_eq!(b, &Rfloat::from(2.));
+        b += RFloat::from(10.);
+        assert_eq!(b, &RFloat::from(30.));
+        b -= RFloat::from(20.);
+        assert_eq!(b, &RFloat::from(10.));
+        b *= RFloat::from(20.);
+        assert_eq!(b, &RFloat::from(200.));
+        b /= RFloat::from(100.);
+        assert_eq!(b, &RFloat::from(2.));
 
-        // LHS Rfloat, RHS f64
-        let mut a = Rfloat::from(20.);
+        // LHS RFloat, RHS f64
+        let mut a = RFloat::from(20.);
         a += 10.;
-        assert_eq!(a, Rfloat::from(30.));
+        assert_eq!(a, RFloat::from(30.));
         a -= 20.;
-        assert_eq!(a, Rfloat::from(10.));
+        assert_eq!(a, RFloat::from(10.));
         a *= 20.;
-        assert_eq!(a, Rfloat::from(200.));
+        assert_eq!(a, RFloat::from(200.));
         a /= 100.;
-        assert_eq!(a, Rfloat::from(2.));
+        assert_eq!(a, RFloat::from(2.));
 
-        // LHS &mut Rfloat, RHS f64
-        let mut a = Rfloat::from(20.);
+        // LHS &mut RFloat, RHS f64
+        let mut a = RFloat::from(20.);
         let mut b = &mut a;
         b += 10.;
-        assert_eq!(b, &Rfloat::from(30.));
+        assert_eq!(b, &RFloat::from(30.));
         b -= 20.;
-        assert_eq!(b, &Rfloat::from(10.));
+        assert_eq!(b, &RFloat::from(10.));
         b *= 20.;
-        assert_eq!(b, &Rfloat::from(200.));
+        assert_eq!(b, &RFloat::from(200.));
         b /= 100.;
-        assert_eq!(b, &Rfloat::from(2.));
+        assert_eq!(b, &RFloat::from(2.));
 
-        // LHS Option<f64>, RHS Rfloat
+        // LHS Option<f64>, RHS RFloat
         let mut a = Some(20.);
-        a += Rfloat::from(10.);
+        a += RFloat::from(10.);
         assert_eq!(a, Some(30.));
-        a -= Rfloat::from(20.);
+        a -= RFloat::from(20.);
         assert_eq!(a, Some(10.));
-        a *= Rfloat::from(20.);
+        a *= RFloat::from(20.);
         assert_eq!(a, Some(200.));
-        a /= Rfloat::from(100.);
+        a /= RFloat::from(100.);
         assert_eq!(a, Some(2.));
 
         // LHS NA
-        let mut a = Rfloat::na();
-        a += Rfloat::from(10.);
+        let mut a = RFloat::na();
+        a += RFloat::from(10.);
         assert!(a.is_na());
-        a -= Rfloat::from(20.);
+        a -= RFloat::from(20.);
         assert!(a.is_na());
-        a *= Rfloat::from(20.);
+        a *= RFloat::from(20.);
         assert!(a.is_na());
-        a /= Rfloat::from(100.);
+        a /= RFloat::from(100.);
         assert!(a.is_na());
 
         // RHS NA
-        let mut a = Rfloat::from(20.);
-        a += Rfloat::na();
+        let mut a = RFloat::from(20.);
+        a += RFloat::na();
         assert!(a.is_na());
-        let mut a = Rfloat::from(20.);
-        a -= Rfloat::na();
+        let mut a = RFloat::from(20.);
+        a -= RFloat::na();
         assert!(a.is_na());
-        let mut a = Rfloat::from(20.);
-        a *= Rfloat::na();
+        let mut a = RFloat::from(20.);
+        a *= RFloat::na();
         assert!(a.is_na());
-        let mut a = Rfloat::from(20.);
-        a /= Rfloat::na();
+        let mut a = RFloat::from(20.);
+        a /= RFloat::na();
         assert!(a.is_na());
 
         // Inf is a single value, so can be tested for equality
-        let mut a = Rfloat::from(f64::INFINITY);
-        let mut b = Rfloat::from(42.);
+        let mut a = RFloat::from(f64::INFINITY);
+        let mut b = RFloat::from(42.);
         a += b;
         assert_eq!(a, f64::INFINITY);
         a -= b;
@@ -416,8 +416,8 @@ fn test_rfloat_opassign() {
         b -= a;
         assert_eq!(b, f64::NEG_INFINITY);
 
-        let mut a = Rfloat::from(f64::NEG_INFINITY);
-        let mut b = Rfloat::from(42.);
+        let mut a = RFloat::from(f64::NEG_INFINITY);
+        let mut b = RFloat::from(42.);
         a += b;
         assert_eq!(a, f64::NEG_INFINITY);
         a -= b;
@@ -430,8 +430,8 @@ fn test_rfloat_opassign() {
         assert_eq!(b, f64::INFINITY);
 
         // Operations with NaN produce NaN
-        let mut a = Rfloat::from(f64::NAN);
-        let mut b = Rfloat::from(42.);
+        let mut a = RFloat::from(f64::NAN);
+        let mut b = RFloat::from(42.);
         a += b;
         assert!(a.is_nan());
         a -= b;
