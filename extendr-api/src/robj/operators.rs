@@ -5,7 +5,7 @@ use std::ops::{Add, Div, Mul, Sub};
 ///////////////////////////////////////////////////////////////
 /// The following impls add operators to Robj.
 ///
-pub trait Operators: Rinternals {
+pub trait Operators: RInternals {
     /// Do the equivalent of x$y
     /// ```
     /// use extendr_api::prelude::*;

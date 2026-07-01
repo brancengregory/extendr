@@ -35,7 +35,7 @@
 //! | `Robj`      | —       | `TryFrom`    | —       | `TryFrom`   |
 //! | `&Robj`     | —       | `TryFrom`    | —       | `TryFrom`   |
 use crate::{
-    robj::Rinternals, Attributes, Error, IntoRobj, Language, List, Operators, Robj, Strings,
+    robj::RInternals, Attributes, Error, IntoRobj, Language, List, Operators, Robj, Strings,
 };
 
 /// Discriminates the kind of R condition being constructed.

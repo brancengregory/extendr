@@ -26,7 +26,10 @@ pub use into_robj::*;
 pub use iter::*;
 pub use operators::Operators;
 use prelude::{c64, RCplx};
-pub use rinternals::Rinternals;
+pub use rinternals::RInternals;
+
+#[deprecated(note = "Use RInternals instead", since = "0.9.0")]
+pub use rinternals::RInternals as Rinternals;
 
 mod debug;
 mod into_robj;

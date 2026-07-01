@@ -122,7 +122,7 @@ mod tests {
     use crate as extendr_api;
     use crate::r;
     use crate::scalar::RBool;
-    use crate::Rinternals;
+    use crate::RInternals;
     use extendr_api::test;
     use extendr_api::Logicals;
 

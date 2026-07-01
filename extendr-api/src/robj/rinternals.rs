@@ -14,7 +14,7 @@ use extendr_ffi::{
 ///////////////////////////////////////////////////////////////
 /// The following impls wrap specific Rinternals.h functions.
 ///
-pub trait Rinternals: Types + Conversions {
+pub trait RInternals: Types + Conversions {
     /// Return true if this is the null object.
     fn is_null(&self) -> bool {
         unsafe { Rf_isNull(self.get()).into() }
@@ -492,4 +492,4 @@ pub trait Rinternals: Types + Conversions {
     }
 }
 
-impl Rinternals for Robj {}
+impl RInternals for Robj {}

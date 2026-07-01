@@ -1,7 +1,7 @@
 use extendr_api::call;
 use extendr_api::extendr;
 use extendr_api::extendr_module;
-use extendr_api::Rinternals;
+use extendr_api::RInternals;
 use extendr_api::Robj;
 use extendr_api::NA_INTEGER;
 use extendr_api::NA_REAL;

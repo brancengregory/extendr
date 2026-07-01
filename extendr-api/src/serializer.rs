@@ -2,7 +2,7 @@
 
 use crate::error::{Error, Result};
 use crate::na::CanBeNA;
-use crate::robj::{Attributes, GetSexp, Length, Rinternals, Types};
+use crate::robj::{Attributes, GetSexp, Length, RInternals, Types};
 use crate::scalar::{RBool, RFloat, RInt};
 use crate::wrapper::{
     Doubles, Environment, Expressions, Function, Integers, Language, Logicals, PairList, Primitive,

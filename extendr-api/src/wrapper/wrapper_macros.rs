@@ -99,7 +99,7 @@ macro_rules! make_getsexp {
         $($impl)* Conversions for $typename {}
 
         /// find_var() etc.
-        $($impl)* Rinternals for $typename {}
+        $($impl)* RInternals for $typename {}
 
         /// as_typed_slice_raw() etc.
         $($impl)* Slices for $typename {}

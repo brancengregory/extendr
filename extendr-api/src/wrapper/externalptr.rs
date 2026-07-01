@@ -95,7 +95,7 @@ impl<T> Attributes for ExternalPtr<T> {}
 impl<T> Conversions for ExternalPtr<T> {}
 
 /// find_var() etc.
-impl<T> Rinternals for ExternalPtr<T> {}
+impl<T> RInternals for ExternalPtr<T> {}
 
 /// as_typed_slice_raw() etc.
 impl<T> Slices for ExternalPtr<T> {}

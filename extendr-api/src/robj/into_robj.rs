@@ -503,7 +503,7 @@ impl GetSexp for RStr {
 impl Length for RStr {}
 impl Types for RStr {}
 impl Conversions for RStr {}
-impl Rinternals for RStr {}
+impl RInternals for RStr {}
 impl Slices for RStr {}
 impl Operators for RStr {}
 

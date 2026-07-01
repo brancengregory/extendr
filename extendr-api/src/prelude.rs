@@ -42,7 +42,7 @@ pub use super::wrapper::AltListImpl;
 
 pub use super::iter::StrIter;
 pub use super::robj::{
-    AsStrIter, Attributes, Eval, GetSexp, IntoRobj, Length, Operators, Rinternals, Robj,
+    AsStrIter, Attributes, Eval, GetSexp, IntoRobj, Length, Operators, RInternals, Robj,
     RobjItertools, Slices, Types,
 };
 pub use super::scalar::*;

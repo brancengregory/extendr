@@ -151,7 +151,7 @@ impl TryFrom<Robj> for StrIter {
     }
 }
 
-pub trait AsStrIter: GetSexp + Types + Length + Attributes + Rinternals {
+pub trait AsStrIter: GetSexp + Types + Length + Attributes + RInternals {
     /// Get an iterator over a string vector.
     /// Returns None if the object is not a string vector
     /// but works for factors.
