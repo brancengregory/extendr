@@ -283,7 +283,7 @@ impl_typed_slice_conversions!(
     ExpectedLogical,
     "a LGLSXP object"
 );
-impl_typed_slice_conversions!(Rcplx, ExpectedComplex, "a complex object");
+impl_typed_slice_conversions!(RCplx, ExpectedComplex, "a complex object");
 impl_typed_slice_conversions!(u8, ExpectedRaw, "a RAWSXP object");
 impl_typed_slice_conversions!(f64, ExpectedReal, "a REALSXP object");
 
@@ -306,7 +306,7 @@ impl TryFrom<&Robj> for Vec<String> {
     }
 }
 
-impl TryFrom<&Robj> for Rcplx {
+impl TryFrom<&Robj> for RCplx {
     type Error = Error;
 
     fn try_from(robj: &Robj) -> Result<Self> {
@@ -319,18 +319,18 @@ impl TryFrom<&Robj> for Rcplx {
 
         // Check if the value is not a missing value.
         if robj.is_na() {
-            return Ok(Rcplx::na());
+            return Ok(RCplx::na());
         }
 
         // This should always work, NA is handled above.
         if let Some(v) = robj.as_real() {
-            return Ok(Rcplx::from(v));
+            return Ok(RCplx::from(v));
         }
 
         // Any integer (32 bit) can be represented as f64,
         // this always works.
         if let Some(v) = robj.as_integer() {
-            return Ok(Rcplx::from(v as f64));
+            return Ok(RCplx::from(v as f64));
         }
 
         // Complex slices return their first element.
@@ -393,7 +393,7 @@ impl_try_from_robj!(bool);
 impl_try_from_robj!(RInt);
 impl_try_from_robj!(RFloat);
 impl_try_from_robj!(RBool);
-impl_try_from_robj!(Rcplx);
+impl_try_from_robj!(RCplx);
 
 impl_try_from_robj!(f32);
 impl_try_from_robj!(f64);
@@ -402,7 +402,7 @@ impl_try_from_robj!(Vec::<String>);
 impl_try_from_robj!(Vec::<RInt>);
 impl_try_from_robj!(Vec::<RFloat>);
 impl_try_from_robj!(Vec::<RBool>);
-impl_try_from_robj!(Vec::<Rcplx>);
+impl_try_from_robj!(Vec::<RCplx>);
 impl_try_from_robj!(Vec::<u8>);
 impl_try_from_robj!(Vec::<i32>);
 impl_try_from_robj!(Vec::<f64>);
@@ -533,7 +533,7 @@ macro_rules! impl_try_from_robj_for_arrays {
 impl_try_from_robj_for_arrays!(RInt);
 impl_try_from_robj_for_arrays!(RFloat);
 impl_try_from_robj_for_arrays!(RBool);
-impl_try_from_robj_for_arrays!(Rcplx);
+impl_try_from_robj_for_arrays!(RCplx);
 impl_try_from_robj_for_arrays!(u8);
 impl_try_from_robj_for_arrays!(i32);
 impl_try_from_robj_for_arrays!(f64);

@@ -144,21 +144,21 @@ fn test_complexes() {
         assert_eq!(s.elt(2), 3.0);
         assert!(s.elt(3).is_na());
 
-        let v = s.iter().collect::<Vec<Rcplx>>();
+        let v = s.iter().collect::<Vec<RCplx>>();
         assert_eq!(v, [1.0, 2.0, 3.0]);
 
         // s.set_elt(1, 5.0.into());
         // assert_eq!(s.elt(1), 5.0);
 
-        let s : Complexes = [1.0, 2.0, 3.0].iter().map(|i| Rcplx::from(*i)).collect();
+        let s : Complexes = [1.0, 2.0, 3.0].iter().map(|i| RCplx::from(*i)).collect();
         let v = s.iter().collect::<Complexes>();
         assert_eq!(v, Complexes::from_values([1.0, 2.0, 3.0]));
 
-        // Bug: from_values should be Into<Rcplx>
+        // Bug: from_values should be Into<RCplx>
         //let s = Complexes::from_values([RInt::from(1), RInt::na(), RInt::from(3)]);
         //assert_eq!(s.elt(1).is_na(), true);
 
-        // let robj = r!([Rcplx::from(1.0), Rcplx::from(2.0), Rcplx::from(3.0)]);
+        // let robj = r!([RCplx::from(1.0), RCplx::from(2.0), RCplx::from(3.0)]);
         let robj = r!([(1.0, 0.0), (2.0, 0.0), (3.0, 0.0)]);
         let s = Complexes::try_from(robj)?;
         assert_eq!(s.len(), 3);
@@ -314,7 +314,7 @@ mod num_complex {
     fn iter_mut() {
         test! {
             let mut vec = Complexes::from_values([0.0, 1.0, 2.0, 3.0]);
-            vec.iter_mut().for_each(|v| *v += Rcplx::from(1.0));
+            vec.iter_mut().for_each(|v| *v += RCplx::from(1.0));
             assert_eq!(vec, Complexes::from_values([1.0, 2.0, 3.0, 4.0]));
         }
     }
@@ -323,7 +323,7 @@ mod num_complex {
     fn iter() {
         test! {
             let vec = Complexes::from_values([0.0, 1.0, 2.0, 3.0]);
-            assert_eq!(vec.iter().sum::<Rcplx>(), Rcplx::from(6.0));
+            assert_eq!(vec.iter().sum::<RCplx>(), RCplx::from(6.0));
         }
     }
 
@@ -333,11 +333,11 @@ mod num_complex {
             // Short (<64k) vectors are allocated.
             let vec = Complexes::from_values((0..3).map(|i| 2.0 - i as f64));
             assert_eq!(vec.is_altrep(), false);
-            assert_eq!(r!(vec.clone()), r!([Rcplx::from(2.0), Rcplx::from(1.0), Rcplx::from(0.0)]));
-            assert_eq!(vec.elt(1), Rcplx::from(1.0));
+            assert_eq!(r!(vec.clone()), r!([RCplx::from(2.0), RCplx::from(1.0), RCplx::from(0.0)]));
+            assert_eq!(vec.elt(1), RCplx::from(1.0));
             let mut dest = [0.0.into(); 2];
             vec.get_region(1, &mut dest);
-            assert_eq!(dest, [Rcplx::from(1.0), Rcplx::from(0.0)]);
+            assert_eq!(dest, [RCplx::from(1.0), RCplx::from(0.0)]);
         }
     }
     #[test]
@@ -346,10 +346,10 @@ mod num_complex {
             // Long (>=64k) vectors are lazy ALTREP objects.
             let vec = Complexes::from_values_altrep((0..1000000000).map(|x| x as f64));
             assert_eq!(vec.is_altrep(), true);
-            assert_eq!(vec.elt(12345678), Rcplx::from(12345678.0));
+            assert_eq!(vec.elt(12345678), RCplx::from(12345678.0));
             let mut dest = [0.0.into(); 2];
             vec.get_region(12345678, &mut dest);
-            assert_eq!(dest, [Rcplx::from(12345678.0), Rcplx::from(12345679.0)]);
+            assert_eq!(dest, [RCplx::from(12345678.0), RCplx::from(12345679.0)]);
         }
     }
 

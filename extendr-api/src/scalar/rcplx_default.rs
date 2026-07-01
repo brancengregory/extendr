@@ -38,17 +38,17 @@ impl CanBeNA for c64 {
     }
 }
 
-/// Rcplx is a wrapper for f64 in the context of an R's complex vector.
+/// RCplx is a wrapper for f64 in the context of an R's complex vector.
 ///
-/// Rcplx has a special NA value, obtained from R headers via R_NaReal.
+/// RCplx has a special NA value, obtained from R headers via R_NaReal.
 ///
-/// Rcplx has the same footprint as R's complex value allowing us to use it in zero copy slices.
+/// RCplx has the same footprint as R's complex value allowing us to use it in zero copy slices.
 #[derive(Clone, Copy, Default, PartialEq)]
 #[repr(transparent)]
 #[readonly::make]
-pub struct Rcplx(pub c64);
+pub struct RCplx(pub c64);
 
-impl Rcplx {
+impl RCplx {
     pub fn new(re: f64, im: f64) -> Self {
         Self(c64::new(re, im))
     }
@@ -62,54 +62,54 @@ impl Rcplx {
     }
 }
 
-impl CanBeNA for Rcplx {
+impl CanBeNA for RCplx {
     fn is_na(&self) -> bool {
         unsafe { R_IsNA(self.0.re) != 0 }
     }
 
-    fn na() -> Rcplx {
-        unsafe { Rcplx::from(c64::new(R_NaReal, R_NaReal)) }
+    fn na() -> RCplx {
+        unsafe { RCplx::from(c64::new(R_NaReal, R_NaReal)) }
     }
 }
 
-impl From<c64> for Rcplx {
+impl From<c64> for RCplx {
     fn from(val: c64) -> Self {
-        Rcplx(val)
+        RCplx(val)
     }
 }
 
-impl From<f64> for Rcplx {
+impl From<f64> for RCplx {
     fn from(val: f64) -> Self {
-        Rcplx(c64::from(val))
+        RCplx(c64::from(val))
     }
 }
 
-impl From<(f64, f64)> for Rcplx {
+impl From<(f64, f64)> for RCplx {
     fn from(val: (f64, f64)) -> Self {
-        Rcplx(c64::new(val.0, val.1))
+        RCplx(c64::new(val.0, val.1))
     }
 }
 
-impl From<(RFloat, RFloat)> for Rcplx {
+impl From<(RFloat, RFloat)> for RCplx {
     fn from(val: (RFloat, RFloat)) -> Self {
-        Rcplx(c64::new(val.0 .0, val.1 .0))
+        RCplx(c64::new(val.0 .0, val.1 .0))
     }
 }
 
-impl From<RFloat> for Rcplx {
+impl From<RFloat> for RCplx {
     fn from(val: RFloat) -> Self {
-        Rcplx(c64::from(val.0))
+        RCplx(c64::from(val.0))
     }
 }
 
-impl From<Rcomplex> for Rcplx {
+impl From<Rcomplex> for RCplx {
     fn from(val: Rcomplex) -> Self {
-        Rcplx(c64::new(val.r, val.i))
+        RCplx(c64::new(val.r, val.i))
     }
 }
 
-impl From<Rcplx> for Option<c64> {
-    fn from(val: Rcplx) -> Self {
+impl From<RCplx> for Option<c64> {
+    fn from(val: RCplx) -> Self {
         if val.is_na() {
             None
         } else {
@@ -118,19 +118,19 @@ impl From<Rcplx> for Option<c64> {
     }
 }
 
-impl From<Rcplx> for c64 {
-    fn from(val: Rcplx) -> Self {
+impl From<RCplx> for c64 {
+    fn from(val: RCplx) -> Self {
         c64::new(val.re().0, val.im().0)
     }
 }
 
-impl PartialEq<f64> for Rcplx {
+impl PartialEq<f64> for RCplx {
     fn eq(&self, other: &f64) -> bool {
         self.re().0 == *other && self.im() == 0.0
     }
 }
 
-impl std::fmt::Debug for Rcplx {
+impl std::fmt::Debug for RCplx {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         if self.is_na() {
             write!(f, "NA_COMPLEX")

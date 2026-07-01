@@ -1,6 +1,6 @@
 use super::*;
 use extendr_ffi::*;
-use prelude::{RBool, RFloat, RInt, Rcplx};
+use prelude::{RBool, RCplx, RFloat, RInt};
 
 macro_rules! make_from_iterator_impl {
     ($impl : ident, $scalar_type : ident) => {
@@ -443,10 +443,10 @@ pub trait AltRawImpl: AltrepImpl {
 
 pub trait AltComplexImpl: AltrepImpl {
     /// Get a single element from this vector.
-    fn elt(&self, _index: usize) -> Rcplx;
+    fn elt(&self, _index: usize) -> RCplx;
 
     /// Get a multiple elements from this vector.
-    fn get_region(&self, index: usize, data: &mut [Rcplx]) -> usize {
+    fn get_region(&self, index: usize, data: &mut [RCplx]) -> usize {
         let len = self.length();
         if index > len {
             0
@@ -465,7 +465,7 @@ pub trait AltComplexImpl: AltrepImpl {
 make_from_iterator_impl!(AltIntegerImpl, RInt);
 make_from_iterator_impl!(AltLogicalImpl, RBool);
 make_from_iterator_impl!(AltRealImpl, RFloat);
-make_from_iterator_impl!(AltComplexImpl, Rcplx);
+make_from_iterator_impl!(AltComplexImpl, RCplx);
 
 pub trait AltStringImpl {
     /// Get a single element from this vector.
@@ -1008,7 +1008,7 @@ impl Altrep {
                 n: R_xlen_t,
                 buf: *mut Rcomplex,
             ) -> R_xlen_t {
-                let slice = std::slice::from_raw_parts_mut(buf as *mut Rcplx, n as usize);
+                let slice = std::slice::from_raw_parts_mut(buf as *mut RCplx, n as usize);
                 Altrep::get_state::<StateType>(x).get_region(i as usize, slice) as R_xlen_t
             }
 
@@ -1125,7 +1125,7 @@ impl Altrep {
         make_altcomplex_from_iterator,
         make_altcomplex_class,
         AltComplexImpl,
-        Rcplx,
+        RCplx,
         c64
     );
 }

@@ -66,7 +66,7 @@ fn round_trip_array_rbool(x: [RBool; 4]) -> [RBool; 4] {
 }
 
 #[extendr]
-fn round_trip_array_rcplx(x: [Rcplx; 4]) -> [Rcplx; 4] {
+fn round_trip_array_rcplx(x: [RCplx; 4]) -> [RCplx; 4] {
     x
 }
 

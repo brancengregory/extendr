@@ -19,10 +19,13 @@ pub use rfloat::Rfloat;
 mod rcplx_full;
 
 #[cfg(feature = "num-complex")]
-pub use rcplx_full::{c64, Rcplx};
+pub use rcplx_full::{c64, RCplx};
 
 #[cfg(not(feature = "num-complex"))]
 mod rcplx_default;
 
 #[cfg(not(feature = "num-complex"))]
-pub use rcplx_default::{c64, Rcplx};
+pub use rcplx_default::{c64, RCplx};
+
+#[deprecated(note = "Use RCplx instead", since = "0.9.0")]
+pub type Rcplx = RCplx;

@@ -245,28 +245,28 @@ fn test_rfloat() {
 #[cfg(feature = "num-complex")]
 fn test_rcplx() {
     test! {
-        let a = Rcplx::new(20., 300.);
-        let b = Rcplx::new(10., 400.);
-        assert_eq!(a + b, Rcplx::new(30., 700.));
-        assert_eq!(a - b, Rcplx::new(10., -100.));
-        assert_eq!(a * b, Rcplx::new(-119800.0, 11000.0));
+        let a = RCplx::new(20., 300.);
+        let b = RCplx::new(10., 400.);
+        assert_eq!(a + b, RCplx::new(30., 700.));
+        assert_eq!(a - b, RCplx::new(10., -100.));
+        assert_eq!(a * b, RCplx::new(-119800.0, 11000.0));
 
-        let a = Rcplx::from(20.);
-        let b = Rcplx::from(10.);
-        assert_eq!(a / b, Rcplx::from(2.));
-        assert_eq!(-a, Rcplx::from(-20.));
+        let a = RCplx::from(20.);
+        let b = RCplx::from(10.);
+        assert_eq!(a / b, RCplx::from(2.));
+        assert_eq!(-a, RCplx::from(-20.));
 
-        assert_eq!(a + b, Rcplx::from(30.));
-        assert_eq!(a - b, Rcplx::from(10.));
-        assert_eq!(a * b, Rcplx::from(200.));
-        assert_eq!(a / b, Rcplx::from(2.));
-        assert_eq!(-a, Rcplx::from(-20.));
+        assert_eq!(a + b, RCplx::from(30.));
+        assert_eq!(a - b, RCplx::from(10.));
+        assert_eq!(a * b, RCplx::from(200.));
+        assert_eq!(a / b, RCplx::from(2.));
+        assert_eq!(-a, RCplx::from(-20.));
 
-        assert!(Rcplx::na().is_na());
+        assert!(RCplx::na().is_na());
 
         // NA lhs
-        let a = Rcplx::na();
-        let b = Rcplx::from(10.);
+        let a = RCplx::na();
+        let b = RCplx::from(10.);
         assert!((a + b).is_na());
         assert!((a - b).is_na());
         assert!((a * b).is_na());
@@ -274,33 +274,33 @@ fn test_rcplx() {
         assert!((-a).is_na());
 
         // NA rhs
-        let a = Rcplx::from(10.);
-        let b = Rcplx::na();
+        let a = RCplx::from(10.);
+        let b = RCplx::na();
         assert!((a + b).is_na());
         assert!((a - b).is_na());
         assert!((a * b).is_na());
         assert!((a / b).is_na());
 
         // Inf is a single value, so can be tested for equality
-        let a = Rcplx::from(f64::INFINITY);
-        let b = Rcplx::from(42.);
+        let a = RCplx::from(f64::INFINITY);
+        let b = RCplx::from(42.);
         assert_eq!(a + b, a);
         assert_eq!(a - b, a);
-        assert_eq!(b - a, Rcplx::from(f64::NEG_INFINITY));
+        assert_eq!(b - a, RCplx::from(f64::NEG_INFINITY));
         // assert_eq!(a * b, a);
         // assert_eq!(a / b, a);
-        assert_eq!(-a, Rcplx::from(f64::NEG_INFINITY));
+        assert_eq!(-a, RCplx::from(f64::NEG_INFINITY));
 
-        let a = Rcplx::from(f64::NEG_INFINITY);
+        let a = RCplx::from(f64::NEG_INFINITY);
         assert_eq!(a + b, a);
         assert_eq!(a - b, a);
-        assert_eq!(b - a, Rcplx::from(f64::INFINITY));
+        assert_eq!(b - a, RCplx::from(f64::INFINITY));
         // assert_eq!(a * b, a);
         // assert_eq!(a / b, a);
-        assert_eq!(-a, Rcplx::from(f64::INFINITY));
+        assert_eq!(-a, RCplx::from(f64::INFINITY));
 
         // Operations with NaN produce NaN
-        let a = Rcplx::from(f64::NAN);
+        let a = RCplx::from(f64::NAN);
         assert!((a + b).is_nan());
         assert!((a - b).is_nan());
         assert!((a * b).is_nan());
@@ -308,12 +308,12 @@ fn test_rcplx() {
         assert!((-a).is_nan());
 
         // Infinity
-        assert!(Rcplx::from(f64::INFINITY).is_infinite());
-        assert!(Rcplx::from(f64::NEG_INFINITY).is_infinite());
-        assert!(!Rcplx::from(0.).is_infinite());
+        assert!(RCplx::from(f64::INFINITY).is_infinite());
+        assert!(RCplx::from(f64::NEG_INFINITY).is_infinite());
+        assert!(!RCplx::from(0.).is_infinite());
 
         // Some more, testing mixed binary operators
-        assert!((Rcplx::from(f64::INFINITY) + Rcplx::from(1.)).is_infinite());
+        assert!((RCplx::from(f64::INFINITY) + RCplx::from(1.)).is_infinite());
     }
 }
 

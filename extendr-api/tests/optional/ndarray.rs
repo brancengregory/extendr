@@ -76,11 +76,11 @@ fn complex_matrix_2d() {
          let expected = [1, 2, 0, 0, 5, 6].iter().zip(vec![0, 0, 3, 4, 5, -6]).map(|(&re, im)| <c64>::new(re as f64, im as f64))
          .collect::<Vec<_>>();
 
-         let view = <ArrayView2<Rcplx>>::try_from(&robj)?;
+         let view = <ArrayView2<RCplx>>::try_from(&robj)?;
          assert_eq!(view.dim(), (3, 2));
 
          for (&mapped, &expected) in view.iter().zip(expected.iter()) {
-             assert_eq!(mapped, <Rcplx>::from(expected));
+             assert_eq!(mapped, <RCplx>::from(expected));
          }
 
          let view = <ArrayView2<c64>>::try_from(&robj)?;
@@ -163,10 +163,10 @@ fn complex_matrix_1d() {
          let expected = [1, 2, 0, 0, 5, 6].iter().zip(vec![0, 0, 3, 4, 5, -6]).map(|(&re, im)| <c64>::new(re as f64, im as f64))
          .collect::<Vec<_>>();
 
-         let view = <ArrayView1<Rcplx>>::try_from(&robj)?;
+         let view = <ArrayView1<RCplx>>::try_from(&robj)?;
          assert_eq!(view.dim(), 6);
          for (&mapped, &expected) in view.iter().zip(expected.iter()) {
-             assert_eq!(mapped, <Rcplx>::from(expected));
+             assert_eq!(mapped, <RCplx>::from(expected));
          }
 
          let view = <ArrayView1<c64>>::try_from(&robj)?;
@@ -198,7 +198,7 @@ fn integer_matrix_1d_type_mismatch() {
          assert!(<ArrayView1<RFloat>>::try_from(&robj).is_err());
          assert!(<ArrayView1<f64>>::try_from(&robj).is_err());
 
-         assert!(<ArrayView1<Rcplx>>::try_from(&robj).is_err());
+         assert!(<ArrayView1<RCplx>>::try_from(&robj).is_err());
          assert!(<ArrayView1<c64>>::try_from(&robj).is_err());
 
          assert!(<ArrayView1<RBool>>::try_from(&robj).is_err());
@@ -214,7 +214,7 @@ fn real_matrix_1d_type_mismatch() {
          assert!(<ArrayView1<RInt>>::try_from(&robj).is_err());
          assert!(<ArrayView1<i32>>::try_from(&robj).is_err());
 
-         assert!(<ArrayView1<Rcplx>>::try_from(&robj).is_err());
+         assert!(<ArrayView1<RCplx>>::try_from(&robj).is_err());
          assert!(<ArrayView1<c64>>::try_from(&robj).is_err());
 
          assert!(<ArrayView1<RBool>>::try_from(&robj).is_err());
@@ -233,7 +233,7 @@ fn logical_matrix_1d_type_mismatch() {
          assert!(<ArrayView1<RFloat>>::try_from(&robj).is_err());
          assert!(<ArrayView1<f64>>::try_from(&robj).is_err());
 
-         assert!(<ArrayView1<Rcplx>>::try_from(&robj).is_err());
+         assert!(<ArrayView1<RCplx>>::try_from(&robj).is_err());
          assert!(<ArrayView1<c64>>::try_from(&robj).is_err());
 
          assert!(<ArrayView1<Rstr>>::try_from(&robj).is_err());
@@ -267,7 +267,7 @@ fn character_matrix_1d_type_mismatch() {
          assert!(<ArrayView1<RFloat>>::try_from(&robj).is_err());
          assert!(<ArrayView1<f64>>::try_from(&robj).is_err());
 
-         assert!(<ArrayView1<Rcplx>>::try_from(&robj).is_err());
+         assert!(<ArrayView1<RCplx>>::try_from(&robj).is_err());
          assert!(<ArrayView1<c64>>::try_from(&robj).is_err());
 
          assert!(<ArrayView1<RBool>>::try_from(&robj).is_err());
@@ -282,7 +282,7 @@ fn integer_matrix_2d_type_mismatch() {
          assert!(<ArrayView2<RFloat>>::try_from(&robj).is_err());
          assert!(<ArrayView2<f64>>::try_from(&robj).is_err());
 
-         assert!(<ArrayView2<Rcplx>>::try_from(&robj).is_err());
+         assert!(<ArrayView2<RCplx>>::try_from(&robj).is_err());
          assert!(<ArrayView2<c64>>::try_from(&robj).is_err());
 
          assert!(<ArrayView1<RBool>>::try_from(&robj).is_err());
@@ -298,7 +298,7 @@ fn real_matrix_2d_type_mismatch() {
          assert!(<ArrayView2<RInt>>::try_from(&robj).is_err());
          assert!(<ArrayView2<i32>>::try_from(&robj).is_err());
 
-         assert!(<ArrayView2<Rcplx>>::try_from(&robj).is_err());
+         assert!(<ArrayView2<RCplx>>::try_from(&robj).is_err());
          assert!(<ArrayView2<c64>>::try_from(&robj).is_err());
 
          assert!(<ArrayView1<RBool>>::try_from(&robj).is_err());
@@ -317,7 +317,7 @@ fn logical_matrix_2d_type_mismatch() {
          assert!(<ArrayView2<RFloat>>::try_from(&robj).is_err());
          assert!(<ArrayView2<f64>>::try_from(&robj).is_err());
 
-         assert!(<ArrayView2<Rcplx>>::try_from(&robj).is_err());
+         assert!(<ArrayView2<RCplx>>::try_from(&robj).is_err());
          assert!(<ArrayView2<c64>>::try_from(&robj).is_err());
 
          assert!(<ArrayView1<Rstr>>::try_from(&robj).is_err());
@@ -351,7 +351,7 @@ fn character_matrix_2d_type_mismatch() {
          assert!(<ArrayView2<RFloat>>::try_from(&robj).is_err());
          assert!(<ArrayView2<f64>>::try_from(&robj).is_err());
 
-         assert!(<ArrayView2<Rcplx>>::try_from(&robj).is_err());
+         assert!(<ArrayView2<RCplx>>::try_from(&robj).is_err());
          assert!(<ArrayView2<c64>>::try_from(&robj).is_err());
 
          assert!(<ArrayView1<RBool>>::try_from(&robj).is_err());

@@ -103,9 +103,9 @@ fn test_debug_scalar() {
             (0., 0., "0.0 + 0.0i"),
         ];
         for (re, im, dbg_str) in test_data {
-            assert_eq!(format!("{:?}", Rcplx::new(re, im)), dbg_str);
+            assert_eq!(format!("{:?}", RCplx::new(re, im)), dbg_str);
         }
-        assert_eq!(format!("{:?}", Rcplx::na()), "NA_COMPLEX");
+        assert_eq!(format!("{:?}", RCplx::na()), "NA_COMPLEX");
 
         let test_data = vec!["Hello", "World"];
         for str in test_data {
@@ -138,10 +138,10 @@ fn test_debug_vectors() {
         let r: Strings = Strings::from_values([Rstr::from("xyz"), Rstr::from("abc"), Rstr::na()]);
         assert_eq!(format!("{:?}", r), "[\"xyz\", \"abc\", NA_CHARACTER]");
 
-        let r: Complexes = Complexes::from_values([Rcplx::new(42.0, -42.0)]);
+        let r: Complexes = Complexes::from_values([RCplx::new(42.0, -42.0)]);
         assert_eq!(format!("{:?}", r), "42.0 - 42.0i");
         let r: Complexes =
-            Complexes::from_values([Rcplx::new(42.0, -42.0), Rcplx::new(0.0, 0.0), Rcplx::na()]);
+            Complexes::from_values([RCplx::new(42.0, -42.0), RCplx::new(0.0, 0.0), RCplx::na()]);
         assert_eq!(format!("{:?}", r), "[42.0 - 42.0i, 0.0 + 0.0i, NA_COMPLEX]");
     }
 }

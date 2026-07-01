@@ -128,8 +128,8 @@ fn test_try_from_robj() {
         assert_eq!(bool::from(RBool::from(true)), true);
         assert_eq!(bool::from(RBool::from(false)), false);
 
-        assert_eq!(c64::from(Rcplx::from(c64::new(1.0, 2.0))), c64::new(1.0, 2.0));
-        assert!(c64::from(Rcplx::na()).is_na());
+        assert_eq!(c64::from(RCplx::from(c64::new(1.0, 2.0))), c64::new(1.0, 2.0));
+        assert!(c64::from(RCplx::na()).is_na());
 
         // TODO: once related todos resolved in try_from_robj.rs, add tests for
         // Doubles to Integer successful case (e.g. 1.0 to 1) and failing case

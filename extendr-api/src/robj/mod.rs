@@ -25,7 +25,7 @@ use crate::*;
 pub use into_robj::*;
 pub use iter::*;
 pub use operators::Operators;
-use prelude::{c64, Rcplx};
+use prelude::{c64, RCplx};
 pub use rinternals::Rinternals;
 
 mod debug;
@@ -826,7 +826,7 @@ make_typed_slice!(RFloat, REAL, REALSXP);
 make_typed_slice!(u8, RAW, RAWSXP);
 make_typed_slice!(Rstr, STRING_PTR_RO, STRSXP);
 make_typed_slice!(c64, COMPLEX, CPLXSXP);
-make_typed_slice!(Rcplx, COMPLEX, CPLXSXP);
+make_typed_slice!(RCplx, COMPLEX, CPLXSXP);
 make_typed_slice!(Rcomplex, COMPLEX, CPLXSXP);
 
 /// Provides access to the attributes of an R object.
