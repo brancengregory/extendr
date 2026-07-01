@@ -91,8 +91,8 @@ fn try_rfloat_na() -> Rfloat {
 }
 
 #[extendr]
-fn try_rint_na() -> Rint {
-    Rint::na()
+fn try_rint_na() -> RInt {
+    RInt::na()
 }
 
 #[extendr]
@@ -101,7 +101,7 @@ fn check_rfloat_na(x: Rfloat) -> bool {
 }
 
 #[extendr]
-fn check_rint_na(x: Rint) -> bool {
+fn check_rint_na(x: RInt) -> bool {
     x.is_na()
 }
 
@@ -119,7 +119,7 @@ fn get_doubles_element(x: Doubles, i: i32) -> Rfloat {
 }
 
 #[extendr]
-fn get_integers_element(x: Integers, i: i32) -> Rint {
+fn get_integers_element(x: Integers, i: i32) -> RInt {
     x.elt(i as usize)
 }
 
@@ -216,7 +216,7 @@ fn get_default_value(#[extendr(default = "42")] x: i32) -> i32 {
 }
 
 #[extendr]
-fn add_5_if_not_null(x: Nullable<Rint>) -> Nullable<Rint> {
+fn add_5_if_not_null(x: Nullable<RInt>) -> Nullable<RInt> {
     x.map(|y| y + 5)
 }
 

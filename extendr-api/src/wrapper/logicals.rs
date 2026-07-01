@@ -63,7 +63,7 @@ impl Logicals {
 impl Deref for Logicals {
     type Target = [Rbool];
 
-    /// Treat Logicals as if it is a slice, like `Vec<Rint>`
+    /// Treat Logicals as if it is a slice, like `Vec<RInt>`
     fn deref(&self) -> &Self::Target {
         unsafe {
             let ptr = dataptr(self.get()) as *const Rbool;
@@ -73,7 +73,7 @@ impl Deref for Logicals {
 }
 
 impl DerefMut for Logicals {
-    /// Treat Logicals as if it is a mutable slice, like `Vec<Rint>`
+    /// Treat Logicals as if it is a mutable slice, like `Vec<RInt>`
     fn deref_mut(&mut self) -> &mut Self::Target {
         unsafe {
             let ptr = dataptr(self.get_mut()) as *mut Rbool;
@@ -157,7 +157,7 @@ mod tests {
     // fn iter() {
     //     test! {
     //         let mut vec = Logicals::from_values([true, false, true]);
-    //         assert_eq!(vec.iter().sum::<Rint>(), 3);
+    //         assert_eq!(vec.iter().sum::<RInt>(), 3);
     //     }
     // }
 

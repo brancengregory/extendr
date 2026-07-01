@@ -22,9 +22,9 @@ Here is an example of `either` usage -- a type-aware sum:
 use extendr_api::prelude::*;
 
 #[extendr]
-fn type_aware_sum(input : Either<Integers, Doubles>) -> Either<Rint, Rfloat> {
+fn type_aware_sum(input : Either<Integers, Doubles>) -> Either<RInt, Rfloat> {
     match input {
-        Left(ints) => Left(ints.iter().sum::<Rint>()),
+        Left(ints) => Left(ints.iter().sum::<RInt>()),
         Right(dbls) => Right(dbls.iter().sum::<Rfloat>()),
     }
 }

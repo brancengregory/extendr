@@ -3,7 +3,7 @@
 
 #[test]
 fn test_try_from() {
-    use extendr_api::scalar::{Rbool, Rcplx, Rfloat, Rint};
+    use extendr_api::scalar::{RInt, Rbool, Rcplx, Rfloat};
     use extendr_api::{r, test, Robj, TryFrom};
 
     macro_rules! test_matrix {
@@ -28,7 +28,7 @@ fn test_try_from() {
             assert!(i64::try_from(&robj).is_ok() == $int_ok);
             assert!(f32::try_from(&robj).is_ok() == $float_ok);
             assert!(f64::try_from(&robj).is_ok() == $float_ok);
-            assert!(Rint::try_from(&robj).is_ok() == $int_ok);
+            assert!(RInt::try_from(&robj).is_ok() == $int_ok);
             assert!(Rfloat::try_from(&robj).is_ok() == $float_ok);
             assert!(Rcplx::try_from(&robj).is_ok() == $cplx_ok);
             assert!(Rbool::try_from(&robj).is_ok() == $bool_ok);

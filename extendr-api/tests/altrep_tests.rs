@@ -22,11 +22,11 @@ fn test_altinteger() {
         }
 
         impl AltIntegerImpl for MyCompactIntRange {
-            fn elt(&self, index: usize) -> Rint {
+            fn elt(&self, index: usize) -> RInt {
                 if index == self.missing_index {
-                    Rint::na()
+                    RInt::na()
                 } else {
-                    Rint::from(self.start + self.step * index as i32)
+                    RInt::from(self.start + self.step * index as i32)
                 }
             }
         }
@@ -47,7 +47,7 @@ fn test_altinteger() {
         let obj_w_missing = Altrep::from_state_and_class(mystate_w_missing, class, false);
         let robj_w_missing = Robj::from(obj_w_missing);
         let integers_w_missing: Integers = robj_w_missing.try_into()?;
-        assert_eq!(integers_w_missing.elt(9), Rint::from(9));
+        assert_eq!(integers_w_missing.elt(9), RInt::from(9));
         assert!(integers_w_missing.elt(5).is_na());
 
         // tests for get_region()

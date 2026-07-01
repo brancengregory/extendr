@@ -44,7 +44,7 @@ Specifically, extendr supports the following conversions:
     ```
 
 The item type (ie the `T` in [`Array2<T>`]) can be a variety of Rust types that can represent scalars: [`u32`], [`i32`], [`f64`] and, if you have the `num_complex` compiled feature
-enabled, `Complex<f64>`. Items can also be extendr's wrapper types: [`Rbool`], [`Rint`], [`Rfloat`] and [`Rcplx`].
+enabled, `Complex<f64>`. Items can also be extendr's wrapper types: [`Rbool`], [`RInt`], [`Rfloat`] and [`Rcplx`].
 
 Note that the extendr-ndarray integration only supports accessing R arrays as [`ArrayView`], which are immutable.
 Therefore, instead of directly editing the input array, it is recommended that you instead return a new array from your `#[extendr]`-annotated function, which you allocate in Rust.
@@ -65,7 +65,7 @@ For all array uses in Rust, refer to the [`ArrayBase`] documentation, which expl
 use ndarray::prelude::*;
 use ndarray::{Data, ShapeBuilder};
 
-use crate::prelude::{c64, dim_symbol, Rcplx, Rfloat, Rint};
+use crate::prelude::{c64, dim_symbol, RInt, Rcplx, Rfloat};
 use crate::*;
 
 macro_rules! make_array_view_1 {
@@ -122,7 +122,7 @@ macro_rules! make_array_view_2 {
     };
 }
 make_array_view_1!(Rbool, Error::ExpectedLogical);
-make_array_view_1!(Rint, Error::ExpectedInteger);
+make_array_view_1!(RInt, Error::ExpectedInteger);
 make_array_view_1!(i32, Error::ExpectedInteger);
 make_array_view_1!(Rfloat, Error::ExpectedReal);
 make_array_view_1!(f64, Error::ExpectedReal);
@@ -131,7 +131,7 @@ make_array_view_1!(c64, Error::ExpectedComplex);
 make_array_view_1!(Rstr, Error::ExpectedString);
 
 make_array_view_2!(Rbool, "Not a logical matrix.", Error::ExpectedLogical);
-make_array_view_2!(Rint, "Not an integer matrix.", Error::ExpectedInteger);
+make_array_view_2!(RInt, "Not an integer matrix.", Error::ExpectedInteger);
 make_array_view_2!(i32, "Not an integer matrix.", Error::ExpectedInteger);
 make_array_view_2!(Rfloat, "Not a floating point matrix.", Error::ExpectedReal);
 make_array_view_2!(f64, "Not a floating point matrix.", Error::ExpectedReal);

@@ -174,7 +174,7 @@ make_conversions!(Strings, ExpectedString, is_string, "Not a string vector");
 make_getsexp!(DataFrame<T>, impl<T>);
 
 // impl Deref for Integers {
-//     type Target = [Rint];
+//     type Target = [RInt];
 
 //     fn deref(&self) -> &Self::Target {
 //         unsafe { self.as_typed_slice_raw() }

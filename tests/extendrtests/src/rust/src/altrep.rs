@@ -93,11 +93,11 @@ impl AltrepImpl for MyCompactIntRange {
 }
 
 impl AltIntegerImpl for MyCompactIntRange {
-    fn elt(&self, index: usize) -> Rint {
+    fn elt(&self, index: usize) -> RInt {
         if index == self.missing_index {
-            Rint::na()
+            RInt::na()
         } else {
-            Rint::from(self.start + self.step * index as i32)
+            RInt::from(self.start + self.step * index as i32)
         }
     }
 }

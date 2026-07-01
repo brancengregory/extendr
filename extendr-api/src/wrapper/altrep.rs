@@ -1,6 +1,6 @@
 use super::*;
 use extendr_ffi::*;
-use prelude::{Rbool, Rcplx, Rfloat, Rint};
+use prelude::{RInt, Rbool, Rcplx, Rfloat};
 
 macro_rules! make_from_iterator_impl {
     ($impl : ident, $scalar_type : ident) => {
@@ -224,10 +224,10 @@ pub trait AltIntegerImpl: AltrepImpl {
     }
 
     /// Get a single element from this vector.
-    fn elt(&self, _index: usize) -> Rint;
+    fn elt(&self, _index: usize) -> RInt;
 
     /// Get a multiple elements from this vector.
-    fn get_region(&self, index: usize, data: &mut [Rint]) -> usize {
+    fn get_region(&self, index: usize, data: &mut [RInt]) -> usize {
         let len = self.length();
         if index > len {
             0
@@ -462,7 +462,7 @@ pub trait AltComplexImpl: AltrepImpl {
 }
 
 // Implement the trait methods for iterators
-make_from_iterator_impl!(AltIntegerImpl, Rint);
+make_from_iterator_impl!(AltIntegerImpl, RInt);
 make_from_iterator_impl!(AltLogicalImpl, Rbool);
 make_from_iterator_impl!(AltRealImpl, Rfloat);
 make_from_iterator_impl!(AltComplexImpl, Rcplx);
@@ -757,7 +757,7 @@ impl Altrep {
                 n: R_xlen_t,
                 buf: *mut c_int,
             ) -> R_xlen_t {
-                let slice = std::slice::from_raw_parts_mut(buf as *mut Rint, n as usize);
+                let slice = std::slice::from_raw_parts_mut(buf as *mut RInt, n as usize);
                 Altrep::get_state::<StateType>(x).get_region(i as usize, slice) as R_xlen_t
             }
 
@@ -1104,7 +1104,7 @@ impl Altrep {
         make_altinteger_from_iterator,
         make_altinteger_class,
         AltIntegerImpl,
-        Rint,
+        RInt,
         i32
     );
     make_from_iterator!(

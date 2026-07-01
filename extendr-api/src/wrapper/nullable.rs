@@ -198,8 +198,8 @@ where
     /// ```
     /// use extendr_api::prelude::*;
     /// test! {
-    ///     assert_eq!(Nullable::<Rint>::Null.into_option(), None);
-    ///     assert_eq!(Nullable::<Rint>::NotNull(Rint::from(42)).into_option(), Some(Rint::from(42)));
+    ///     assert_eq!(Nullable::<RInt>::Null.into_option(), None);
+    ///     assert_eq!(Nullable::<RInt>::NotNull(RInt::from(42)).into_option(), Some(RInt::from(42)));
     /// }
     /// ```
     pub fn into_option(self) -> Option<T> {

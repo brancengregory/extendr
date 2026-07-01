@@ -31,11 +31,11 @@ fn test_deserialize_robj() {
         assert_eq!(from_robj::<Int>(&r!(NULL)).is_err(), true);
 
         #[derive(Deserialize, PartialEq, Debug)]
-        struct RInt(Rint);
-        assert_eq!(from_robj::<RInt>(&r!(1)), Ok(RInt(1.into())));
-        assert_eq!(from_robj::<RInt>(&r!(1.0)), Ok(RInt(1.into())));
-        assert_eq!(from_robj::<RInt>(&r!(Rint::na())).is_err(), true);
-        assert_eq!(from_robj::<RInt>(&r!(NULL)).is_err(), true);
+        struct RInt1(RInt);
+        assert_eq!(from_robj::<RInt1>(&r!(1)), Ok(RInt1(1.into())));
+        assert_eq!(from_robj::<RInt1>(&r!(1.0)), Ok(RInt1(1.into())));
+        assert_eq!(from_robj::<RInt1>(&r!(RInt::na())).is_err(), true);
+        assert_eq!(from_robj::<RInt1>(&r!(NULL)).is_err(), true);
 
         #[derive(Deserialize, PartialEq, Debug)]
         struct Float(f64);

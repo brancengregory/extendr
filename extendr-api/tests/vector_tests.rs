@@ -106,7 +106,7 @@ fn test_doubles() {
         assert_eq!(v, Doubles::from_values([1.0, 2.0, 3.0]));
 
         // Bug: from_values should be Into<Rfloat>
-        //let s = Doubles::from_values([Rint::from(1), Rint::na(), Rint::from(3)]);
+        //let s = Doubles::from_values([RInt::from(1), RInt::na(), RInt::from(3)]);
         //assert_eq!(s.elt(1).is_na(), true);
 
         let robj = r!([1.0, 2.0, 3.0]);
@@ -155,7 +155,7 @@ fn test_complexes() {
         assert_eq!(v, Complexes::from_values([1.0, 2.0, 3.0]));
 
         // Bug: from_values should be Into<Rcplx>
-        //let s = Complexes::from_values([Rint::from(1), Rint::na(), Rint::from(3)]);
+        //let s = Complexes::from_values([RInt::from(1), RInt::na(), RInt::from(3)]);
         //assert_eq!(s.elt(1).is_na(), true);
 
         // let robj = r!([Rcplx::from(1.0), Rcplx::from(2.0), Rcplx::from(3.0)]);
@@ -194,18 +194,18 @@ fn test_integers() {
         assert_eq!(s.elt(2), 3);
         assert!(s.elt(3).is_na());
 
-        let v = s.iter().collect::<Vec<Rint>>();
+        let v = s.iter().collect::<Vec<RInt>>();
         assert_eq!(v, [1, 2, 3]);
 
         s.set_elt(1, 5.into());
         assert_eq!(s.elt(1), 5);
 
-        let s : Integers = [1, 2, 3].iter().map(|i| Rint::from(*i)).collect();
+        let s : Integers = [1, 2, 3].iter().map(|i| RInt::from(*i)).collect();
         let v = s.iter().collect::<Integers>();
         assert_eq!(v, Integers::from_values([1, 2, 3]));
 
-        // Bug: from_values should be Into<Rint>
-        //let s = Integers::from_values([Rint::from(1), Rint::na(), Rint::from(3)]);
+        // Bug: from_values should be Into<RInt>
+        //let s = Integers::from_values([RInt::from(1), RInt::na(), RInt::from(3)]);
         //assert_eq!(s.elt(1).is_na(), true);
 
         let robj = r!([1, 2, 3]);

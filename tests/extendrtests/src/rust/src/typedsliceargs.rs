@@ -2,7 +2,7 @@ use extendr_api::prelude::*;
 
 // Makes the middle value the answer to the universe
 #[extendr]
-fn middle_zero(integers: &mut [Rint]) {
+fn middle_zero(integers: &mut [RInt]) {
     let middle = integers.len() / 2;
     integers[middle] = 42_i32.into();
 }

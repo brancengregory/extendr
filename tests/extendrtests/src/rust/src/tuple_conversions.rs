@@ -1,8 +1,8 @@
 use extendr_api::{error::Result, prelude::*};
 
 #[extendr]
-fn sum_triplet_ints(x: (i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32)) -> Rint {
-    Rint::from(x.0 + x.1)
+fn sum_triplet_ints(x: (i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32, i32)) -> RInt {
+    RInt::from(x.0 + x.1)
 }
 
 #[derive(Debug, Clone)]
@@ -51,7 +51,7 @@ fn round_trip_array_i32(x: [i32; 4]) -> [i32; 4] {
 }
 
 #[extendr]
-fn round_trip_array_rint(x: [Rint; 4]) -> [Rint; 4] {
+fn round_trip_array_rint(x: [RInt; 4]) -> [RInt; 4] {
     x
 }
 

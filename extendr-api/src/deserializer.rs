@@ -3,7 +3,7 @@
 use crate::error::{Error, Result};
 use crate::na::CanBeNA;
 use crate::robj::{Attributes, Length, Robj, Types};
-use crate::scalar::{Rbool, Rfloat, Rint};
+use crate::scalar::{RInt, Rbool, Rfloat};
 use crate::wrapper::{Doubles, Integers, List, Logicals, Rstr, Strings};
 use crate::Rany;
 use serde::de::{
@@ -91,8 +91,8 @@ struct SliceGetter<'a, E> {
     list: &'a [E],
 }
 
-// Allow us to use Integers and Rint.
-impl<'de> Deserializer<'de> for Rint {
+// Allow us to use Integers and RInt.
+impl<'de> Deserializer<'de> for RInt {
     type Error = Error;
 
     fn deserialize_any<V>(self, visitor: V) -> Result<V::Value>
@@ -609,10 +609,10 @@ impl<'de> Deserializer<'de> for &'de Robj {
     }
 }
 
-struct RintVisitor;
+struct RIntVisitor;
 
-impl<'de> Visitor<'de> for RintVisitor {
-    type Value = Rint;
+impl<'de> Visitor<'de> for RIntVisitor {
+    type Value = RInt;
 
     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
         formatter.write_str("an integer between -2^31+1 and 2^31")
@@ -629,16 +629,16 @@ impl<'de> Visitor<'de> for RintVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(Rint::na())
+        Ok(RInt::na())
     }
 }
 
-impl<'de> Deserialize<'de> for Rint {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Rint, D::Error>
+impl<'de> Deserialize<'de> for RInt {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<RInt, D::Error>
     where
         D: Deserializer<'de>,
     {
-        deserializer.deserialize_i32(RintVisitor)
+        deserializer.deserialize_i32(RIntVisitor)
     }
 }
 
@@ -879,7 +879,7 @@ impl<'de> Visitor<'de> for IntegersVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(Integers::from_values([Rint::na()]))
+        Ok(Integers::from_values([RInt::na()]))
     }
 
     fn visit_some<D>(self, deserializer: D) -> std::result::Result<Self::Value, D::Error>
@@ -893,7 +893,7 @@ impl<'de> Visitor<'de> for IntegersVisitor {
     where
         A: SeqAccess<'de>,
     {
-        let mut values: Vec<Rint> = Vec::with_capacity(seq.size_hint().unwrap_or(8));
+        let mut values: Vec<RInt> = Vec::with_capacity(seq.size_hint().unwrap_or(8));
         while let Some(value) = seq.next_element()? {
             values.push(value);
         }
@@ -904,7 +904,7 @@ impl<'de> Visitor<'de> for IntegersVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(Integers::from_values([Rint::na()]))
+        Ok(Integers::from_values([RInt::na()]))
     }
 }
 

@@ -20,7 +20,7 @@ fn test_try_from_robj() {
 
         assert_eq!(<Vec::<i32>>::try_from(&Robj::from(1)), Ok(vec![1]));
         assert_eq!(<Vec::<f64>>::try_from(&Robj::from(1.)), Ok(vec![1.]));
-        assert_eq!(<Vec::<Rint>>::try_from(Robj::from(1)), Ok(vec![Rint::from(1)]));
+        assert_eq!(<Vec::<RInt>>::try_from(Robj::from(1)), Ok(vec![RInt::from(1)]));
         assert_eq!(<Vec::<Rfloat>>::try_from(Robj::from(1.)), Ok(vec![Rfloat::from(1.0)]));
         assert_eq!(<Vec::<Rbool>>::try_from(Robj::from(TRUE)), Ok(vec![TRUE]));
         assert_eq!(<Vec::<u8>>::try_from(Robj::from(0_u8)), Ok(vec![0_u8]));
@@ -122,8 +122,8 @@ fn test_try_from_robj() {
         assert_eq!(f64::from(Rfloat::from(1.0)), 1.0);
         assert!(f64::from(Rfloat::na()).is_na());
 
-        assert_eq!(i32::from(Rint::from(1)), 1);
-        assert!(Rint::from(i32::from(Rint::na())).is_na());
+        assert_eq!(i32::from(RInt::from(1)), 1);
+        assert!(RInt::from(i32::from(RInt::na())).is_na());
 
         assert_eq!(bool::from(Rbool::from(true)), true);
         assert_eq!(bool::from(Rbool::from(false)), false);
@@ -148,7 +148,7 @@ fn test_try_from_robj() {
         assert!(<Logicals>::try_from(r!([1])).is_err());
 
         let robj = Robj::from(1);
-        assert_eq!(<&[Rint]>::try_from(&robj), Ok(&[Rint::from(1)][..]));
+        assert_eq!(<&[RInt]>::try_from(&robj), Ok(&[RInt::from(1)][..]));
         let robj = Robj::from(1.);
         assert_eq!(<&[Rfloat]>::try_from(&robj), Ok(&[Rfloat::from(1.)][..]));
         let robj = Robj::from(TRUE);
@@ -158,7 +158,7 @@ fn test_try_from_robj() {
 
         // Note the Vec<> cases use the same logic as the slices.
         let robj = Robj::from(1.0);
-        assert_eq!(<&[Rint]>::try_from(&robj), Err(Error::ExpectedInteger(r!(1.0))));
+        assert_eq!(<&[RInt]>::try_from(&robj), Err(Error::ExpectedInteger(r!(1.0))));
         let robj = Robj::from(1);
         assert_eq!(<&[Rfloat]>::try_from(&robj), Err(Error::ExpectedReal(r!(1))));
         let robj = Robj::from(());

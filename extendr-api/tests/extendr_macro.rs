@@ -5,7 +5,7 @@ use extendr_api::Rinternals;
 use extendr_api::Robj;
 use extendr_api::NA_INTEGER;
 use extendr_api::NA_REAL;
-use extendr_api::{prelude::Rint, r, test, GetSexp, Integers};
+use extendr_api::{prelude::RInt, r, test, GetSexp, Integers};
 
 #[extendr]
 fn test_i32(val: i32) -> i32 {
@@ -33,7 +33,7 @@ fn test_option_i16(val: Option<i16>) -> i16 {
 }
 
 #[extendr]
-fn test_rint(val: Rint) -> Rint {
+fn test_rint(val: RInt) -> RInt {
     val
 }
 
@@ -56,7 +56,7 @@ fn test_integers2(val: Integers) -> Integers {
 }
 
 #[extendr]
-fn test_integers3(val: Integers) -> Rint {
+fn test_integers3(val: Integers) -> RInt {
     val.iter().sum()
 }
 
@@ -109,7 +109,7 @@ fn tests_with_successful_outcomes() {
             // NA input.
             assert_eq!(Robj::from_sexp(wrap__test_option_f64(r!(NA_INTEGER).get())), r!(-1.0));
 
-            // Rint.
+            // RInt.
             assert_eq!(Robj::from_sexp(wrap__test_rint(r!(1).get())), r!(1));
             assert_eq!(Robj::from_sexp(wrap__test_rint(r!(1.0).get())), r!(1));
             assert_eq!(Robj::from_sexp(wrap__test_rint(r!(NA_INTEGER).get())), r!(NA_INTEGER));

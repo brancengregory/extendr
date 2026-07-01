@@ -1,4 +1,4 @@
-use crate::prelude::Rint;
+use crate::prelude::RInt;
 use crate::scalar::macros::*;
 use crate::*;
 use std::cmp::Ordering::*;
@@ -166,8 +166,8 @@ impl From<i32> for Rfloat {
     }
 }
 
-impl From<Rint> for Rfloat {
-    fn from(value: Rint) -> Self {
+impl From<RInt> for Rfloat {
+    fn from(value: RInt) -> Self {
         if value.is_na() {
             Rfloat::na()
         } else {

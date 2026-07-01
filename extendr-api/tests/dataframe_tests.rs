@@ -7,7 +7,7 @@ fn test_derive_into_dataframe() {
 
         #[derive(Debug, IntoDataFrameRow)]
         struct MyStruct {
-            x: Rint,
+            x: RInt,
             y: Rstr,
         }
 
@@ -37,7 +37,7 @@ fn test_into_robj_dataframe() {
 
         #[derive(Clone, Debug, IntoDataFrameRow)]
         struct MyStruct {
-            x: Rint,
+            x: RInt,
             y: Rstr,
         }
 

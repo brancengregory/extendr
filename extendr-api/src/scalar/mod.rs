@@ -4,6 +4,9 @@ mod rfloat;
 mod rint;
 pub use rbool::Rbool;
 pub use rfloat::Rfloat;
+pub use rint::RInt;
+
+#[deprecated(note = "Use RInt instead", since = "0.9.0")]
 pub use rint::Rint;
 
 #[cfg(feature = "num-complex")]

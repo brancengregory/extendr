@@ -3,7 +3,7 @@
 use crate::error::{Error, Result};
 use crate::na::CanBeNA;
 use crate::robj::{Attributes, GetSexp, Length, Rinternals, Types};
-use crate::scalar::{Rbool, Rfloat, Rint};
+use crate::scalar::{RInt, Rbool, Rfloat};
 use crate::wrapper::{
     Doubles, Environment, Expressions, Function, Integers, Language, Logicals, PairList, Primitive,
     Promise, Raw, Rstr, Symbol, S4,
@@ -695,7 +695,7 @@ impl ser::Serialize for Raw {
     }
 }
 
-impl ser::Serialize for Rint {
+impl ser::Serialize for RInt {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: ser::Serializer,

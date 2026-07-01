@@ -835,7 +835,7 @@ mod test {
             // unsafe { extendr_ffi::Rf_PrintValue(int_vec_robj.get())}
             assert_eq!(int_vec_robj.as_integer_slice().unwrap(), &int_vec);
 
-            let rint_vec = vec![Rint::from(3), Rint::from(4), Rint::from(0), Rint::from(-2)];
+            let rint_vec = vec![RInt::from(3), RInt::from(4), RInt::from(0), RInt::from(-2)];
             let rint_vec_robj: Robj = rint_vec.into();
             // unsafe { extendr_ffi::Rf_PrintValue(rint_vec_robj.get())}
             assert_eq!(rint_vec_robj.as_integer_slice().unwrap(), &int_vec);

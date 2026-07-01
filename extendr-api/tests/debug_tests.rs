@@ -76,9 +76,9 @@ fn test_debug_scalar() {
 
         let test_data = vec![42, -42, 0];
         for val in test_data {
-            assert_eq!(format!("{:?}", Rint::from(val)), format!("{:?}", val),);
+            assert_eq!(format!("{:?}", RInt::from(val)), format!("{:?}", val),);
         }
-        assert_eq!(format!("{:?}", Rint::na()), "NA_INTEGER");
+        assert_eq!(format!("{:?}", RInt::na()), "NA_INTEGER");
 
         let test_data = vec![
             42.,
@@ -125,7 +125,7 @@ fn test_debug_vectors() {
 
         let r: Integers = Integers::new(1);
         assert_eq!(format!("{:?}", r), "0");
-        let r: Integers = Integers::from_values([Rint::from(0), Rint::from(0), Rint::na()]);
+        let r: Integers = Integers::from_values([RInt::from(0), RInt::from(0), RInt::na()]);
         assert_eq!(format!("{:?}", r), "[0, 0, NA_INTEGER]");
 
         let r: Doubles = Doubles::new(1);

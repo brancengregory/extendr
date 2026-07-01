@@ -116,14 +116,14 @@ fn test_serialize_robj() {
         assert_eq!(to_robj(&s).unwrap(), expected);
 
         #[derive(Serialize)]
-        struct Rint1(Rint);
-        let s = Rint1(Rint::from(1));
+        struct RInt1(RInt);
+        let s = RInt1(RInt::from(1));
         let expected = r!(1);
         assert_eq!(to_robj(&s).unwrap(), expected);
 
         #[derive(Serialize)]
-        struct Rint2(Rint);
-        let s = Rint2(Rint::na());
+        struct RInt2(RInt);
+        let s = RInt2(RInt::na());
         let expected = r!(());
         assert_eq!(to_robj(&s).unwrap(), expected);
 
