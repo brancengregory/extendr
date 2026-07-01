@@ -4,7 +4,7 @@
 #[test]
 fn test_try_from() {
     use extendr_api::scalar::{RBool, RCplx, RFloat, RInt};
-    use extendr_api::{r, test, Robj, TryFrom};
+    use extendr_api::{r, test, RObj, TryFrom};
 
     macro_rules! test_matrix {
         (
@@ -37,7 +37,7 @@ fn test_try_from() {
             assert!(String::try_from(&robj).is_ok() == $str_ok);
             assert!(<&[i32]>::try_from(&robj).is_ok() == $int_slice_ok);
             assert!(<&[f64]>::try_from(&robj).is_ok() == $float_slice_ok);
-            assert!(<Robj>::try_from($value).is_ok() == true);
+            assert!(<RObj>::try_from($value).is_ok() == true);
         };
     }
 

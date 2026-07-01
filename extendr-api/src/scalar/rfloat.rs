@@ -176,10 +176,10 @@ impl From<RInt> for RFloat {
     }
 }
 
-impl TryFrom<&Robj> for RFloat {
+impl TryFrom<&RObj> for RFloat {
     type Error = Error;
 
-    fn try_from(robj: &Robj) -> Result<Self> {
+    fn try_from(robj: &RObj) -> Result<Self> {
         let f64_val: Result<f64> = robj.try_into();
         match f64_val {
             Ok(val) => Ok(RFloat::from(val)),

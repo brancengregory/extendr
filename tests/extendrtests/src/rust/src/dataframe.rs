@@ -23,7 +23,7 @@ fn test_derive_into_dataframe() -> DataFrame<MyStruct> {
 }
 
 #[extendr]
-fn test_into_robj_dataframe() -> Robj {
+fn test_into_robj_dataframe() -> RObj {
     let v = vec![
         MyStruct {
             x: 0.into(),
@@ -54,7 +54,7 @@ fn test_into_robj_dataframe() -> Robj {
 //     v: Val,
 // }
 // #[extendr]
-// fn test_use_externalptr() -> Robj {
+// fn test_use_externalptr() -> RObj {
 //     vec![Row { v: Val::new() }]
 //         .into_dataframe()
 //         .unwrap()
@@ -66,7 +66,7 @@ fn test_into_robj_dataframe() -> Robj {
 // is not solved we would need an iterator for DataFrame<T> for it to
 // actually be useful
 // #[extendr]
-// fn dataframe_conversion_try_from(_data_frame: DataFrame<Row>) -> Robj {
+// fn dataframe_conversion_try_from(_data_frame: DataFrame<Row>) -> RObj {
 //     vec![Row { name: 42 }].into_dataframe().unwrap().into_robj()
 // }
 

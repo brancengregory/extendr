@@ -7,15 +7,15 @@ pub(crate) fn make_symbol(name: &str) -> SEXP {
     unsafe { extendr_ffi::Rf_install(name.as_ptr()) }
 }
 
-pub(crate) fn make_vector<T>(sexptype: SEXPTYPE, values: T) -> Robj
+pub(crate) fn make_vector<T>(sexptype: SEXPTYPE, values: T) -> RObj
 where
     T: IntoIterator,
     T::IntoIter: ExactSizeIterator,
-    T::Item: Into<Robj>,
+    T::Item: Into<RObj>,
 {
     single_threaded(|| unsafe {
         let values = values.into_iter();
-        let mut res = Robj::alloc_vector(sexptype, values.len());
+        let mut res = RObj::alloc_vector(sexptype, values.len());
         let sexp = res.get_mut();
         for (i, val) in values.enumerate() {
             SET_VECTOR_ELT(sexp, i as R_xlen_t, val.into().get());
@@ -26,26 +26,26 @@ where
 
 macro_rules! make_conversions {
     ($typename: ident, $errname: ident, $isfunc: ident, $errstr: expr) => {
-        impl From<$typename> for Robj {
+        impl From<$typename> for RObj {
             /// Make an robj from a wrapper.
             fn from(val: $typename) -> Self {
                 val.robj
             }
         }
 
-        // We can convert a reference to any wrapper to a Robj by cloning the robj pointer
-        impl From<&$typename> for Robj {
+        // We can convert a reference to any wrapper to a RObj by cloning the robj pointer
+        impl From<&$typename> for RObj {
             /// Make an robj from a wrapper.
             fn from(val: &$typename) -> Self {
                 val.robj.to_owned()
             }
         }
 
-        impl TryFrom<&Robj> for $typename {
+        impl TryFrom<&RObj> for $typename {
             type Error = crate::Error;
 
             /// Make a wrapper from a robj if it matches.
-            fn try_from(robj: &Robj) -> Result<Self> {
+            fn try_from(robj: &RObj) -> Result<Self> {
                 if robj.$isfunc() {
                     Ok($typename { robj: robj.clone() })
                 } else {
@@ -54,11 +54,11 @@ macro_rules! make_conversions {
             }
         }
 
-        impl TryFrom<Robj> for $typename {
+        impl TryFrom<RObj> for $typename {
             type Error = crate::Error;
 
             /// Make a wrapper from a robj if it matches.
-            fn try_from(robj: Robj) -> Result<Self> {
+            fn try_from(robj: RObj) -> Result<Self> {
                 <$typename>::try_from(&robj)
             }
         }
@@ -78,11 +78,11 @@ macro_rules! make_getsexp {
                 self.robj.get_mut()
             }
 
-            fn as_robj(&self) -> &Robj {
+            fn as_robj(&self) -> &RObj {
                 &self.robj
             }
 
-            fn as_robj_mut(&mut self) -> &mut Robj {
+            fn as_robj_mut(&mut self) -> &mut RObj {
                 &mut self.robj
             }
         }
@@ -305,18 +305,18 @@ pub trait Conversions: GetSexp {
     }
 }
 
-impl Conversions for Robj {}
+impl Conversions for RObj {}
 
 pub trait SymPair {
-    fn sym_pair(self) -> (Option<Robj>, Robj);
+    fn sym_pair(self) -> (Option<RObj>, RObj);
 }
 
 impl<S, R> SymPair for (S, R)
 where
     S: AsRef<str>,
-    R: Into<Robj>,
+    R: Into<RObj>,
 {
-    fn sym_pair(self) -> (Option<Robj>, Robj) {
+    fn sym_pair(self) -> (Option<RObj>, RObj) {
         let val = self.0.as_ref();
         // "" represents the absense of the name
         let nm = if val.is_empty() {
@@ -331,10 +331,10 @@ where
 impl<S, R> SymPair for &(S, R)
 where
     S: AsRef<str>,
-    R: Into<Robj>,
+    R: Into<RObj>,
     R: Clone,
 {
-    fn sym_pair(self) -> (Option<Robj>, Robj) {
+    fn sym_pair(self) -> (Option<RObj>, RObj) {
         use crate as extendr_api;
         let val = self.0.as_ref();
         let nm = if val.is_empty() {

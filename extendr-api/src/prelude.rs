@@ -42,8 +42,8 @@ pub use super::wrapper::AltListImpl;
 
 pub use super::iter::StrIter;
 pub use super::robj::{
-    AsStrIter, Attributes, Eval, GetSexp, IntoRobj, Length, Operators, RInternals, Robj,
-    RobjItertools, Slices, Types,
+    AsStrIter, Attributes, Eval, GetSexp, IntoRObj, Length, Operators, RInternals, RObj,
+    RObjIterTools, Slices, Types,
 };
 pub use super::scalar::*;
 pub use super::thread_safety::{catch_r_error, single_threaded, throw_r_error};

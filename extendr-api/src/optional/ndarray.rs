@@ -9,7 +9,7 @@ extendr-api = { version = "0.8.0", features = ["ndarray"] }
 
 Specifically, extendr supports the following conversions:
 
-* [`Robj` → `ArrayView1`], for when you have an R vector that you want to analyse in Rust:
+* [`RObj` → `ArrayView1`], for when you have an R vector that you want to analyse in Rust:
 
     ```rust,dont_run
     use extendr_api::prelude::*;
@@ -20,7 +20,7 @@ Specifically, extendr supports the following conversions:
         println!("This R vector has length {:?}", vector.len())
     }
     ```
-* [`Robj` → `ArrayView2`], for when you have an R matrix that you want to analyse in Rust.
+* [`RObj` → `ArrayView2`], for when you have an R matrix that you want to analyse in Rust.
 
     ```rust,dont_run
     use extendr_api::prelude::*;
@@ -31,14 +31,14 @@ Specifically, extendr supports the following conversions:
         println!("This R matrix has shape {:?}", matrix.dim())
     }
     ```
-* [`ArrayBase` → `Robj`], for when you want to return a reference to an [`ndarray`] Array from Rust back to R.
+* [`ArrayBase` → `RObj`], for when you want to return a reference to an [`ndarray`] Array from Rust back to R.
 
     ```rust,dont_run
     use extendr_api::prelude::*;
     use ndarray::Array2;
 
     #[extendr]
-    fn return_matrix() -> Robj {
+    fn return_matrix() -> RObj {
         Array2::<f64>::zeros((4, 4)).try_into().unwrap()
     }
     ```
@@ -55,7 +55,7 @@ use extendr_api::prelude::*;
 use ndarray::ArrayView2;
 
 #[extendr]
-fn scalar_multiplication(matrix: ArrayView2<f64>, scalar: f64) -> Robj {
+fn scalar_multiplication(matrix: ArrayView2<f64>, scalar: f64) -> RObj {
     (&matrix * scalar).try_into().unwrap()
 }
 ```
@@ -70,10 +70,10 @@ use crate::*;
 
 macro_rules! make_array_view_1 {
     ($type: ty, $error_fn: expr) => {
-        impl<'a> TryFrom<&'_ Robj> for ArrayView1<'a, $type> {
+        impl<'a> TryFrom<&'_ RObj> for ArrayView1<'a, $type> {
             type Error = crate::Error;
 
-            fn try_from(robj: &Robj) -> Result<Self> {
+            fn try_from(robj: &RObj) -> Result<Self> {
                 if let Some(v) = robj.as_typed_slice() {
                     Ok(ArrayView1::<'a, $type>::from(v))
                 } else {
@@ -82,10 +82,10 @@ macro_rules! make_array_view_1 {
             }
         }
 
-        impl<'a> TryFrom<Robj> for ArrayView1<'a, $type> {
+        impl<'a> TryFrom<RObj> for ArrayView1<'a, $type> {
             type Error = crate::Error;
 
-            fn try_from(robj: Robj) -> Result<Self> {
+            fn try_from(robj: RObj) -> Result<Self> {
                 Self::try_from(&robj)
             }
         }
@@ -94,9 +94,9 @@ macro_rules! make_array_view_1 {
 
 macro_rules! make_array_view_2 {
     ($type: ty, $error_str: expr, $error_fn: expr) => {
-        impl<'a> TryFrom<&'_ Robj> for ArrayView2<'a, $type> {
+        impl<'a> TryFrom<&'_ RObj> for ArrayView2<'a, $type> {
             type Error = crate::Error;
-            fn try_from(robj: &Robj) -> Result<Self> {
+            fn try_from(robj: &RObj) -> Result<Self> {
                 if robj.is_matrix() {
                     let nrows = robj.nrows();
                     let ncols = robj.ncols();
@@ -113,9 +113,9 @@ macro_rules! make_array_view_2 {
             }
         }
 
-        impl<'a> TryFrom<Robj> for ArrayView2<'a, $type> {
+        impl<'a> TryFrom<RObj> for ArrayView2<'a, $type> {
             type Error = crate::Error;
-            fn try_from(robj: Robj) -> Result<Self> {
+            fn try_from(robj: RObj) -> Result<Self> {
                 Self::try_from(&robj)
             }
         }
@@ -143,7 +143,7 @@ make_array_view_2!(
 make_array_view_2!(c64, "Not a complex number matrix.", Error::ExpectedComplex);
 make_array_view_2!(RStr, "Not a string matrix.", Error::ExpectedString);
 
-impl<A, S, D> TryFrom<&ArrayBase<S, D>> for Robj
+impl<A, S, D> TryFrom<&ArrayBase<S, D>> for RObj
 where
     S: Data<Elem = A>,
     A: Copy + ToVectorValue,
@@ -183,7 +183,7 @@ where
     }
 }
 
-impl<A, S, D> TryFrom<ArrayBase<S, D>> for Robj
+impl<A, S, D> TryFrom<ArrayBase<S, D>> for RObj
 where
     S: Data<Elem = A>,
     A: Copy + ToVectorValue,
@@ -194,7 +194,7 @@ where
     /// Converts an ndarray Array into an equivalent R array.
     /// The data itself is copied.
     fn try_from(value: ArrayBase<S, D>) -> Result<Self> {
-        Robj::try_from(&value)
+        RObj::try_from(&value)
     }
 }
 
@@ -244,7 +244,7 @@ mod test {
         DataType: Data,
         Error: std::fmt::Debug,
         for<'a> ArrayView<'a, <DataType as ndarray::RawData>::Elem, DimType>:
-            TryFrom<&'a Robj, Error = Error>,
+            TryFrom<&'a RObj, Error = Error>,
         DimType: Dimension,
         <DataType as ndarray::RawData>::Elem: PartialEq + std::fmt::Debug,
         Error: std::fmt::Debug,
@@ -295,22 +295,22 @@ mod test {
         #[case] array: Array<ElementType, DimType>,
         #[case] r_expr: &str,
     ) where
-        Robj: TryFrom<Array<ElementType, DimType>>,
-        for<'a> Robj: TryFrom<&'a Array<ElementType, DimType>>,
-        <robj::Robj as TryFrom<Array<ElementType, DimType>>>::Error: std::fmt::Debug,
-        for<'a> <robj::Robj as TryFrom<&'a Array<ElementType, DimType>>>::Error: std::fmt::Debug,
+        RObj: TryFrom<Array<ElementType, DimType>>,
+        for<'a> RObj: TryFrom<&'a Array<ElementType, DimType>>,
+        <robj::RObj as TryFrom<Array<ElementType, DimType>>>::Error: std::fmt::Debug,
+        for<'a> <robj::RObj as TryFrom<&'a Array<ElementType, DimType>>>::Error: std::fmt::Debug,
     {
         // Tests for the Rust → R conversion, so we therefore perform the
         // comparison in R
         test! {
             // Test for borrowed array
             assert_eq!(
-                &(Robj::try_from(&array).unwrap()),
+                &(RObj::try_from(&array).unwrap()),
                 &eval_string(r_expr).unwrap()
             );
             // Test for owned array
             assert_eq!(
-                &(Robj::try_from(array).unwrap()),
+                &(RObj::try_from(array).unwrap()),
                 &eval_string(r_expr).unwrap()
             );
         }
@@ -326,7 +326,7 @@ mod test {
             for rval in rvals {
                 let rval = rval.unwrap();
                 let rust_arr= <ArrayView2<i32>>::try_from(&rval).unwrap();
-                let r_arr: Robj = (&rust_arr).try_into().unwrap();
+                let r_arr: RObj = (&rust_arr).try_into().unwrap();
                 assert_eq!(
                     rval,
                     r_arr

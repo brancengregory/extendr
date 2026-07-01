@@ -6,7 +6,7 @@ use super::*;
 ///
 #[derive(PartialEq, Clone)]
 pub struct Primitive {
-    pub(crate) robj: Robj,
+    pub(crate) robj: RObj,
 }
 
 impl Primitive {
@@ -25,7 +25,7 @@ impl Primitive {
         single_threaded(|| unsafe {
             // Primitives have a special "SYMVALUE" entry in their symbol.
             let sym = Symbol::from_string(val);
-            let symvalue = Robj::from_sexp(extendr_ffi::SYMVALUE(sym.get()));
+            let symvalue = RObj::from_sexp(extendr_ffi::SYMVALUE(sym.get()));
             if symvalue.is_primitive() {
                 Ok(Primitive { robj: symvalue })
             } else {

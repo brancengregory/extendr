@@ -19,7 +19,7 @@ use std::iter::FromIterator;
 /// ```
 #[derive(PartialEq, Clone)]
 pub struct Logicals {
-    pub(crate) robj: Robj,
+    pub(crate) robj: RObj,
 }
 
 use SEXPTYPE::LGLSXP;
@@ -100,10 +100,10 @@ impl TryFrom<Vec<bool>> for Logicals {
     }
 }
 
-impl TryFrom<Robj> for Vec<bool> {
+impl TryFrom<RObj> for Vec<bool> {
     type Error = Error;
 
-    fn try_from(value: Robj) -> std::result::Result<Self, Self::Error> {
+    fn try_from(value: RObj) -> std::result::Result<Self, Self::Error> {
         let bools = Logicals::try_from(&value)?;
         let mut res_vec = Vec::with_capacity(bools.len());
         for logi in bools.iter() {

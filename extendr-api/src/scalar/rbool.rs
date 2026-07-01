@@ -120,12 +120,12 @@ impl std::fmt::Debug for RBool {
     }
 }
 
-impl TryFrom<&Robj> for RBool {
+impl TryFrom<&RObj> for RBool {
     type Error = Error;
 
     /// Convert an `LGLSXP` object into a `RBool` (tri-state boolean).
     /// Use `value.is_na()` to detect NA values.
-    fn try_from(robj: &Robj) -> Result<Self> {
+    fn try_from(robj: &RObj) -> Result<Self> {
         if let Some(v) = robj.as_logical_slice() {
             match v.len() {
                 0 => Err(Error::ExpectedNonZeroLength(robj.clone())),

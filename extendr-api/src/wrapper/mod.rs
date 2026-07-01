@@ -1,5 +1,5 @@
 //! Wrappers are lightweight proxies for references to R datatypes.
-//! They do not contain an Robj (see array.rs for an example of this).
+//! They do not contain an RObj (see array.rs for an example of this).
 
 use crate::robj::{GetSexp, RInternals};
 use crate::*;

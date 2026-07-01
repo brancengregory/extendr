@@ -3,7 +3,7 @@ use crate::wrapper::*;
 use crate::robj::Attributes;
 use crate::robj::RAny;
 use crate::robj::RInternals;
-use crate::robj::Robj;
+use crate::robj::RObj;
 use crate::robj::Types;
 
 impl std::fmt::Debug for Symbol {
@@ -21,7 +21,7 @@ impl std::fmt::Debug for Symbol {
 }
 
 /// Implement {:?} formatting.
-impl std::fmt::Debug for Robj {
+impl std::fmt::Debug for RObj {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self.as_any() {
             RAny::Null(_) => write!(f, "()"),

@@ -3,8 +3,8 @@
 //! This library aims to provide an interface that will be familiar to
 //! first-time users of Rust or indeed any compiled language.
 //!
-//! See [`Robj`] for much of the content of this crate.
-//! [`Robj`] provides a safe wrapper for the R object type.
+//! See [`RObj`] for much of the content of this crate.
+//! [`RObj`] provides a safe wrapper for the R object type.
 //!
 //! ## Examples
 //!
@@ -31,7 +31,7 @@
 //! result <- fred(1)
 //! ```
 //!
-//! [`Robj`] is a wrapper for R objects.
+//! [`RObj`] is a wrapper for R objects.
 //! The [`r!`] and `R!` macros let you build R objects
 //! using Rust and R syntax respectively.
 //! ```
@@ -324,7 +324,7 @@ pub mod scalar;
 pub mod thread_safety;
 pub mod wrapper;
 
-pub use robj::Robj;
+pub use robj::RObj;
 pub use std::convert::{TryFrom, TryInto};
 pub use std::ops::Deref;
 pub use std::ops::DerefMut;
@@ -467,7 +467,7 @@ pub unsafe fn register_call_methods(info: *mut extendr_ffi::DllInfo, metadata: M
     extendr_ffi::R_forceSymbols(info, extendr_ffi::Rboolean::FALSE);
 }
 
-/// Type of R objects used by [Robj::rtype].
+/// Type of R objects used by [RObj::rtype].
 #[derive(Debug, PartialEq)]
 pub enum RType {
     Null,        // NILSXP
@@ -501,11 +501,11 @@ pub enum RType {
 pub type Rtype = RType;
 
 /// Enum use to unpack R objects into their specialist wrappers.
-// Todo: convert all Robj types to wrappers.
+// Todo: convert all RObj types to wrappers.
 // Note: this only works if the wrappers are all just SEXPs.
 #[derive(Debug, PartialEq)]
 pub enum RAny<'a> {
-    Null(&'a Robj),               // NILSXP
+    Null(&'a RObj),               // NILSXP
     Symbol(&'a Symbol),           // SYMSXP
     PairList(&'a PairList),       // LISTSXP
     Function(&'a Function),       // CLOSXP
@@ -520,16 +520,16 @@ pub enum RAny<'a> {
     Doubles(&'a Doubles),         // REALSXP
     Complexes(&'a Complexes),     // CPLXSXP
     Strings(&'a Strings),         // STRSXP
-    Dot(&'a Robj),                // DOTSXP
-    Any(&'a Robj),                // ANYSXP
+    Dot(&'a RObj),                // DOTSXP
+    Any(&'a RObj),                // ANYSXP
     List(&'a List),               // VECSXP
     Expressions(&'a Expressions), // EXPRSXP
-    Bytecode(&'a Robj),           // BCODESXP
-    ExternalPtr(&'a Robj),        // EXTPTRSXP
-    WeakRef(&'a Robj),            // WEAKREFSXP
+    Bytecode(&'a RObj),           // BCODESXP
+    ExternalPtr(&'a RObj),        // EXTPTRSXP
+    WeakRef(&'a RObj),            // WEAKREFSXP
     Raw(&'a Raw),                 // RAWSXP
     S4(&'a S4),                   // S4SXP
-    Unknown(&'a Robj),
+    Unknown(&'a RObj),
 }
 
 #[deprecated(note = "Use RAny instead", since = "0.9.0")]
@@ -663,8 +663,8 @@ mod tests {
     }
 
     #[extendr]
-    pub fn robjtype(a: Robj) {
-        assert_eq!(a, Robj::from(1))
+    pub fn robjtype(a: RObj) {
+        assert_eq!(a, RObj::from(1))
     }
 
     #[extendr]
@@ -806,47 +806,47 @@ mod tests {
             // Call the exported functions through their generated C wrappers.
             unsafe {
                 wrap__inttypes(
-                    Robj::from(1).get(),
-                    Robj::from(2).get(),
-                    Robj::from(3).get(),
-                    Robj::from(4).get(),
-                    Robj::from(5).get(),
-                    Robj::from(6).get(),
-                    Robj::from(7).get(),
-                    Robj::from(8).get(),
+                    RObj::from(1).get(),
+                    RObj::from(2).get(),
+                    RObj::from(3).get(),
+                    RObj::from(4).get(),
+                    RObj::from(5).get(),
+                    RObj::from(6).get(),
+                    RObj::from(7).get(),
+                    RObj::from(8).get(),
                 );
                 wrap__inttypes(
-                    Robj::from(1.).get(),
-                    Robj::from(2.).get(),
-                    Robj::from(3.).get(),
-                    Robj::from(4.).get(),
-                    Robj::from(5.).get(),
-                    Robj::from(6.).get(),
-                    Robj::from(7.).get(),
-                    Robj::from(8.).get(),
+                    RObj::from(1.).get(),
+                    RObj::from(2.).get(),
+                    RObj::from(3.).get(),
+                    RObj::from(4.).get(),
+                    RObj::from(5.).get(),
+                    RObj::from(6.).get(),
+                    RObj::from(7.).get(),
+                    RObj::from(8.).get(),
                 );
-                wrap__floattypes(Robj::from(1.).get(), Robj::from(2.).get());
-                wrap__floattypes(Robj::from(1).get(), Robj::from(2).get());
-                wrap__strtypes(Robj::from("abc").get(), Robj::from("def").get());
+                wrap__floattypes(RObj::from(1.).get(), RObj::from(2.).get());
+                wrap__floattypes(RObj::from(1).get(), RObj::from(2).get());
+                wrap__strtypes(RObj::from("abc").get(), RObj::from("def").get());
                 wrap__vectortypes(
-                    Robj::from(&[1, 2, 3] as &[i32]).get(),
-                    Robj::from(&[4., 5., 6.] as &[f64]).get(),
+                    RObj::from(&[1, 2, 3] as &[i32]).get(),
+                    RObj::from(&[4., 5., 6.] as &[f64]).get(),
                 );
-                wrap__robjtype(Robj::from(1).get());
+                wrap__robjtype(RObj::from(1).get());
 
                 // General integer types.
-                assert_eq!(Robj::from_sexp(wrap__return_u8()), Robj::from(123_u8));
-                assert_eq!(Robj::from_sexp(wrap__return_u16()), Robj::from(123));
-                assert_eq!(Robj::from_sexp(wrap__return_u32()), Robj::from(123.));
-                assert_eq!(Robj::from_sexp(wrap__return_u64()), Robj::from(123.));
-                assert_eq!(Robj::from_sexp(wrap__return_i8()), Robj::from(123));
-                assert_eq!(Robj::from_sexp(wrap__return_i16()), Robj::from(123));
-                assert_eq!(Robj::from_sexp(wrap__return_i32()), Robj::from(123));
-                assert_eq!(Robj::from_sexp(wrap__return_i64()), Robj::from(123.));
+                assert_eq!(RObj::from_sexp(wrap__return_u8()), RObj::from(123_u8));
+                assert_eq!(RObj::from_sexp(wrap__return_u16()), RObj::from(123));
+                assert_eq!(RObj::from_sexp(wrap__return_u32()), RObj::from(123.));
+                assert_eq!(RObj::from_sexp(wrap__return_u64()), RObj::from(123.));
+                assert_eq!(RObj::from_sexp(wrap__return_i8()), RObj::from(123));
+                assert_eq!(RObj::from_sexp(wrap__return_i16()), RObj::from(123));
+                assert_eq!(RObj::from_sexp(wrap__return_i32()), RObj::from(123));
+                assert_eq!(RObj::from_sexp(wrap__return_i64()), RObj::from(123.));
 
                 // Floating point types.
-                assert_eq!(Robj::from_sexp(wrap__return_f32()), Robj::from(123.));
-                assert_eq!(Robj::from_sexp(wrap__return_f64()), Robj::from(123.));
+                assert_eq!(RObj::from_sexp(wrap__return_f32()), RObj::from(123.));
+                assert_eq!(RObj::from_sexp(wrap__return_f64()), RObj::from(123.));
             }
         }
     }
@@ -871,51 +871,51 @@ mod tests {
                 // pub fn f64_slice(x: &[f64]) -> &[f64] { x }
 
                 let robj = r!([1., 2., 3.]);
-                assert_eq!(Robj::from_sexp(wrap__f64_slice(robj.get())), robj);
+                assert_eq!(RObj::from_sexp(wrap__f64_slice(robj.get())), robj);
 
                 // #[extendr]
                 // pub fn i32_slice(x: &[i32]) -> &[i32] { x }
 
                 let robj = r!([1, 2, 3]);
-                assert_eq!(Robj::from_sexp(wrap__i32_slice(robj.get())), robj);
+                assert_eq!(RObj::from_sexp(wrap__i32_slice(robj.get())), robj);
 
                 // #[extendr]
                 // pub fn bool_slice(x: &[RBool]) -> &[RBool] { x }
 
                 let robj = r!([TRUE, FALSE, TRUE]);
-                assert_eq!(Robj::from_sexp(wrap__bool_slice(robj.get())), robj);
+                assert_eq!(RObj::from_sexp(wrap__bool_slice(robj.get())), robj);
 
                 // #[extendr]
                 // pub fn f64_iter(x: Doubles) -> Doubles { x }
 
                 let robj = r!([1., 2., 3.]);
-                assert_eq!(Robj::from_sexp(wrap__f64_iter(robj.get())), robj);
+                assert_eq!(RObj::from_sexp(wrap__f64_iter(robj.get())), robj);
 
                 // #[extendr]
                 // pub fn i32_iter(x: Integers) -> Integers { x }
 
                 let robj = r!([1, 2, 3]);
-                assert_eq!(Robj::from_sexp(wrap__i32_iter(robj.get())), robj);
+                assert_eq!(RObj::from_sexp(wrap__i32_iter(robj.get())), robj);
 
                 // #[extendr]
                 // pub fn bool_iter(x: Logicals) -> Logicals { x }
 
                 // TODO: reinstate this test.
                 // let robj = r!([TRUE, FALSE, TRUE]);
-                // assert_eq!(Robj::from_sexp(wrap__bool_iter(robj.get())), robj);
+                // assert_eq!(RObj::from_sexp(wrap__bool_iter(robj.get())), robj);
 
                 // #[extendr]
                 // pub fn symbol(x: Symbol) -> Symbol { x }
 
                 let robj = sym!(fred);
-                assert_eq!(Robj::from_sexp(wrap__symbol(robj.get())), robj);
+                assert_eq!(RObj::from_sexp(wrap__symbol(robj.get())), robj);
 
                 // #[extendr]
                 // pub fn matrix(x: Matrix<&[f64]>) -> Matrix<&[f64]> { x }
 
                 let m = RMatrix::new_matrix(1, 2, |r, c| if r == c {1.0} else {0.});
                 let robj = r!(m);
-                assert_eq!(Robj::from_sexp(wrap__matrix(robj.get())), robj);
+                assert_eq!(RObj::from_sexp(wrap__matrix(robj.get())), robj);
             }
         }
     }
@@ -965,7 +965,7 @@ mod tests {
             assert_eq!(metadata.impls[0].methods.len(), 3);
 
             // R interface
-            let robj = unsafe { Robj::from_sexp(wrap__get_my_module_metadata()) };
+            let robj = unsafe { RObj::from_sexp(wrap__get_my_module_metadata()) };
             let functions = robj.dollar("functions").unwrap();
             let impls = robj.dollar("impls").unwrap();
             assert_eq!(functions.len(), 3);

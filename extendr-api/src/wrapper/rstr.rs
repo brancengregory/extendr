@@ -14,7 +14,7 @@ use extendr_ffi::{R_BlankString, R_NaString, R_NilValue, Rf_xlength, R_CHAR, SEX
 ///
 #[derive(Clone)]
 pub struct RStr {
-    pub(crate) robj: Robj,
+    pub(crate) robj: RObj,
 }
 
 /// Returns a rust string-slice based on the provided `SEXP`, which is of type
@@ -54,7 +54,7 @@ impl RStr {
     #[deprecated(since = "0.8.1", note = "Use `RStr::from()` or `.into()` instead")]
     pub fn from_string(val: &str) -> Self {
         RStr {
-            robj: unsafe { Robj::from_sexp(str_to_character(val)) },
+            robj: unsafe { RObj::from_sexp(str_to_character(val)) },
         }
     }
 
@@ -101,7 +101,7 @@ impl From<&str> for RStr {
     /// Convert a string slice to a RStr.
     fn from(s: &str) -> Self {
         RStr {
-            robj: unsafe { Robj::from_sexp(str_to_character(s)) },
+            robj: unsafe { RObj::from_sexp(str_to_character(s)) },
         }
     }
 }
@@ -207,7 +207,7 @@ impl CanBeNA for RStr {
     fn na() -> Self {
         unsafe {
             Self {
-                robj: Robj::from_sexp(R_NaString),
+                robj: RObj::from_sexp(R_NaString),
             }
         }
     }

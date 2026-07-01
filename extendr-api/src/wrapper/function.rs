@@ -25,7 +25,7 @@ use extendr_ffi::{get_closure_body, get_closure_env, get_closure_formals, Rf_lco
 /// ```
 #[derive(PartialEq, Clone)]
 pub struct Function {
-    pub(crate) robj: Robj,
+    pub(crate) robj: RObj,
 }
 
 impl Function {
@@ -44,7 +44,7 @@ impl Function {
     pub fn from_parts(formals: PairList, body: Language, env: Environment) -> Result<Self> {
         single_threaded(|| unsafe {
             let sexp = extendr_ffi::Rf_allocSExp(SEXPTYPE::CLOSXP);
-            let robj = Robj::from_sexp(sexp);
+            let robj = RObj::from_sexp(sexp);
             extendr_ffi::SET_FORMALS(sexp, formals.get());
             extendr_ffi::SET_BODY(sexp, body.get());
             extendr_ffi::SET_CLOENV(sexp, env.get());
@@ -60,9 +60,9 @@ impl Function {
     ///     assert_eq!(function.call(pairlist!(a=1, b=2)).unwrap(), r!(3));
     /// }
     /// ```
-    pub fn call(&self, args: PairList) -> Result<Robj> {
+    pub fn call(&self, args: PairList) -> Result<RObj> {
         single_threaded(|| unsafe {
-            let call = Robj::from_sexp(Rf_lcons(self.get(), args.get()));
+            let call = RObj::from_sexp(Rf_lcons(self.get(), args.get()));
             call.eval()
         })
     }
@@ -73,7 +73,7 @@ impl Function {
             if self.rtype() == RType::Function {
                 let sexp = self.robj.get();
                 Some(
-                    Robj::from_sexp(get_closure_formals(sexp))
+                    RObj::from_sexp(get_closure_formals(sexp))
                         .try_into()
                         .unwrap(),
                 )
@@ -84,11 +84,11 @@ impl Function {
     }
 
     /// Get the body of the function or None if it is a primitive.
-    pub fn body(&self) -> Option<Robj> {
+    pub fn body(&self) -> Option<RObj> {
         unsafe {
             if self.rtype() == RType::Function {
                 let sexp = self.robj.get();
-                Some(Robj::from_sexp(get_closure_body(sexp)))
+                Some(RObj::from_sexp(get_closure_body(sexp)))
             } else {
                 None
             }
@@ -101,7 +101,7 @@ impl Function {
             if self.rtype() == RType::Function {
                 let sexp = self.robj.get();
                 Some(
-                    Robj::from_sexp(get_closure_env(sexp))
+                    RObj::from_sexp(get_closure_env(sexp))
                         .try_into()
                         .expect("Should be an environment"),
                 )

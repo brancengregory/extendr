@@ -15,7 +15,7 @@ use std::iter::FromIterator;
 /// ```
 #[derive(PartialEq, Clone)]
 pub struct Complexes {
-    pub(crate) robj: Robj,
+    pub(crate) robj: RObj,
 }
 
 macros::gen_vector_wrapper_impl!(

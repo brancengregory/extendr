@@ -58,12 +58,12 @@ struct Row {
 }
 
 #[extendr]
-fn dataframe_conversion(_data_frame: DataFrame<Row>) -> Robj {
+fn dataframe_conversion(_data_frame: DataFrame<Row>) -> RObj {
     vec![Row { name: 42 }].into_dataframe().unwrap().into_robj()
 }
 
 #[extendr]
-fn dataframe_conversion_try_from(_data_frame: DataFrame<Row>) -> Robj {
+fn dataframe_conversion_try_from(_data_frame: DataFrame<Row>) -> RObj {
     vec![Row { name: 42 }].into_dataframe().unwrap().into_robj()
 }
 

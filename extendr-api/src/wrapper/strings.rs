@@ -7,7 +7,7 @@ use std::iter::FromIterator;
 
 #[derive(PartialEq, Clone)]
 pub struct Strings {
-    pub(crate) robj: Robj,
+    pub(crate) robj: RObj,
 }
 
 impl Default for Strings {
@@ -27,7 +27,7 @@ impl Strings {
     /// }
     /// ```
     pub fn new(size: usize) -> Strings {
-        let robj = Robj::alloc_vector(SEXPTYPE::STRSXP, size);
+        let robj = RObj::alloc_vector(SEXPTYPE::STRSXP, size);
         Self { robj }
     }
 
@@ -54,7 +54,7 @@ impl Strings {
         single_threaded(|| unsafe {
             let values = values.into_iter();
             let maxlen = values.len();
-            let mut robj = Robj::alloc_vector(SEXPTYPE::STRSXP, maxlen);
+            let mut robj = RObj::alloc_vector(SEXPTYPE::STRSXP, maxlen);
             let sexp = robj.get_mut();
             for (i, v) in values.into_iter().take(maxlen).enumerate() {
                 let v = v.as_ref();
@@ -80,7 +80,7 @@ impl Strings {
             RStr::na()
         } else {
             unsafe {
-                Robj::from_sexp(STRING_ELT(self.get(), i as R_xlen_t))
+                RObj::from_sexp(STRING_ELT(self.get(), i as R_xlen_t))
                     .try_into()
                     .unwrap()
             }
@@ -158,7 +158,7 @@ impl std::fmt::Debug for Strings {
     }
 }
 
-impl From<Option<Strings>> for Robj {
+impl From<Option<Strings>> for RObj {
     fn from(value: Option<Strings>) -> Self {
         match value {
             Some(value_strings) => value_strings.into(),

@@ -76,7 +76,7 @@ fn test_list() {
         assert_eq!(v[0], "x");
         assert_eq!(v[1].is_na(), true);
         assert_eq!(v.contains(&&r!("x")), true);
-        assert_eq!(s.as_slice().iter().any(Robj::is_na), true);
+        assert_eq!(s.as_slice().iter().any(RObj::is_na), true);
     }
 }
 

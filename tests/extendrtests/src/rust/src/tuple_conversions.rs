@@ -11,9 +11,9 @@ pub struct Point {
     y: f64,
 }
 
-impl TryFrom<Robj> for Point {
+impl TryFrom<RObj> for Point {
     type Error = extendr_api::Error;
-    fn try_from(value: Robj) -> Result<Self> {
+    fn try_from(value: RObj) -> Result<Self> {
         let dbl_vec = Doubles::try_from(value)?;
         let x = dbl_vec[0].0;
         let y = dbl_vec[1].0;
@@ -21,9 +21,9 @@ impl TryFrom<Robj> for Point {
     }
 }
 
-impl TryFrom<&Robj> for Point {
+impl TryFrom<&RObj> for Point {
     type Error = extendr_api::Error;
-    fn try_from(value: &Robj) -> Result<Self> {
+    fn try_from(value: &RObj) -> Result<Self> {
         value.clone().try_into()
     }
 }

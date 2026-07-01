@@ -17,7 +17,7 @@ fn test_serialize_struct() {
         };
 
         let expected = list!(int=1, seq=list!("a", "b"));
-        assert_eq!(to_robj(&test).unwrap(), Robj::from(expected));
+        assert_eq!(to_robj(&test).unwrap(), RObj::from(expected));
     }
 }
 
@@ -54,7 +54,7 @@ fn test_serialize_enum() {
 fn test_serialize_robj() {
     test! {
         #[derive(Serialize)]
-        struct Null(Robj);
+        struct Null(RObj);
         let s = Null(r!(NULL));
         let expected = r!(NULL);
         assert_eq!(to_robj(&s).unwrap(), expected);
@@ -69,7 +69,7 @@ fn test_serialize_robj() {
         struct Plist(PairList);
         let s = Plist(pairlist!(a=1, b=2));
         let expected = list!(a=1, b=2);
-        assert_eq!(to_robj(&s).unwrap(), Robj::from(expected));
+        assert_eq!(to_robj(&s).unwrap(), RObj::from(expected));
 
         #[derive(Serialize)]
         struct RStr1(RStr);
@@ -101,13 +101,13 @@ fn test_serialize_robj() {
         // struct List1(List);
         // let s = List1(list!(a=1, b=2));
         // let expected = r!(list!(a=1, b=2));
-        // assert_eq!(to_robj(&s).unwrap(), Robj::from(expected));
+        // assert_eq!(to_robj(&s).unwrap(), RObj::from(expected));
 
         // #[derive(Serialize)]
         // struct List2(List);
         // let s = List2(list!(1, 2));
         // let expected = r!(list!(1, 2));
-        // assert_eq!(to_robj(&s).unwrap(), Robj::from(expected));
+        // assert_eq!(to_robj(&s).unwrap(), RObj::from(expected));
 
         #[derive(Serialize)]
         struct Raw1(Raw);

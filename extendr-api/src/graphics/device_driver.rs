@@ -193,7 +193,7 @@ pub trait DeviceDriver: std::marker::Sized {
     /// A callback function that captures and returns the current canvas.
     ///
     /// This is only meaningful for raster devices.
-    fn capture(&mut self, dd: DevDesc) -> Robj {
+    fn capture(&mut self, dd: DevDesc) -> RObj {
         ().into()
     }
 

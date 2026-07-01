@@ -6,9 +6,9 @@ use std::collections::{HashMap, HashSet};
 
 ////////////////////////////////////////////////////////////////////////////////
 ///
-/// Deserialize from a Robj.
+/// Deserialize from a RObj.
 ///
-/// Like JSON, we can use a Robj as a storage format.
+/// Like JSON, we can use a RObj as a storage format.
 ///
 /// For example if creating vectors from a RDS file or returning a structure
 /// or just doing a conversion.
@@ -127,20 +127,20 @@ fn test_deserialize_robj() {
         let expected = Enum::Struct { a: 1 };
         assert_eq!(expected, from_robj(&j).unwrap());
 
-        // Many things will generate a Robj.
-        // But note that the original Robj will not be copied verbatim.
-        // The Deserialize trait for Robj can also be used to generate
-        // JSON and other formats for Robj.
+        // Many things will generate a RObj.
+        // But note that the original RObj will not be copied verbatim.
+        // The Deserialize trait for RObj can also be used to generate
+        // JSON and other formats for RObj.
         #[derive(Deserialize, PartialEq, Debug)]
-        struct MyRobj(Robj);
-        assert_eq!(from_robj::<MyRobj>(&r!(TRUE)), Ok(MyRobj(r!(TRUE))));
-        assert_eq!(from_robj::<MyRobj>(&r!(1)), Ok(MyRobj(r!(1))));
-        assert_eq!(from_robj::<MyRobj>(&r!(1.0)), Ok(MyRobj(r!(1.0))));
-        assert_eq!(from_robj::<MyRobj>(&r!("xyz")), Ok(MyRobj(r!("xyz"))));
+        struct MyRObj(RObj);
+        assert_eq!(from_robj::<MyRObj>(&r!(TRUE)), Ok(MyRObj(r!(TRUE))));
+        assert_eq!(from_robj::<MyRObj>(&r!(1)), Ok(MyRObj(r!(1))));
+        assert_eq!(from_robj::<MyRObj>(&r!(1.0)), Ok(MyRObj(r!(1.0))));
+        assert_eq!(from_robj::<MyRObj>(&r!("xyz")), Ok(MyRObj(r!("xyz"))));
 
         // Sequences are always converted to lists.
-        assert_eq!(from_robj::<MyRobj>(&r!([TRUE, FALSE])), Ok(MyRobj(r!(list!(TRUE, FALSE)))));
-        assert_eq!(from_robj::<MyRobj>(&r!([1, 2])), Ok(MyRobj(r!(list!(1, 2)))));
+        assert_eq!(from_robj::<MyRObj>(&r!([TRUE, FALSE])), Ok(MyRObj(r!(list!(TRUE, FALSE)))));
+        assert_eq!(from_robj::<MyRObj>(&r!([1, 2])), Ok(MyRObj(r!(list!(1, 2)))));
 
         // If you use a wrapper type, conversions are more specific.
         #[derive(Deserialize, PartialEq, Debug)]

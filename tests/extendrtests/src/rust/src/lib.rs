@@ -176,13 +176,13 @@ fn logicals_not(input: Logicals) -> Logicals {
 
 // Deprecated default syntax
 //#[extendr]
-//fn check_default_deprecated(#[default = "NULL"] x: Robj) -> bool {
+//fn check_default_deprecated(#[default = "NULL"] x: RObj) -> bool {
 //    x.is_null()
 //}
 
 // New default syntax
 #[extendr]
-fn check_default(#[extendr(default = "NULL")] x: Robj) -> bool {
+fn check_default(#[extendr(default = "NULL")] x: RObj) -> bool {
     x.is_null()
 }
 
@@ -258,7 +258,7 @@ impl MyClass {
     }
 
     // https://github.com/extendr/extendr/issues/431
-    fn restore_from_robj(robj: Robj) -> Self {
+    fn restore_from_robj(robj: RObj) -> Self {
         let res: ExternalPtr<MyClass> = robj.try_into().unwrap();
         Self { a: res.a }
     }

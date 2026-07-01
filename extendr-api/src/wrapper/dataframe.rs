@@ -31,19 +31,19 @@ pub trait IntoDataFrameRow<T> {
 /// any type checking on the type.
 #[derive(PartialEq, Clone)]
 pub struct DataFrame<T> {
-    pub(crate) robj: Robj,
+    pub(crate) robj: RObj,
     _marker: std::marker::PhantomData<T>,
 }
 
-impl<T> From<DataFrame<T>> for Robj {
+impl<T> From<DataFrame<T>> for RObj {
     fn from(value: DataFrame<T>) -> Self {
         value.robj
     }
 }
 
-impl<T> std::convert::TryFrom<&Robj> for DataFrame<T> {
+impl<T> std::convert::TryFrom<&RObj> for DataFrame<T> {
     type Error = Error;
-    fn try_from(robj: &Robj) -> Result<Self> {
+    fn try_from(robj: &RObj) -> Result<Self> {
         // TODO: check type using derived trait.
         if !(robj.is_list() && robj.inherits("data.frame")) {
             return Err(Error::ExpectedDataFrame(robj.clone()));
@@ -55,9 +55,9 @@ impl<T> std::convert::TryFrom<&Robj> for DataFrame<T> {
     }
 }
 
-impl<T> std::convert::TryFrom<Robj> for DataFrame<T> {
+impl<T> std::convert::TryFrom<RObj> for DataFrame<T> {
     type Error = Error;
-    fn try_from(robj: Robj) -> Result<Self> {
+    fn try_from(robj: RObj) -> Result<Self> {
         (&robj).try_into()
     }
 }
@@ -93,7 +93,7 @@ where
     }
 }
 
-impl<T> From<Option<DataFrame<T>>> for Robj {
+impl<T> From<Option<DataFrame<T>>> for RObj {
     fn from(value: Option<DataFrame<T>>) -> Self {
         match value {
             None => nil_value(),

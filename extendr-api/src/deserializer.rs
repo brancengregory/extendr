@@ -2,7 +2,7 @@
 //!
 use crate::error::{Error, Result};
 use crate::na::CanBeNA;
-use crate::robj::{Attributes, Length, Robj, Types};
+use crate::robj::{Attributes, Length, RObj, Types};
 use crate::scalar::{RBool, RFloat, RInt};
 use crate::wrapper::{Doubles, Integers, List, Logicals, RStr, Strings};
 use crate::RAny;
@@ -14,7 +14,7 @@ use serde::forward_to_deserialize_any;
 use std::convert::TryFrom;
 
 /// Convert any R object to a Deserialize object.
-pub fn from_robj<'de, T>(robj: &'de Robj) -> Result<T>
+pub fn from_robj<'de, T>(robj: &'de RObj) -> Result<T>
 where
     T: Deserialize<'de>,
 {
@@ -34,7 +34,7 @@ impl serde::de::Error for Error {
 
 // Convert unnamed lists to sequences.
 struct ListGetter<'a> {
-    list: &'a [Robj],
+    list: &'a [RObj],
 }
 
 impl<'de> SeqAccess<'de> for ListGetter<'de> {
@@ -57,7 +57,7 @@ impl<'de> SeqAccess<'de> for ListGetter<'de> {
 // Convert named lists to maps.
 struct NamedListGetter<'a> {
     keys: &'a [RStr],
-    values: &'a [Robj],
+    values: &'a [RObj],
 }
 
 impl<'de> MapAccess<'de> for NamedListGetter<'de> {
@@ -187,7 +187,7 @@ impl<'de> Deserializer<'de> for &'de RStr {
 }
 
 // Get the variant name and content of an enum.
-impl<'de> EnumAccess<'de> for &'de Robj {
+impl<'de> EnumAccess<'de> for &'de RObj {
     type Error = Error;
     type Variant = Self;
 
@@ -217,7 +217,7 @@ impl<'de> EnumAccess<'de> for &'de Robj {
 }
 
 // Decode enum variants of various kinds.
-impl<'de> VariantAccess<'de> for &'de Robj {
+impl<'de> VariantAccess<'de> for &'de RObj {
     type Error = Error;
 
     fn unit_variant(self) -> Result<()> {
@@ -268,8 +268,8 @@ where
     }
 }
 
-// Given an Robj, generate a value of many kinds.
-impl<'de> Deserializer<'de> for &'de Robj {
+// Given an RObj, generate a value of many kinds.
+impl<'de> Deserializer<'de> for &'de RObj {
     type Error = Error;
 
     fn deserialize_any<V>(self, visitor: V) -> Result<V::Value>
@@ -708,13 +708,13 @@ impl<'de> Deserialize<'de> for RBool {
     }
 }
 
-struct RobjVisitor;
+struct RObjVisitor;
 
-impl<'de> Visitor<'de> for RobjVisitor {
-    type Value = Robj;
+impl<'de> Visitor<'de> for RObjVisitor {
+    type Value = RObj;
 
     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-        formatter.write_str("a value convertable to a Robj")
+        formatter.write_str("a value convertable to a RObj")
     }
 
     fn visit_bool<E>(self, value: bool) -> std::result::Result<Self::Value, E>
@@ -771,7 +771,7 @@ impl<'de> Visitor<'de> for RobjVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(Robj::from(()))
+        Ok(RObj::from(()))
     }
 
     fn visit_some<D>(self, deserializer: D) -> std::result::Result<Self::Value, D::Error>
@@ -787,7 +787,7 @@ impl<'de> Visitor<'de> for RobjVisitor {
     {
         // All sequences get converted to lists at the moment.
         // We could check the first element and then assume the rest are the sme.
-        let mut values: Vec<Robj> = Vec::with_capacity(seq.size_hint().unwrap_or(8));
+        let mut values: Vec<RObj> = Vec::with_capacity(seq.size_hint().unwrap_or(8));
         while let Some(value) = seq.next_element()? {
             values.push(value);
         }
@@ -799,7 +799,7 @@ impl<'de> Visitor<'de> for RobjVisitor {
         M: MapAccess<'de>,
     {
         let mut keys: Vec<&str> = Vec::with_capacity(access.size_hint().unwrap_or(8));
-        let mut values: Vec<Robj> = Vec::with_capacity(access.size_hint().unwrap_or(8));
+        let mut values: Vec<RObj> = Vec::with_capacity(access.size_hint().unwrap_or(8));
 
         while let Some((key, value)) = access.next_entry()? {
             keys.push(key);
@@ -814,7 +814,7 @@ impl<'de> Visitor<'de> for RobjVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(Robj::from(()))
+        Ok(RObj::from(()))
     }
 
     fn visit_newtype_struct<D>(self, deserializer: D) -> std::result::Result<Self::Value, D::Error>
@@ -835,12 +835,12 @@ impl<'de> Visitor<'de> for RobjVisitor {
     }
 }
 
-impl<'de> Deserialize<'de> for Robj {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Robj, D::Error>
+impl<'de> Deserialize<'de> for RObj {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<RObj, D::Error>
     where
         D: Deserializer<'de>,
     {
-        deserializer.deserialize_any(RobjVisitor)
+        deserializer.deserialize_any(RObjVisitor)
     }
 }
 

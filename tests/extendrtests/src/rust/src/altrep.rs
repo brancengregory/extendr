@@ -12,14 +12,14 @@ impl AltrepImpl for VecUsize {
 }
 
 #[cfg(use_r_altlist)]
-// we need to be able to return an Robj of this type so
+// we need to be able to return an RObj of this type so
 // we add an empty extendr macro above the impl
 #[extendr]
 impl VecUsize {}
 
 #[cfg(use_r_altlist)]
 impl AltListImpl for VecUsize {
-    fn elt(&self, index: usize) -> Robj {
+    fn elt(&self, index: usize) -> RObj {
         let v = vec![self.0[index]];
 
         Self(v).into_robj()
@@ -50,7 +50,7 @@ fn new_usize(robj: Integers) -> Altrep {
 
 #[cfg(not(use_r_altlist))]
 #[extendr]
-fn new_usize(_robj: Integers) -> Robj {
+fn new_usize(_robj: Integers) -> RObj {
     extendr_api::nil_value()
 }
 

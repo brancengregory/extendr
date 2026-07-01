@@ -152,10 +152,10 @@ gen_unop!(
     "Logical not a RInt value, overflows to NA."
 );
 
-impl TryFrom<&Robj> for RInt {
+impl TryFrom<&RObj> for RInt {
     type Error = Error;
 
-    fn try_from(robj: &Robj) -> Result<Self> {
+    fn try_from(robj: &RObj) -> Result<Self> {
         let i32_val: Result<i32> = robj.try_into();
         match i32_val {
             Ok(v) => Ok(RInt::from(v)),

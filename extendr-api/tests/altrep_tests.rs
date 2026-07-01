@@ -45,7 +45,7 @@ fn test_altinteger() {
         let mystate_w_missing = MyCompactIntRange { start: 0, len: 10, step: 1, missing_index: 5 };
 
         let obj_w_missing = Altrep::from_state_and_class(mystate_w_missing, class, false);
-        let robj_w_missing = Robj::from(obj_w_missing);
+        let robj_w_missing = RObj::from(obj_w_missing);
         let integers_w_missing: Integers = robj_w_missing.try_into()?;
         assert_eq!(integers_w_missing.elt(9), RInt::from(9));
         assert!(integers_w_missing.elt(5).is_na());
@@ -99,7 +99,7 @@ fn test_altreal() {
         let mystate_w_missing = MyCompactRealRange { start: 0.0, len: 10, step: 1.0, missing_index: 5 };
 
         let obj_w_missing = Altrep::from_state_and_class(mystate_w_missing, class, false);
-        let robj_w_missing = Robj::from(obj_w_missing);
+        let robj_w_missing = RObj::from(obj_w_missing);
         let doubles_w_missing: Doubles = robj_w_missing.try_into()?;
         assert_eq!(doubles_w_missing.elt(9), RFloat::from(9.0));
 
@@ -237,7 +237,7 @@ fn test_altstring() {
 
         assert!(obj.is_altstring());
         assert_eq!(obj.len(), 10);
-        assert_eq!(Robj::from(obj), r!(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]));
+        assert_eq!(RObj::from(obj), r!(["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]));
     }
 }
 
@@ -261,7 +261,7 @@ fn test_altlist() -> std::result::Result<(), Box<dyn Error>> {
         }
 
         impl AltListImpl for VecUsize {
-            fn elt(&self, index: usize) -> Robj {
+            fn elt(&self, index: usize) -> RObj {
                 let v = vec![self.0[index]];
                 Self(v).into_robj()
             }
