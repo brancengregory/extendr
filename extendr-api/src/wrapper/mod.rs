@@ -37,7 +37,10 @@ pub use altrep::{
     AltrepImpl,
 };
 pub use complexes::Complexes;
-pub use dataframe::{Dataframe, IntoDataFrameRow};
+pub use dataframe::{DataFrame, IntoDataFrameRow};
+
+#[deprecated(note = "Use DataFrame instead", since = "0.9.0")]
+pub use dataframe::Dataframe;
 pub use doubles::Doubles;
 pub use environment::{EnvIter, Environment};
 pub use expr::Expressions;

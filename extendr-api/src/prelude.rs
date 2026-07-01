@@ -49,7 +49,7 @@ pub use super::scalar::*;
 pub use super::thread_safety::{catch_r_error, single_threaded, throw_r_error};
 pub use super::wrapper::s4::S4;
 pub use super::wrapper::{
-    Complexes, Dataframe, Doubles, EnvIter, Environment, Expressions, ExternalPtr, FromList,
+    Complexes, DataFrame, Doubles, EnvIter, Environment, Expressions, ExternalPtr, FromList,
     Function, Integers, IntoDataFrameRow, Language, List, ListIter, Logicals, Nullable, PairList,
     Primitive, Promise, Raw, Rstr, Strings, Symbol,
 };

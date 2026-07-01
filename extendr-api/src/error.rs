@@ -73,7 +73,7 @@ pub enum Error {
     ExpectedMatrix5D(Robj),
     ExpectedNumeric(Robj),
     ExpectedAltrep(Robj),
-    ExpectedDataframe(Robj),
+    ExpectedDataFrame(Robj),
 
     OutOfRange(Robj),
     MustNotBeNA(Robj),
@@ -163,8 +163,8 @@ impl std::fmt::Display for Error {
             Error::ExpectedMatrix5D(robj) => write!(f, "Expected Matrix5D, got {:?}", robj.rtype()),
             Error::ExpectedNumeric(robj) => write!(f, "Expected Numeric, got {:?}", robj.rtype()),
             Error::ExpectedAltrep(robj) => write!(f, "Expected Altrep, got {:?}", robj.rtype()),
-            Error::ExpectedDataframe(robj) => {
-                write!(f, "Expected Dataframe, got {:?}", robj.rtype())
+            Error::ExpectedDataFrame(robj) => {
+                write!(f, "Expected DataFrame, got {:?}", robj.rtype())
             }
 
             Error::OutOfRange(_robj) => write!(f, "Out of range."),
