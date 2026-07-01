@@ -114,7 +114,7 @@ macro_rules! gen_unop {
 /// - `impl Add<RInt> for &RInt`
 /// - `impl Add<i32> for RInt`
 /// - `impl Add<RInt> for i32`
-// TODO: binary operators for pairs `(Rtype, Type)` and `(Type, Rtype)` using references?
+// TODO: binary operators for pairs `(RType, Type)` and `(Type, RType)` using references?
 macro_rules! gen_binop {
     ($type : tt, $type_prim : tt, $opname : ident, $expr: expr, $docstring: expr) => {
         // The 'example usage' expands to...

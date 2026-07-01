@@ -752,7 +752,7 @@ mod tests {
             // Verify the matrix can be converted to Robj
             let robj: Robj = matrix.into();
             assert_eq!(robj.is_matrix(), true);
-            assert_eq!(robj.rtype(), Rtype::Strings);
+            assert_eq!(robj.rtype(), RType::Strings);
         }
     }
 }

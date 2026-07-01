@@ -11,7 +11,7 @@ pub use super::functions::{
     srcref,
 };
 pub use super::{
-    print_r_error, print_r_output, CanBeNA, Rtype, FALSE, NA_INTEGER, NA_LOGICAL, NA_REAL,
+    print_r_error, print_r_output, CanBeNA, RType, FALSE, NA_INTEGER, NA_LOGICAL, NA_REAL,
     NA_STRING, NULL, TRUE,
 };
 

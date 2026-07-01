@@ -17,8 +17,8 @@ impl Primitive {
     /// test! {
     ///     let builtin = r!(Primitive::from_string("+")?);
     ///     let special = r!(Primitive::from_string("if")?);
-    ///     assert_eq!(builtin.rtype(), Rtype::Builtin);
-    ///     assert_eq!(special.rtype(), Rtype::Special);
+    ///     assert_eq!(builtin.rtype(), RType::Builtin);
+    ///     assert_eq!(special.rtype(), RType::Special);
     /// }
     /// ```
     pub fn from_string(val: &str) -> Result<Self> {

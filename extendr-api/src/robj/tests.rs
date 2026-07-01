@@ -313,6 +313,6 @@ fn input_iterator_test() {
 fn test_rstr_rtype() {
     test! {
     let robj = r!(RStr::from("hello"));
-    assert_eq!(RStr::try_from(robj).unwrap().rtype(), Rtype::RStr);
+    assert_eq!(RStr::try_from(robj).unwrap().rtype(), RType::RStr);
     }
 }

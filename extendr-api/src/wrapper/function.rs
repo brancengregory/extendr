@@ -70,7 +70,7 @@ impl Function {
     /// Get the formal arguments of the function or None if it is a primitive.
     pub fn formals(&self) -> Option<PairList> {
         unsafe {
-            if self.rtype() == Rtype::Function {
+            if self.rtype() == RType::Function {
                 let sexp = self.robj.get();
                 Some(
                     Robj::from_sexp(get_closure_formals(sexp))
@@ -86,7 +86,7 @@ impl Function {
     /// Get the body of the function or None if it is a primitive.
     pub fn body(&self) -> Option<Robj> {
         unsafe {
-            if self.rtype() == Rtype::Function {
+            if self.rtype() == RType::Function {
                 let sexp = self.robj.get();
                 Some(Robj::from_sexp(get_closure_body(sexp)))
             } else {
@@ -98,7 +98,7 @@ impl Function {
     /// Get the environment of the function or None if it is a primitive.
     pub fn environment(&self) -> Option<Environment> {
         unsafe {
-            if self.rtype() == Rtype::Function {
+            if self.rtype() == RType::Function {
                 let sexp = self.robj.get();
                 Some(
                     Robj::from_sexp(get_closure_env(sexp))

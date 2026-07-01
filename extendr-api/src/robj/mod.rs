@@ -244,53 +244,53 @@ pub trait Types: GetSexp {
     /// ```
     /// use extendr_api::prelude::*;
     /// test! {
-    ///     assert_eq!(r!(NULL).rtype(), Rtype::Null);
-    ///     assert_eq!(sym!(xyz).rtype(), Rtype::Symbol);
-    ///     assert_eq!(r!(PairList::from_pairs(vec![("a", r!(1))])).rtype(), Rtype::PairList);
-    ///     assert_eq!(R!("function() {}")?.rtype(), Rtype::Function);
-    ///     assert_eq!(Environment::new_with_parent(Environment::global()).rtype(), Rtype::Environment);
-    ///     assert_eq!(lang!("+", 1, 2).rtype(), Rtype::Language);
-    ///     assert_eq!(RStr::from_string("hello").rtype(), Rtype::RStr);
-    ///     assert_eq!(r!(TRUE).rtype(), Rtype::Logicals);
-    ///     assert_eq!(r!(1).rtype(), Rtype::Integers);
-    ///     assert_eq!(r!(1.0).rtype(), Rtype::Doubles);
-    ///     assert_eq!(r!("1").rtype(), Rtype::Strings);
-    ///     assert_eq!(r!(List::from_values(&[1, 2])).rtype(), Rtype::List);
-    ///     assert_eq!(Expressions::from_str("x + y")?.rtype(), Rtype::Expressions);
-    ///     assert_eq!(r!(Raw::from_bytes(&[1_u8, 2, 3])).rtype(), Rtype::Raw);
+    ///     assert_eq!(r!(NULL).rtype(), RType::Null);
+    ///     assert_eq!(sym!(xyz).rtype(), RType::Symbol);
+    ///     assert_eq!(r!(PairList::from_pairs(vec![("a", r!(1))])).rtype(), RType::PairList);
+    ///     assert_eq!(R!("function() {}")?.rtype(), RType::Function);
+    ///     assert_eq!(Environment::new_with_parent(Environment::global()).rtype(), RType::Environment);
+    ///     assert_eq!(lang!("+", 1, 2).rtype(), RType::Language);
+    ///     assert_eq!(RStr::from_string("hello").rtype(), RType::RStr);
+    ///     assert_eq!(r!(TRUE).rtype(), RType::Logicals);
+    ///     assert_eq!(r!(1).rtype(), RType::Integers);
+    ///     assert_eq!(r!(1.0).rtype(), RType::Doubles);
+    ///     assert_eq!(r!("1").rtype(), RType::Strings);
+    ///     assert_eq!(r!(List::from_values(&[1, 2])).rtype(), RType::List);
+    ///     assert_eq!(Expressions::from_str("x + y")?.rtype(), RType::Expressions);
+    ///     assert_eq!(r!(Raw::from_bytes(&[1_u8, 2, 3])).rtype(), RType::Raw);
     /// }
     /// ```
-    fn rtype(&self) -> Rtype {
+    fn rtype(&self) -> RType {
         use SEXPTYPE::*;
         match self.sexptype() {
-            NILSXP => Rtype::Null,
-            SYMSXP => Rtype::Symbol,
-            LISTSXP => Rtype::PairList,
-            CLOSXP => Rtype::Function,
-            ENVSXP => Rtype::Environment,
-            PROMSXP => Rtype::Promise,
-            LANGSXP => Rtype::Language,
-            SPECIALSXP => Rtype::Special,
-            BUILTINSXP => Rtype::Builtin,
-            CHARSXP => Rtype::RStr,
-            LGLSXP => Rtype::Logicals,
-            INTSXP => Rtype::Integers,
-            REALSXP => Rtype::Doubles,
-            CPLXSXP => Rtype::Complexes,
-            STRSXP => Rtype::Strings,
-            DOTSXP => Rtype::Dot,
-            ANYSXP => Rtype::Any,
-            VECSXP => Rtype::List,
-            EXPRSXP => Rtype::Expressions,
-            BCODESXP => Rtype::Bytecode,
-            EXTPTRSXP => Rtype::ExternalPtr,
-            WEAKREFSXP => Rtype::WeakRef,
-            RAWSXP => Rtype::Raw,
+            NILSXP => RType::Null,
+            SYMSXP => RType::Symbol,
+            LISTSXP => RType::PairList,
+            CLOSXP => RType::Function,
+            ENVSXP => RType::Environment,
+            PROMSXP => RType::Promise,
+            LANGSXP => RType::Language,
+            SPECIALSXP => RType::Special,
+            BUILTINSXP => RType::Builtin,
+            CHARSXP => RType::RStr,
+            LGLSXP => RType::Logicals,
+            INTSXP => RType::Integers,
+            REALSXP => RType::Doubles,
+            CPLXSXP => RType::Complexes,
+            STRSXP => RType::Strings,
+            DOTSXP => RType::Dot,
+            ANYSXP => RType::Any,
+            VECSXP => RType::List,
+            EXPRSXP => RType::Expressions,
+            BCODESXP => RType::Bytecode,
+            EXTPTRSXP => RType::ExternalPtr,
+            WEAKREFSXP => RType::WeakRef,
+            RAWSXP => RType::Raw,
             #[cfg(not(use_objsxp))]
-            S4SXP => Rtype::S4,
+            S4SXP => RType::S4,
             #[cfg(use_objsxp)]
-            OBJSXP => Rtype::S4,
-            _ => Rtype::Unknown,
+            OBJSXP => RType::S4,
+            _ => RType::Unknown,
         }
     }
 

@@ -72,7 +72,7 @@ pub trait Rinternals: Types + Conversions {
 
     /// Return true if this is an expression.
     fn is_external_pointer(&self) -> bool {
-        self.rtype() == Rtype::ExternalPtr
+        self.rtype() == RType::ExternalPtr
     }
 
     /// Get the source ref.
@@ -394,12 +394,12 @@ pub trait Rinternals: Types + Conversions {
 
     /// Return true if this is RAWSXP.
     fn is_raw(&self) -> bool {
-        self.rtype() == Rtype::Raw
+        self.rtype() == RType::Raw
     }
 
     /// Return true if this is CHARSXP.
     fn is_char(&self) -> bool {
-        self.rtype() == Rtype::RStr
+        self.rtype() == RType::RStr
     }
 
     /// Check an external pointer tag.
