@@ -1,4 +1,4 @@
-use super::scalar::Rbool;
+use super::scalar::RBool;
 use super::*;
 use extendr_ffi::{dataptr, R_xlen_t, LOGICAL_GET_REGION, SET_INTEGER_ELT, SEXPTYPE};
 use std::iter::FromIterator;
@@ -13,7 +13,7 @@ use std::iter::FromIterator;
 ///     let mut vec = (0..5).map(|i| (i % 2 == 0)).collect::<Logicals>();
 ///     // elt accesses a single element (altrep aware).
 ///     assert_eq!(vec.elt(0), true);
-///     // Logicals behaves like &[Rbool]
+///     // Logicals behaves like &[RBool]
 ///     assert_eq!(vec[1], false);
 /// }
 /// ```
@@ -25,7 +25,7 @@ pub struct Logicals {
 use SEXPTYPE::LGLSXP;
 macros::gen_vector_wrapper_impl!(
     vector_type: Logicals, // Implements for
-    scalar_type: Rbool,    // Element type
+    scalar_type: RBool,    // Element type
     primitive_type: i32,   // Raw element type
     r_prefix: LOGICAL,     // `R` functions prefix
     SEXP: LGLSXP,          // `SEXP`
@@ -36,14 +36,14 @@ macros::gen_vector_wrapper_impl!(
 macros::gen_from_iterator_impl!(
     vector_type: Logicals,
     collect_from_type: bool,
-    underlying_type: Rbool,
+    underlying_type: RBool,
     SEXP: LGLSXP,
-    assignment: |dest: &mut Rbool, val : bool| *dest = val.into()
+    assignment: |dest: &mut RBool, val : bool| *dest = val.into()
 );
 
 impl Logicals {
     /// Get a region of elements from the vector.
-    pub fn get_region(&self, index: usize, dest: &mut [Rbool]) -> usize {
+    pub fn get_region(&self, index: usize, dest: &mut [RBool]) -> usize {
         unsafe {
             let ptr: *mut i32 = dest.as_mut_ptr() as *mut i32;
             LOGICAL_GET_REGION(self.get(), index as R_xlen_t, dest.len() as R_xlen_t, ptr) as usize
@@ -53,7 +53,7 @@ impl Logicals {
 
 // TODO: this should be a trait.
 impl Logicals {
-    pub fn set_elt(&mut self, index: usize, val: Rbool) {
+    pub fn set_elt(&mut self, index: usize, val: RBool) {
         single_threaded(|| unsafe {
             SET_INTEGER_ELT(self.get_mut(), index as R_xlen_t, val.0);
         })
@@ -61,12 +61,12 @@ impl Logicals {
 }
 
 impl Deref for Logicals {
-    type Target = [Rbool];
+    type Target = [RBool];
 
     /// Treat Logicals as if it is a slice, like `Vec<RInt>`
     fn deref(&self) -> &Self::Target {
         unsafe {
-            let ptr = dataptr(self.get()) as *const Rbool;
+            let ptr = dataptr(self.get()) as *const RBool;
             std::slice::from_raw_parts(ptr, self.len())
         }
     }
@@ -76,7 +76,7 @@ impl DerefMut for Logicals {
     /// Treat Logicals as if it is a mutable slice, like `Vec<RInt>`
     fn deref_mut(&mut self) -> &mut Self::Target {
         unsafe {
-            let ptr = dataptr(self.get_mut()) as *mut Rbool;
+            let ptr = dataptr(self.get_mut()) as *mut RBool;
             std::slice::from_raw_parts_mut(ptr, self.len())
         }
     }
@@ -121,7 +121,7 @@ impl TryFrom<Robj> for Vec<bool> {
 mod tests {
     use crate as extendr_api;
     use crate::r;
-    use crate::scalar::Rbool;
+    use crate::scalar::RBool;
     use crate::Rinternals;
     use extendr_api::test;
     use extendr_api::Logicals;
@@ -178,7 +178,7 @@ mod tests {
     #[test]
     fn from_values_altrep() {
         test! {
-            let vec = Logicals::from_values_altrep((0..1000000000).map(|_| Rbool::from(true)));
+            let vec = Logicals::from_values_altrep((0..1000000000).map(|_| RBool::from(true)));
             assert_eq!(vec.is_altrep(), true);
             assert_eq!(vec.elt(12345678), true);
             let mut dest = [false.into(); 2];
@@ -201,7 +201,7 @@ mod tests {
         use crate::na::CanBeNA;
         test! {
             let vec = Logicals::new_with_na(10);
-            let manual_vec = (0..10).map(|_| Rbool::na()).collect::<Logicals>();
+            let manual_vec = (0..10).map(|_| RBool::na()).collect::<Logicals>();
             assert_eq!(vec, manual_vec);
             assert_eq!(vec.len(), manual_vec.len());
         }
@@ -211,7 +211,7 @@ mod tests {
     fn test_vec_bool_logicals_conversion() {
         test! {
             let test = vec![false, true, true, false];
-            let test_rbool: Vec<Rbool> = test.clone().into_iter().map(|x|x.into()).collect();
+            let test_rbool: Vec<RBool> = test.clone().into_iter().map(|x|x.into()).collect();
             let test_logicals: Logicals = test.try_into().unwrap();
             assert_eq!(test_logicals.robj.as_logical_slice().unwrap(), &test_rbool);
         }

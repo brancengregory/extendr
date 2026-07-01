@@ -651,7 +651,7 @@ mod tests {
             // These are arbitrarily filled. We cannot create assertions for them.
             // let m: RMatrix<Rbyte> = RMatrix::new(5, 2); //   Error: Error: unimplemented type 'char' in 'eval'
             // unsafe { Rf_PrintValue(m.get()) };
-            let m: RMatrix<Rbool> = RMatrix::new(5, 2);
+            let m: RMatrix<RBool> = RMatrix::new(5, 2);
             unsafe { Rf_PrintValue(m.get()) };
             let m: RMatrix<RInt> = RMatrix::new(5, 2);
             unsafe { Rf_PrintValue(m.get()) };
@@ -663,7 +663,7 @@ mod tests {
 
             // let m: RMatrix<Rbyte> = RMatrix::new_with_na(10, 2); // not possible!
             // unsafe { Rf_PrintValue(m.get()) };
-            let m: RMatrix<Rbool> = RMatrix::new_with_na(10, 2);
+            let m: RMatrix<RBool> = RMatrix::new_with_na(10, 2);
             assert_eq!(R!("matrix(NA, 10, 2)").unwrap(), m.into_robj());
 
             let m: RMatrix<RInt> = RMatrix::new_with_na(10, 2);

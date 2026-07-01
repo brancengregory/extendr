@@ -3,7 +3,7 @@
 use crate::error::{Error, Result};
 use crate::na::CanBeNA;
 use crate::robj::{Attributes, Length, Robj, Types};
-use crate::scalar::{RInt, Rbool, Rfloat};
+use crate::scalar::{RBool, RInt, Rfloat};
 use crate::wrapper::{Doubles, Integers, List, Logicals, Rstr, Strings};
 use crate::Rany;
 use serde::de::{
@@ -135,8 +135,8 @@ impl<'de> Deserializer<'de> for Rfloat {
     }
 }
 
-// Allow us to use Logicals and Rbool.
-impl<'de> Deserializer<'de> for Rbool {
+// Allow us to use Logicals and RBool.
+impl<'de> Deserializer<'de> for RBool {
     type Error = Error;
 
     fn deserialize_any<V>(self, visitor: V) -> Result<V::Value>
@@ -675,10 +675,10 @@ impl<'de> Deserialize<'de> for Rfloat {
     }
 }
 
-struct RboolVisitor;
+struct RBoolVisitor;
 
-impl<'de> Visitor<'de> for RboolVisitor {
-    type Value = Rbool;
+impl<'de> Visitor<'de> for RBoolVisitor {
+    type Value = RBool;
 
     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
         formatter.write_str("a boolean point value")
@@ -695,16 +695,16 @@ impl<'de> Visitor<'de> for RboolVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(Rbool::na())
+        Ok(RBool::na())
     }
 }
 
-impl<'de> Deserialize<'de> for Rbool {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Rbool, D::Error>
+impl<'de> Deserialize<'de> for RBool {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<RBool, D::Error>
     where
         D: Deserializer<'de>,
     {
-        deserializer.deserialize_bool(RboolVisitor)
+        deserializer.deserialize_bool(RBoolVisitor)
     }
 }
 
@@ -1009,7 +1009,7 @@ impl<'de> Visitor<'de> for LogicalsVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(Logicals::from_values([Rbool::na()]))
+        Ok(Logicals::from_values([RBool::na()]))
     }
 
     fn visit_some<D>(self, deserializer: D) -> std::result::Result<Self::Value, D::Error>
@@ -1023,7 +1023,7 @@ impl<'de> Visitor<'de> for LogicalsVisitor {
     where
         A: SeqAccess<'de>,
     {
-        let mut values: Vec<Rbool> = Vec::with_capacity(seq.size_hint().unwrap_or(8));
+        let mut values: Vec<RBool> = Vec::with_capacity(seq.size_hint().unwrap_or(8));
         while let Some(value) = seq.next_element()? {
             values.push(value);
         }
@@ -1034,7 +1034,7 @@ impl<'de> Visitor<'de> for LogicalsVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(Logicals::from_values([Rbool::na()]))
+        Ok(Logicals::from_values([RBool::na()]))
     }
 }
 

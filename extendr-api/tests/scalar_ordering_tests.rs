@@ -6,7 +6,7 @@ use rstest::rstest;
 #[rstest]
 #[case(Rfloat::from(2.0), Rfloat::from(1.0))]
 #[case(RInt::from(2), RInt::from(1))]
-#[case(Rbool::from(true), Rbool::from(false))]
+#[case(RBool::from(true), RBool::from(false))]
 fn left_gt_right<T>(#[case] left: T, #[case] right: T)
 where
     T: PartialOrd + PartialEq + Copy,
@@ -19,8 +19,8 @@ where
 #[case(Rfloat::from(2.0), Rfloat::from(2.0))]
 #[case(RInt::from(2), RInt::from(1))]
 #[case(RInt::from(2), RInt::from(2))]
-#[case(Rbool::from(true), Rbool::from(true))]
-#[case(Rbool::from(false), Rbool::from(false))]
+#[case(RBool::from(true), RBool::from(true))]
+#[case(RBool::from(false), RBool::from(false))]
 fn left_gte_right<T>(#[case] left: T, #[case] right: T)
 where
     T: PartialOrd + PartialEq + Copy,
@@ -31,7 +31,7 @@ where
 #[rstest]
 #[case(Rfloat::from(1.0), Rfloat::from(2.0))]
 #[case(RInt::from(1), RInt::from(2))]
-#[case(Rbool::from(false), Rbool::from(true))]
+#[case(RBool::from(false), RBool::from(true))]
 fn left_lt_right<T>(#[case] left: T, #[case] right: T)
 where
     T: PartialOrd + PartialEq + Copy,
@@ -44,8 +44,8 @@ where
 #[case(Rfloat::from(2.0), Rfloat::from(2.0))]
 #[case(RInt::from(1), RInt::from(2))]
 #[case(RInt::from(2), RInt::from(2))]
-#[case(Rbool::from(true), Rbool::from(true))]
-#[case(Rbool::from(false), Rbool::from(false))]
+#[case(RBool::from(true), RBool::from(true))]
+#[case(RBool::from(false), RBool::from(false))]
 fn left_lte_right<T>(#[case] left: T, #[case] right: T)
 where
     T: PartialOrd + PartialEq + Copy,
@@ -56,8 +56,8 @@ where
 #[rstest]
 #[case(Rfloat::from(2.0), Rfloat::from(2.0))]
 #[case(RInt::from(2), RInt::from(2))]
-#[case(Rbool::from(true), Rbool::from(true))]
-#[case(Rbool::from(false), Rbool::from(false))]
+#[case(RBool::from(true), RBool::from(true))]
+#[case(RBool::from(false), RBool::from(false))]
 fn left_eq_right<T>(#[case] left: T, #[case] right: T)
 where
     T: PartialOrd + PartialEq + Copy,
@@ -69,7 +69,7 @@ where
 #[rstest]
 #[case(Rfloat::from(1.0), Rfloat::from(2.0))]
 #[case(RInt::from(1), RInt::from(2))]
-#[case(Rbool::from(true), Rbool::from(false))]
+#[case(RBool::from(true), RBool::from(false))]
 fn left_neq_right<T>(#[case] left: T, #[case] right: T)
 where
     T: PartialOrd + PartialEq + Copy,
@@ -83,7 +83,7 @@ where
 #[rstest]
 #[case(Rfloat::from(1.0))]
 #[case(RInt::from(1))]
-#[case(Rbool::from(true))]
+#[case(RBool::from(true))]
 fn left_gt_or_gte_right_na<T>(#[case] left: T)
 where
     T: PartialOrd + PartialEq + Copy + CanBeNA,
@@ -98,7 +98,7 @@ where
 #[rstest]
 #[case(Rfloat::from(1.0))]
 #[case(RInt::from(1))]
-#[case(Rbool::from(true))]
+#[case(RBool::from(true))]
 fn left_lt_or_lte_right_na<T>(#[case] left: T)
 where
     T: PartialOrd + PartialEq + Copy + CanBeNA,
@@ -113,7 +113,7 @@ where
 #[rstest]
 #[case(Rfloat::from(1.0))]
 #[case(RInt::from(1))]
-#[case(Rbool::from(true))]
+#[case(RBool::from(true))]
 fn left_na_lt_or_lte_right<T>(#[case] right: T)
 where
     T: PartialOrd + PartialEq + Copy + CanBeNA,
@@ -128,7 +128,7 @@ where
 #[rstest]
 #[case(Rfloat::from(1.0))]
 #[case(RInt::from(1))]
-#[case(Rbool::from(true))]
+#[case(RBool::from(true))]
 fn left_na_gt_or_gte_right<T>(#[case] right: T)
 where
     T: PartialOrd + PartialEq + Copy + CanBeNA,
@@ -143,8 +143,8 @@ where
 #[rstest]
 #[case(Rfloat::from(1.0))]
 #[case(RInt::from(1))]
-#[case(Rbool::from(true))]
-#[case(Rbool::from(false))]
+#[case(RBool::from(true))]
+#[case(RBool::from(false))]
 fn na_vs_value<T>(#[case] value: T)
 where
     T: PartialOrd + PartialEq + Copy + CanBeNA,
@@ -192,7 +192,7 @@ where
 fn collection_sort_bool() {
     let raw = [true, false, true, false, true];
     let ordered = [false, false, true, true, true];
-    let mut scalars: Vec<Rbool> = raw.iter().map(|&x| x.into()).collect();
+    let mut scalars: Vec<RBool> = raw.iter().map(|&x| x.into()).collect();
     scalars.sort_by(|a, b| a.partial_cmp(b).unwrap());
     for (xi, yi) in ordered.iter().zip(scalars.iter()) {
         assert_eq!(*xi, yi.to_bool());

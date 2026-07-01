@@ -44,7 +44,7 @@ Specifically, extendr supports the following conversions:
     ```
 
 The item type (ie the `T` in [`Array2<T>`]) can be a variety of Rust types that can represent scalars: [`u32`], [`i32`], [`f64`] and, if you have the `num_complex` compiled feature
-enabled, `Complex<f64>`. Items can also be extendr's wrapper types: [`Rbool`], [`RInt`], [`Rfloat`] and [`Rcplx`].
+enabled, `Complex<f64>`. Items can also be extendr's wrapper types: [`RBool`], [`RInt`], [`Rfloat`] and [`Rcplx`].
 
 Note that the extendr-ndarray integration only supports accessing R arrays as [`ArrayView`], which are immutable.
 Therefore, instead of directly editing the input array, it is recommended that you instead return a new array from your `#[extendr]`-annotated function, which you allocate in Rust.
@@ -121,7 +121,7 @@ macro_rules! make_array_view_2 {
         }
     };
 }
-make_array_view_1!(Rbool, Error::ExpectedLogical);
+make_array_view_1!(RBool, Error::ExpectedLogical);
 make_array_view_1!(RInt, Error::ExpectedInteger);
 make_array_view_1!(i32, Error::ExpectedInteger);
 make_array_view_1!(Rfloat, Error::ExpectedReal);
@@ -130,7 +130,7 @@ make_array_view_1!(Rcplx, Error::ExpectedComplex);
 make_array_view_1!(c64, Error::ExpectedComplex);
 make_array_view_1!(Rstr, Error::ExpectedString);
 
-make_array_view_2!(Rbool, "Not a logical matrix.", Error::ExpectedLogical);
+make_array_view_2!(RBool, "Not a logical matrix.", Error::ExpectedLogical);
 make_array_view_2!(RInt, "Not an integer matrix.", Error::ExpectedInteger);
 make_array_view_2!(i32, "Not an integer matrix.", Error::ExpectedInteger);
 make_array_view_2!(Rfloat, "Not a floating point matrix.", Error::ExpectedReal);
@@ -217,7 +217,7 @@ mod test {
     )]
     #[case(
         "TRUE",
-        ArrayView1::<Rbool>::from(&[TRUE][..])
+        ArrayView1::<RBool>::from(&[TRUE][..])
     )]
     // Matrices
     #[case(
@@ -235,7 +235,7 @@ mod test {
     )]
     #[case(
         "matrix(c(T, T, T, T, F, F, F, F), ncol=2, nrow=4)",
-        <Array2<Rbool>>::from_shape_vec((4, 2).f(), vec![true.into(), true.into(), true.into(), true.into(), false.into(), false.into(), false.into(), false.into()]).unwrap()
+        <Array2<RBool>>::from_shape_vec((4, 2).f(), vec![true.into(), true.into(), true.into(), true.into(), false.into(), false.into(), false.into(), false.into()]).unwrap()
     )]
     fn test_from_robj<DataType, DimType, Error>(
         #[case] left: &'static str,

@@ -533,7 +533,7 @@ impl ToVectorValue for &bool {
     }
 }
 
-impl ToVectorValue for Rbool {
+impl ToVectorValue for RBool {
     fn sexptype() -> SEXPTYPE {
         SEXPTYPE::LGLSXP
     }
@@ -546,7 +546,7 @@ impl ToVectorValue for Rbool {
     }
 }
 
-impl ToVectorValue for &Rbool {
+impl ToVectorValue for &RBool {
     fn sexptype() -> SEXPTYPE {
         SEXPTYPE::LGLSXP
     }

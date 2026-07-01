@@ -359,15 +359,15 @@ pub use wrapper::*;
 pub use extendr_macros::*;
 
 use extendr_ffi::SEXPTYPE;
-use scalar::Rbool;
+use scalar::RBool;
 
 //////////////////////////////////////////////////
 
 /// TRUE value eg. `r!(TRUE)`
-pub const TRUE: Rbool = Rbool::true_value();
+pub const TRUE: RBool = RBool::true_value();
 
 /// FALSE value eg. `r!(FALSE)`
-pub const FALSE: Rbool = Rbool::false_value();
+pub const FALSE: RBool = RBool::false_value();
 
 /// NULL value eg. `r!(NULL)`
 pub const NULL: () = ();
@@ -382,7 +382,7 @@ pub const NA_REAL: Option<f64> = None;
 pub const NA_STRING: Option<&str> = None;
 
 /// NA value for logical. `r!(NA_LOGICAL)`
-pub const NA_LOGICAL: Rbool = Rbool::na_value();
+pub const NA_LOGICAL: RBool = RBool::na_value();
 
 /// This is needed for the generation of wrappers.
 #[doc(hidden)]
@@ -722,7 +722,7 @@ mod tests {
     }
 
     #[extendr]
-    pub fn bool_slice(x: &[Rbool]) -> &[Rbool] {
+    pub fn bool_slice(x: &[RBool]) -> &[RBool] {
         x
     }
 
@@ -874,7 +874,7 @@ mod tests {
                 assert_eq!(Robj::from_sexp(wrap__i32_slice(robj.get())), robj);
 
                 // #[extendr]
-                // pub fn bool_slice(x: &[Rbool]) -> &[Rbool] { x }
+                // pub fn bool_slice(x: &[RBool]) -> &[RBool] { x }
 
                 let robj = r!([TRUE, FALSE, TRUE]);
                 assert_eq!(Robj::from_sexp(wrap__bool_slice(robj.get())), robj);

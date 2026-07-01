@@ -1,6 +1,6 @@
 use super::*;
 use extendr_ffi::*;
-use prelude::{RInt, Rbool, Rcplx, Rfloat};
+use prelude::{RBool, RInt, Rcplx, Rfloat};
 
 macro_rules! make_from_iterator_impl {
     ($impl : ident, $scalar_type : ident) => {
@@ -241,9 +241,9 @@ pub trait AltIntegerImpl: AltrepImpl {
         }
     }
 
-    /// Return TRUE if this vector is sorted, FALSE if not and Rbool::na() if unknown.
-    fn is_sorted(&self) -> Rbool {
-        Rbool::na()
+    /// Return TRUE if this vector is sorted, FALSE if not and RBool::na() if unknown.
+    fn is_sorted(&self) -> RBool {
+        RBool::na()
     }
 
     /// Return true if this vector does not contain NAs.
@@ -322,9 +322,9 @@ pub trait AltRealImpl: AltrepImpl {
         }
     }
 
-    /// Return TRUE if this vector is sorted, FALSE if not and Rbool::na() if unknown.
-    fn is_sorted(&self) -> Rbool {
-        Rbool::na()
+    /// Return TRUE if this vector is sorted, FALSE if not and RBool::na() if unknown.
+    fn is_sorted(&self) -> RBool {
+        RBool::na()
     }
 
     /// Return true if this vector does not contain NAs.
@@ -382,10 +382,10 @@ pub trait AltLogicalImpl: AltrepImpl {
     }
 
     /// Get a single element from this vector.
-    fn elt(&self, _index: usize) -> Rbool;
+    fn elt(&self, _index: usize) -> RBool;
 
     /// Get a multiple elements from this vector.
-    fn get_region(&self, index: usize, data: &mut [Rbool]) -> usize {
+    fn get_region(&self, index: usize, data: &mut [RBool]) -> usize {
         let len = self.length();
         if index > len {
             0
@@ -399,9 +399,9 @@ pub trait AltLogicalImpl: AltrepImpl {
         }
     }
 
-    /// Return TRUE if this vector is sorted, FALSE if not and Rbool::na() if unknown.
-    fn is_sorted(&self) -> Rbool {
-        Rbool::na()
+    /// Return TRUE if this vector is sorted, FALSE if not and RBool::na() if unknown.
+    fn is_sorted(&self) -> RBool {
+        RBool::na()
     }
 
     /// Return true if this vector does not contain NAs.
@@ -414,7 +414,7 @@ pub trait AltLogicalImpl: AltrepImpl {
     fn sum(&self, remove_nas: bool) -> Robj {
         let (tot, _min, _max, nas, len) = self.tot_min_max_nas();
         if !remove_nas && nas != 0 || remove_nas && nas == len {
-            Rbool::na().into()
+            RBool::na().into()
         } else {
             tot.into()
         }
@@ -463,7 +463,7 @@ pub trait AltComplexImpl: AltrepImpl {
 
 // Implement the trait methods for iterators
 make_from_iterator_impl!(AltIntegerImpl, RInt);
-make_from_iterator_impl!(AltLogicalImpl, Rbool);
+make_from_iterator_impl!(AltLogicalImpl, RBool);
 make_from_iterator_impl!(AltRealImpl, Rfloat);
 make_from_iterator_impl!(AltComplexImpl, Rcplx);
 
@@ -474,9 +474,9 @@ pub trait AltStringImpl {
     /// Set a single element in this vector.
     fn set_elt(&mut self, _index: usize, _value: Rstr) {}
 
-    /// Return TRUE if this vector is sorted, FALSE if not and Rbool::na() if unknown.
-    fn is_sorted(&self) -> Rbool {
-        Rbool::na()
+    /// Return TRUE if this vector is sorted, FALSE if not and RBool::na() if unknown.
+    fn is_sorted(&self) -> RBool {
+        RBool::na()
     }
 
     /// Return true if this vector does not contain NAs.
@@ -914,7 +914,7 @@ impl Altrep {
                 n: R_xlen_t,
                 buf: *mut c_int,
             ) -> R_xlen_t {
-                let slice = std::slice::from_raw_parts_mut(buf as *mut Rbool, n as usize);
+                let slice = std::slice::from_raw_parts_mut(buf as *mut RBool, n as usize);
                 Altrep::get_state::<StateType>(x).get_region(i as usize, slice) as R_xlen_t
             }
 
@@ -1111,7 +1111,7 @@ impl Altrep {
         make_altlogical_from_iterator,
         make_altlogical_class,
         AltLogicalImpl,
-        Rbool,
+        RBool,
         i32
     );
     make_from_iterator!(

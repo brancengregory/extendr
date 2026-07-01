@@ -52,12 +52,12 @@ impl Integers {
     }
 
     /// Return `TRUE` if the vector is sorted, `FALSE` if not, or `NA_BOOL` if unknown.
-    pub fn is_sorted(&self) -> Rbool {
+    pub fn is_sorted(&self) -> RBool {
         unsafe { INTEGER_IS_SORTED(self.get()).into() }
     }
 
     /// Return `TRUE` if the vector has no `NA`s, `FALSE` if any, or `NA_BOOL` if unknown.
-    pub fn no_na(&self) -> Rbool {
+    pub fn no_na(&self) -> RBool {
         unsafe { INTEGER_NO_NA(self.get()).into() }
     }
 }

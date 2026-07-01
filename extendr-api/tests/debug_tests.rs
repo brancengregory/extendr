@@ -70,9 +70,9 @@ fn test_debug_scalar() {
     test! {
         let test_data = vec![(true, "TRUE"), (false, "FALSE")];
         for (val, dbg_str) in test_data {
-            assert_eq!(format!("{:?}", Rbool::from(val)), dbg_str);
+            assert_eq!(format!("{:?}", RBool::from(val)), dbg_str);
         }
-        assert_eq!(format!("{:?}", Rbool::na()), "NA_LOGICAL");
+        assert_eq!(format!("{:?}", RBool::na()), "NA_LOGICAL");
 
         let test_data = vec![42, -42, 0];
         for val in test_data {

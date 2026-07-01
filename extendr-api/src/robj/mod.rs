@@ -20,7 +20,7 @@ use extendr_ffi::{
     SEXPTYPE::*, STRING_ELT, STRING_PTR_RO, TYPEOF, XLENGTH,
 };
 
-use crate::scalar::{RInt, Rbool, Rfloat};
+use crate::scalar::{RBool, RInt, Rfloat};
 use crate::*;
 pub use into_robj::*;
 pub use iter::*;
@@ -411,7 +411,7 @@ impl Robj {
     }
 
     /// Get a read-only reference to the content of a logical vector
-    /// using the tri-state [Rbool]. Returns None if not a logical vector.
+    /// using the tri-state [RBool]. Returns None if not a logical vector.
     /// ```
     /// use extendr_api::prelude::*;
     /// test! {
@@ -419,12 +419,12 @@ impl Robj {
     ///     assert_eq!(robj.as_logical_slice().unwrap(), [TRUE, FALSE]);
     /// }
     /// ```
-    pub fn as_logical_slice(&self) -> Option<&[Rbool]> {
+    pub fn as_logical_slice(&self) -> Option<&[RBool]> {
         self.as_typed_slice()
     }
 
-    /// Get a `Vec<Rbool>` copied from the object
-    /// using the tri-state [`Rbool`].
+    /// Get a `Vec<RBool>` copied from the object
+    /// using the tri-state [`RBool`].
     /// Returns `None` if not a logical vector.
     ///
     /// ```
@@ -434,7 +434,7 @@ impl Robj {
     ///     assert_eq!(robj.as_logical_vector().unwrap(), vec![TRUE, FALSE]);
     /// }
     /// ```
-    pub fn as_logical_vector(&self) -> Option<Vec<Rbool>> {
+    pub fn as_logical_vector(&self) -> Option<Vec<RBool>> {
         self.as_logical_slice().map(|value| value.to_vec())
     }
 
@@ -452,13 +452,13 @@ impl Robj {
     ///     assert_eq!(num_na, 1);
     /// }
     /// ```
-    pub fn as_logical_iter(&self) -> Option<impl Iterator<Item = &Rbool>> {
+    pub fn as_logical_iter(&self) -> Option<impl Iterator<Item = &RBool>> {
         self.as_logical_slice().map(|slice| slice.iter())
     }
 
     /// Get a read-only reference to the content of a double vector.
     /// Note: the slice may contain NaN or NA values.
-    /// We may introduce a "Real" type to handle this like the Rbool type.
+    /// We may introduce a "Real" type to handle this like the RBool type.
     /// ```
     /// use extendr_api::prelude::*;
     /// test! {
@@ -680,7 +680,7 @@ impl Robj {
         }
     }
 
-    /// Get a scalar boolean as a tri-boolean [Rbool] value.
+    /// Get a scalar boolean as a tri-boolean [RBool] value.
     /// ```
     /// use extendr_api::prelude::*;
     /// test! {
@@ -692,7 +692,7 @@ impl Robj {
     ///    assert_eq!(robj3.as_logical().unwrap().is_na(), true);
     /// }
     /// ```
-    pub fn as_logical(&self) -> Option<Rbool> {
+    pub fn as_logical(&self) -> Option<RBool> {
         match self.as_logical_slice() {
             Some(slice) if slice.len() == 1 => Some(slice[0]),
             _ => None,
@@ -818,7 +818,7 @@ macro_rules! make_typed_slice {
     }
 }
 
-make_typed_slice!(Rbool, INTEGER, LGLSXP);
+make_typed_slice!(RBool, INTEGER, LGLSXP);
 make_typed_slice!(i32, INTEGER, INTSXP);
 make_typed_slice!(RInt, INTEGER, INTSXP);
 make_typed_slice!(f64, REAL, REALSXP);

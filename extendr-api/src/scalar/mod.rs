@@ -2,12 +2,15 @@ mod macros;
 mod rbool;
 mod rfloat;
 mod rint;
-pub use rbool::Rbool;
+pub use rbool::RBool;
 pub use rfloat::Rfloat;
 pub use rint::RInt;
 
 #[deprecated(note = "Use RInt instead", since = "0.9.0")]
 pub use rint::Rint;
+
+#[deprecated(note = "Use RBool instead", since = "0.9.0")]
+pub use rbool::Rbool;
 
 #[cfg(feature = "num-complex")]
 mod rcplx_full;

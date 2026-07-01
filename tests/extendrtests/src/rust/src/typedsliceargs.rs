@@ -8,7 +8,7 @@ fn middle_zero(integers: &mut [RInt]) {
 }
 
 #[extendr]
-fn logicals_sum(logicals: &[Rbool]) -> i32 {
+fn logicals_sum(logicals: &[RBool]) -> i32 {
     logicals.iter().fold(0, |acc, next| {
         let bool = next.is_true();
         acc + bool as i32

@@ -57,11 +57,11 @@ fn test_deserialize_robj() {
         assert_eq!(from_robj::<Bool>(&r!(NULL)).is_err(), true);
 
         #[derive(Deserialize, PartialEq, Debug)]
-        struct RBool(Rbool);
-        assert_eq!(from_robj::<RBool>(&r!(TRUE)), Ok(RBool(TRUE)));
-        assert_eq!(from_robj::<RBool>(&r!(FALSE)), Ok(RBool(FALSE)));
-        assert_eq!(from_robj::<RBool>(&r!(Rbool::na())).is_err(), true);
-        assert_eq!(from_robj::<RBool>(&r!(NULL)).is_err(), true);
+        struct RBool1(RBool);
+        assert_eq!(from_robj::<RBool1>(&r!(TRUE)), Ok(RBool1(TRUE)));
+        assert_eq!(from_robj::<RBool1>(&r!(FALSE)), Ok(RBool1(FALSE)));
+        assert_eq!(from_robj::<RBool1>(&r!(RBool::na())).is_err(), true);
+        assert_eq!(from_robj::<RBool1>(&r!(NULL)).is_err(), true);
 
         #[derive(Deserialize, PartialEq, Debug)]
         struct VInt(Vec<i32>);

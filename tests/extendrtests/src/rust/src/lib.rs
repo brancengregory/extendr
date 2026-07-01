@@ -124,7 +124,7 @@ fn get_integers_element(x: Integers, i: i32) -> RInt {
 }
 
 #[extendr]
-fn get_logicals_element(x: Logicals, i: i32) -> Rbool {
+fn get_logicals_element(x: Logicals, i: i32) -> RBool {
     x.elt(i as usize)
 }
 

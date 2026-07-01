@@ -222,7 +222,7 @@ impl TryFrom<&Robj> for bool {
         if robj.is_na() {
             Err(Error::MustNotBeNA(robj.clone()))
         } else {
-            Ok(<Rbool>::try_from(robj)?.is_true())
+            Ok(<RBool>::try_from(robj)?.is_true())
         }
     }
 }
@@ -277,7 +277,7 @@ impl_typed_slice_conversions!(i32, ExpectedInteger, "an INTSXP object");
 impl_typed_slice_conversions!(RInt, ExpectedInteger, "an INTSXP object");
 impl_typed_slice_conversions!(Rfloat, ExpectedReal, "a REALSXP object");
 impl_typed_slice_conversions!(
-    Rbool,
+    RBool,
     ExpectedInteger,
     ExpectedLogical,
     ExpectedLogical,
@@ -392,7 +392,7 @@ impl_try_from_robj!(bool);
 
 impl_try_from_robj!(RInt);
 impl_try_from_robj!(Rfloat);
-impl_try_from_robj!(Rbool);
+impl_try_from_robj!(RBool);
 impl_try_from_robj!(Rcplx);
 
 impl_try_from_robj!(f32);
@@ -401,7 +401,7 @@ impl_try_from_robj!(f64);
 impl_try_from_robj!(Vec::<String>);
 impl_try_from_robj!(Vec::<RInt>);
 impl_try_from_robj!(Vec::<Rfloat>);
-impl_try_from_robj!(Vec::<Rbool>);
+impl_try_from_robj!(Vec::<RBool>);
 impl_try_from_robj!(Vec::<Rcplx>);
 impl_try_from_robj!(Vec::<u8>);
 impl_try_from_robj!(Vec::<i32>);
@@ -532,7 +532,7 @@ macro_rules! impl_try_from_robj_for_arrays {
 
 impl_try_from_robj_for_arrays!(RInt);
 impl_try_from_robj_for_arrays!(Rfloat);
-impl_try_from_robj_for_arrays!(Rbool);
+impl_try_from_robj_for_arrays!(RBool);
 impl_try_from_robj_for_arrays!(Rcplx);
 impl_try_from_robj_for_arrays!(u8);
 impl_try_from_robj_for_arrays!(i32);

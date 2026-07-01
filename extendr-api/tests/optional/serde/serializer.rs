@@ -140,14 +140,14 @@ fn test_serialize_robj() {
         assert_eq!(to_robj(&s).unwrap(), expected);
 
         #[derive(Serialize)]
-        struct Rbool1(Rbool);
-        let s = Rbool1(Rbool::from(true));
+        struct RBool1(RBool);
+        let s = RBool1(RBool::from(true));
         let expected = r!(true);
         assert_eq!(to_robj(&s).unwrap(), expected);
 
         #[derive(Serialize)]
-        struct Rbool2(Rbool);
-        let s = Rbool2(Rbool::na());
+        struct RBool2(RBool);
+        let s = RBool2(RBool::na());
         let expected = r!(());
         assert_eq!(to_robj(&s).unwrap(), expected);
     }

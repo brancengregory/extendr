@@ -130,7 +130,7 @@ fn test_altlogical() {
         }
 
         impl AltLogicalImpl for IsEven {
-            fn elt(&self, index: usize) -> Rbool {
+            fn elt(&self, index: usize) -> RBool {
                 (index % 2 == 1).into()
             }
         }

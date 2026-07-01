@@ -61,7 +61,7 @@ fn round_trip_array_rfloat(x: [Rfloat; 4]) -> [Rfloat; 4] {
 }
 
 #[extendr]
-fn round_trip_array_rbool(x: [Rbool; 4]) -> [Rbool; 4] {
+fn round_trip_array_rbool(x: [RBool; 4]) -> [RBool; 4] {
     x
 }
 
