@@ -128,7 +128,7 @@ make_array_view_1!(RFloat, Error::ExpectedReal);
 make_array_view_1!(f64, Error::ExpectedReal);
 make_array_view_1!(RCplx, Error::ExpectedComplex);
 make_array_view_1!(c64, Error::ExpectedComplex);
-make_array_view_1!(Rstr, Error::ExpectedString);
+make_array_view_1!(RStr, Error::ExpectedString);
 
 make_array_view_2!(RBool, "Not a logical matrix.", Error::ExpectedLogical);
 make_array_view_2!(RInt, "Not an integer matrix.", Error::ExpectedInteger);
@@ -141,7 +141,7 @@ make_array_view_2!(
     Error::ExpectedComplex
 );
 make_array_view_2!(c64, "Not a complex number matrix.", Error::ExpectedComplex);
-make_array_view_2!(Rstr, "Not a string matrix.", Error::ExpectedString);
+make_array_view_2!(RStr, "Not a string matrix.", Error::ExpectedString);
 
 impl<A, S, D> TryFrom<&ArrayBase<S, D>> for Robj
 where

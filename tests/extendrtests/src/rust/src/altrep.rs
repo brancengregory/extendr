@@ -66,7 +66,7 @@ impl AltrepImpl for StringInts {
 }
 
 impl AltStringImpl for StringInts {
-    fn elt(&self, index: usize) -> Rstr {
+    fn elt(&self, index: usize) -> RStr {
         format!("{}", index).into()
     }
 }

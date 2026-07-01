@@ -739,11 +739,11 @@ mod tests {
     #[test]
     fn test_rmatrix_with_rstr() {
         test! {
-            // Test creating a matrix of strings using Rstr
+            // Test creating a matrix of strings using RStr
             let string_data = ["a", "b", "c", "d", "e", "f"];
-            let matrix: RMatrix<Rstr> = RMatrix::new_matrix(2, 3, |r, c| {
+            let matrix: RMatrix<RStr> = RMatrix::new_matrix(2, 3, |r, c| {
                 let idx = c * 2 + r;
-                Rstr::from(string_data[idx])
+                RStr::from(string_data[idx])
             });
 
             assert_eq!(matrix.nrows(), 2);

@@ -469,10 +469,10 @@ make_from_iterator_impl!(AltComplexImpl, RCplx);
 
 pub trait AltStringImpl {
     /// Get a single element from this vector.
-    fn elt(&self, _index: usize) -> Rstr;
+    fn elt(&self, _index: usize) -> RStr;
 
     /// Set a single element in this vector.
-    fn set_elt(&mut self, _index: usize, _value: Rstr) {}
+    fn set_elt(&mut self, _index: usize, _value: RStr) {}
 
     /// Return TRUE if this vector is sorted, FALSE if not and RBool::na() if unknown.
     fn is_sorted(&self) -> RBool {

@@ -250,7 +250,7 @@ pub trait Types: GetSexp {
     ///     assert_eq!(R!("function() {}")?.rtype(), Rtype::Function);
     ///     assert_eq!(Environment::new_with_parent(Environment::global()).rtype(), Rtype::Environment);
     ///     assert_eq!(lang!("+", 1, 2).rtype(), Rtype::Language);
-    ///     assert_eq!(Rstr::from_string("hello").rtype(), Rtype::Rstr);
+    ///     assert_eq!(RStr::from_string("hello").rtype(), Rtype::RStr);
     ///     assert_eq!(r!(TRUE).rtype(), Rtype::Logicals);
     ///     assert_eq!(r!(1).rtype(), Rtype::Integers);
     ///     assert_eq!(r!(1.0).rtype(), Rtype::Doubles);
@@ -272,7 +272,7 @@ pub trait Types: GetSexp {
             LANGSXP => Rtype::Language,
             SPECIALSXP => Rtype::Special,
             BUILTINSXP => Rtype::Builtin,
-            CHARSXP => Rtype::Rstr,
+            CHARSXP => Rtype::RStr,
             LGLSXP => Rtype::Logicals,
             INTSXP => Rtype::Integers,
             REALSXP => Rtype::Doubles,
@@ -313,7 +313,7 @@ pub trait Types: GetSexp {
                 BUILTINSXP => {
                     Rany::Builtin(std::mem::transmute::<&Robj, &Primitive>(self.as_robj()))
                 }
-                CHARSXP => Rany::Rstr(std::mem::transmute::<&Robj, &Rstr>(self.as_robj())),
+                CHARSXP => Rany::RStr(std::mem::transmute::<&Robj, &RStr>(self.as_robj())),
                 LGLSXP => Rany::Logicals(std::mem::transmute::<&Robj, &Logicals>(self.as_robj())),
                 INTSXP => Rany::Integers(std::mem::transmute::<&Robj, &Integers>(self.as_robj())),
                 REALSXP => Rany::Doubles(std::mem::transmute::<&Robj, &Doubles>(self.as_robj())),
@@ -824,7 +824,7 @@ make_typed_slice!(RInt, INTEGER, INTSXP);
 make_typed_slice!(f64, REAL, REALSXP);
 make_typed_slice!(RFloat, REAL, REALSXP);
 make_typed_slice!(u8, RAW, RAWSXP);
-make_typed_slice!(Rstr, STRING_PTR_RO, STRSXP);
+make_typed_slice!(RStr, STRING_PTR_RO, STRSXP);
 make_typed_slice!(c64, COMPLEX, CPLXSXP);
 make_typed_slice!(RCplx, COMPLEX, CPLXSXP);
 make_typed_slice!(Rcomplex, COMPLEX, CPLXSXP);

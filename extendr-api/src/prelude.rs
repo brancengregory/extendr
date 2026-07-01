@@ -51,7 +51,7 @@ pub use super::wrapper::s4::S4;
 pub use super::wrapper::{
     Complexes, DataFrame, Doubles, EnvIter, Environment, Expressions, ExternalPtr, FromList,
     Function, Integers, IntoDataFrameRow, Language, List, ListIter, Logicals, Nullable, PairList,
-    Primitive, Promise, Raw, Rstr, Strings, Symbol,
+    Primitive, Promise, RStr, Raw, Strings, Symbol,
 };
 pub use super::wrapper::{Conversions, MatrixConversions};
 pub use super::Nullable::*;

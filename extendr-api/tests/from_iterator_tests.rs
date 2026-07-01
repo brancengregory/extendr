@@ -19,7 +19,7 @@ fn protect_lim2(n: i32) -> List {
 // #[extendr]
 fn prot_strs(n: i32) -> Strings {
     let n = n as usize;
-    (0..n).map(|_| Rstr::from("val")).collect::<Strings>()
+    (0..n).map(|_| RStr::from("val")).collect::<Strings>()
 }
 
 #[test]

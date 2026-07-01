@@ -4,7 +4,7 @@ use crate::error::{Error, Result};
 use crate::na::CanBeNA;
 use crate::robj::{Attributes, Length, Robj, Types};
 use crate::scalar::{RBool, RFloat, RInt};
-use crate::wrapper::{Doubles, Integers, List, Logicals, Rstr, Strings};
+use crate::wrapper::{Doubles, Integers, List, Logicals, RStr, Strings};
 use crate::Rany;
 use serde::de::{
     Deserialize, DeserializeSeed, Deserializer, EnumAccess, MapAccess, SeqAccess, VariantAccess,
@@ -56,7 +56,7 @@ impl<'de> SeqAccess<'de> for ListGetter<'de> {
 
 // Convert named lists to maps.
 struct NamedListGetter<'a> {
-    keys: &'a [Rstr],
+    keys: &'a [RStr],
     values: &'a [Robj],
 }
 
@@ -158,7 +158,7 @@ impl<'de> Deserializer<'de> for RBool {
 }
 
 // Decode identifiers from the "names" attribute of lists.
-impl<'de> Deserializer<'de> for &'de Rstr {
+impl<'de> Deserializer<'de> for &'de RStr {
     type Error = Error;
 
     fn deserialize_any<V>(self, visitor: V) -> Result<V::Value>
@@ -1081,7 +1081,7 @@ impl<'de> Visitor<'de> for StringsVisitor {
     where
         A: SeqAccess<'de>,
     {
-        let mut values: Vec<Rstr> = Vec::with_capacity(seq.size_hint().unwrap_or(8));
+        let mut values: Vec<RStr> = Vec::with_capacity(seq.size_hint().unwrap_or(8));
         while let Some(value) = seq.next_element()? {
             values.push(value);
         }
@@ -1105,13 +1105,13 @@ impl<'de> Deserialize<'de> for Strings {
     }
 }
 
-struct RstrVisitor;
+struct RStrVisitor;
 
-impl<'de> Visitor<'de> for RstrVisitor {
-    type Value = Rstr;
+impl<'de> Visitor<'de> for RStrVisitor {
+    type Value = RStr;
 
     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
-        formatter.write_str("a value convertable to Rstr")
+        formatter.write_str("a value convertable to RStr")
     }
 
     fn visit_str<E>(self, v: &str) -> std::result::Result<Self::Value, E>
@@ -1125,7 +1125,7 @@ impl<'de> Visitor<'de> for RstrVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(Rstr::na())
+        Ok(RStr::na())
     }
 
     fn visit_some<D>(self, deserializer: D) -> std::result::Result<Self::Value, D::Error>
@@ -1139,15 +1139,15 @@ impl<'de> Visitor<'de> for RstrVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(Rstr::na())
+        Ok(RStr::na())
     }
 }
 
-impl<'de> Deserialize<'de> for Rstr {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Rstr, D::Error>
+impl<'de> Deserialize<'de> for RStr {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<RStr, D::Error>
     where
         D: Deserializer<'de>,
     {
-        deserializer.deserialize_any(RstrVisitor)
+        deserializer.deserialize_any(RStrVisitor)
     }
 }

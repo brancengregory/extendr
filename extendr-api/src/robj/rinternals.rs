@@ -399,7 +399,7 @@ pub trait Rinternals: Types + Conversions {
 
     /// Return true if this is CHARSXP.
     fn is_char(&self) -> bool {
-        self.rtype() == Rtype::Rstr
+        self.rtype() == Rtype::RStr
     }
 
     /// Check an external pointer tag.

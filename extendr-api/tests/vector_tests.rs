@@ -18,7 +18,7 @@ fn test_strings() {
         let v = s.as_slice().iter().map(|c| c.as_ref()).collect::<String>();
         assert_eq!(v, "xyz");
 
-        s.set_elt(1, Rstr::from("q"));
+        s.set_elt(1, RStr::from("q"));
         assert_eq!(s.elt(1), "q");
 
         let s : Strings = ["x", "y", "z"].iter().collect();
@@ -26,7 +26,7 @@ fn test_strings() {
         assert_eq!(v, "xyz");
         assert_eq!(&*s, &["x", "y", "z"]);
 
-        // Strings supports methods of &[Rstr] via Deref.
+        // Strings supports methods of &[RStr] via Deref.
         assert_eq!(s.contains(&"x".into()), true);
 
         let s = Strings::from_values(["x", <&str>::na(), "z"]);
@@ -231,13 +231,13 @@ fn test_integers() {
 #[test]
 fn test_rstr() {
     test! {
-        let x = Rstr::from("xyz");
-        // All methods of &str are usable on Rstr.
+        let x = RStr::from("xyz");
+        // All methods of &str are usable on RStr.
         assert_eq!(x.contains('y'), true);
         assert_eq!(x.starts_with("xy"), true);
         assert_eq!(x.len(), 3);
 
-        let x : Rstr = "xyz".into();
+        let x : RStr = "xyz".into();
         assert_eq!(x, "xyz");
     }
 }

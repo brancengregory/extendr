@@ -6,7 +6,7 @@ use crate::robj::{Attributes, GetSexp, Length, Rinternals, Types};
 use crate::scalar::{RBool, RFloat, RInt};
 use crate::wrapper::{
     Doubles, Environment, Expressions, Function, Integers, Language, Logicals, PairList, Primitive,
-    Promise, Raw, Rstr, Symbol, S4,
+    Promise, RStr, Raw, Symbol, S4,
 };
 use crate::{List, Rany, Robj};
 use serde::{ser, Serialize};
@@ -673,7 +673,7 @@ impl ser::Serialize for Doubles {
     }
 }
 
-impl ser::Serialize for Rstr {
+impl ser::Serialize for RStr {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: ser::Serializer,
@@ -749,7 +749,7 @@ impl ser::Serialize for Robj {
             Rany::Language(value) => value.serialize(serializer),
             Rany::Special(value) => value.serialize(serializer),
             Rany::Builtin(value) => value.serialize(serializer),
-            Rany::Rstr(value) => value.serialize(serializer),
+            Rany::RStr(value) => value.serialize(serializer),
             Rany::Logicals(value) => value.serialize(serializer),
             Rany::Integers(value) => value.serialize(serializer),
             Rany::Doubles(value) => value.serialize(serializer),

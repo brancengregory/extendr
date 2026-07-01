@@ -8,7 +8,7 @@ fn test_derive_into_dataframe() {
         #[derive(Debug, IntoDataFrameRow)]
         struct MyStruct {
             x: RInt,
-            y: Rstr,
+            y: RStr,
         }
 
         let v = vec![MyStruct { x: 0.into(), y: "abc".into() }, MyStruct { x: 1.into(), y: "xyz".into() }];
@@ -38,7 +38,7 @@ fn test_into_robj_dataframe() {
         #[derive(Clone, Debug, IntoDataFrameRow)]
         struct MyStruct {
             x: RInt,
-            y: Rstr,
+            y: RStr,
         }
 
         let v = vec![MyStruct { x: 0.into(), y: "abc".into() }, MyStruct { x: 1.into(), y: "xyz".into() }];

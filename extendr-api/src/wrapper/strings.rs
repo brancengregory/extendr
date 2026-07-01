@@ -33,7 +33,7 @@ impl Strings {
 
     /// Constructs a new vector of size `len` with `NA` values
     pub fn new_with_na(len: usize) -> Strings {
-        let iter = (0..len).map(|_| Rstr::na());
+        let iter = (0..len).map(|_| RStr::na());
         Strings::from_values(iter)
     }
     /// Wrapper for creating string vector (STRSXP) objects.
@@ -66,18 +66,18 @@ impl Strings {
     }
 
     /// This is a relatively expensive operation, so use a variable if using this in a loop.
-    pub fn as_slice<'a>(&self) -> &'a [Rstr] {
+    pub fn as_slice<'a>(&self) -> &'a [RStr] {
         unsafe {
-            let data = STRING_PTR_RO(self.robj.get()) as *const Rstr;
+            let data = STRING_PTR_RO(self.robj.get()) as *const RStr;
             let len = self.robj.len();
             std::slice::from_raw_parts(data, len)
         }
     }
 
     /// Get an element in a string vector.
-    pub fn elt(&self, i: usize) -> Rstr {
+    pub fn elt(&self, i: usize) -> RStr {
         if i >= self.len() {
-            Rstr::na()
+            RStr::na()
         } else {
             unsafe {
                 Robj::from_sexp(STRING_ELT(self.get(), i as R_xlen_t))
@@ -88,7 +88,7 @@ impl Strings {
     }
 
     /// Set a single element of this string vector.
-    pub fn set_elt(&mut self, i: usize, e: Rstr) {
+    pub fn set_elt(&mut self, i: usize, e: RStr) {
         single_threaded(|| unsafe {
             if i < self.len() {
                 SET_STRING_ELT(self.robj.get_mut(), i as isize, e.get());
@@ -97,7 +97,7 @@ impl Strings {
     }
 
     /// Get an iterator for this string vector.
-    pub fn iter(&self) -> impl Iterator<Item = &Rstr> {
+    pub fn iter(&self) -> impl Iterator<Item = &RStr> {
         self.as_slice().iter()
     }
 
@@ -141,7 +141,7 @@ where
 }
 
 impl Deref for Strings {
-    type Target = [Rstr];
+    type Target = [RStr];
 
     fn deref(&self) -> &Self::Target {
         self.as_slice()
@@ -186,7 +186,7 @@ mod tests {
         use crate::na::CanBeNA;
         test! {
             let vec = Strings::new_with_na(10);
-            let manual_vec = (0..10).map(|_| Rstr::na()).collect::<Strings>();
+            let manual_vec = (0..10).map(|_| RStr::na()).collect::<Strings>();
             assert_eq!(vec, manual_vec);
             assert_eq!(vec.len(), manual_vec.len());
         }

@@ -33,7 +33,7 @@ impl std::fmt::Debug for Robj {
             Rany::Language(value) => value.fmt(f),
             Rany::Special(value) => value.fmt(f),
             Rany::Builtin(value) => value.fmt(f),
-            Rany::Rstr(value) => value.fmt(f),
+            Rany::RStr(value) => value.fmt(f),
             Rany::Logicals(value) => value.fmt(f),
             Rany::Integers(value) => value.fmt(f),
             Rany::Doubles(value) => value.fmt(f),
@@ -106,8 +106,8 @@ impl std::fmt::Debug for Robj {
                    SPECIALSXP => write!(f, "r!(Special())"),
                    BUILTINSXP => write!(f, "r!(Builtin())"),
                    CHARSXP => {
-                       let c = Rstr::try_from(self.clone()).unwrap();
-                       write!(f, "r!(Rstr::from_string({:?}))", c.as_str())
+                       let c = RStr::try_from(self.clone()).unwrap();
+                       write!(f, "r!(RStr::from_string({:?}))", c.as_str())
                    }
                    LGLSXP => {
                        let slice = self.as_logical_slice().unwrap();

@@ -3,7 +3,7 @@ use extendr_api::prelude::*;
 #[derive(Debug, IntoDataFrameRow)]
 struct MyStruct {
     x: RInt,
-    y: Rstr,
+    y: RStr,
 }
 
 #[extendr]

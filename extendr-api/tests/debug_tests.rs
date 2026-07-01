@@ -31,7 +31,7 @@ fn test_debug() {
         assert_eq!(format!("{:?}", r), "\".Primitive(\\\"+\\\")\"");
         let r : Primitive  = R!("`if`")?.try_into()?;
         assert_eq!(format!("{:?}", r), "\".Primitive(\\\"if\\\")\"");
-        let r = Rstr::from("xyz");
+        let r = RStr::from("xyz");
         assert_eq!(format!("{:?}", r), "\"xyz\"");
         let r : Logicals = Logicals::from_values([TRUE]);
         assert_eq!(format!("{:?}", r), "TRUE");
@@ -109,9 +109,9 @@ fn test_debug_scalar() {
 
         let test_data = vec!["Hello", "World"];
         for str in test_data {
-            assert_eq!(format!("{:?}", Rstr::from(str)), format!("{:?}", str));
+            assert_eq!(format!("{:?}", RStr::from(str)), format!("{:?}", str));
         }
-        assert_eq!(format!("{:?}", Rstr::na()), "NA_CHARACTER");
+        assert_eq!(format!("{:?}", RStr::na()), "NA_CHARACTER");
     }
 }
 
@@ -135,7 +135,7 @@ fn test_debug_vectors() {
 
         let r: Strings = Strings::from_values(["xyz"]);
         assert_eq!(format!("{:?}", r), "\"xyz\"");
-        let r: Strings = Strings::from_values([Rstr::from("xyz"), Rstr::from("abc"), Rstr::na()]);
+        let r: Strings = Strings::from_values([RStr::from("xyz"), RStr::from("abc"), RStr::na()]);
         assert_eq!(format!("{:?}", r), "[\"xyz\", \"abc\", NA_CHARACTER]");
 
         let r: Complexes = Complexes::from_values([RCplx::new(42.0, -42.0)]);

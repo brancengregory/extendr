@@ -410,7 +410,7 @@ macro_rules! impl_str_tvv {
 impl_str_tvv! {&str}
 impl_str_tvv! {String}
 
-impl ToVectorValue for Rstr {
+impl ToVectorValue for RStr {
     fn sexptype() -> SEXPTYPE {
         SEXPTYPE::STRSXP
     }
@@ -423,7 +423,7 @@ impl ToVectorValue for Rstr {
     }
 }
 
-impl ToVectorValue for &Rstr {
+impl ToVectorValue for &RStr {
     fn sexptype() -> SEXPTYPE {
         SEXPTYPE::STRSXP
     }
@@ -436,7 +436,7 @@ impl ToVectorValue for &Rstr {
     }
 }
 
-impl ToVectorValue for Option<Rstr> {
+impl ToVectorValue for Option<RStr> {
     fn sexptype() -> SEXPTYPE {
         SEXPTYPE::STRSXP
     }
@@ -453,7 +453,7 @@ impl ToVectorValue for Option<Rstr> {
     }
 }
 
-impl TryFrom<&Robj> for Rstr {
+impl TryFrom<&Robj> for RStr {
     type Error = crate::Error;
 
     fn try_from(robj: &Robj) -> Result<Self> {
@@ -463,17 +463,17 @@ impl TryFrom<&Robj> for Rstr {
                 let strs = Strings::try_from(robj)?;
                 Ok(strs.elt(0))
             } else {
-                Err(Error::ExpectedRstr(robj.clone()))
+                Err(Error::ExpectedRStr(robj.clone()))
             }
         } else if let SEXPTYPE::CHARSXP = sexptype {
-            Ok(Rstr { robj: robj.clone() })
+            Ok(RStr { robj: robj.clone() })
         } else {
-            Err(Error::ExpectedRstr(robj.clone()))
+            Err(Error::ExpectedRStr(robj.clone()))
         }
     }
 }
 
-impl TryFrom<Robj> for Rstr {
+impl TryFrom<Robj> for RStr {
     type Error = crate::Error;
 
     fn try_from(value: Robj) -> std::result::Result<Self, Self::Error> {
@@ -481,7 +481,7 @@ impl TryFrom<Robj> for Rstr {
     }
 }
 
-impl GetSexp for Rstr {
+impl GetSexp for RStr {
     unsafe fn get(&self) -> SEXP {
         self.robj.get()
     }
@@ -500,12 +500,12 @@ impl GetSexp for Rstr {
 }
 
 // These traits all derive from GetSexp with default implementations
-impl Length for Rstr {}
-impl Types for Rstr {}
-impl Conversions for Rstr {}
-impl Rinternals for Rstr {}
-impl Slices for Rstr {}
-impl Operators for Rstr {}
+impl Length for RStr {}
+impl Types for RStr {}
+impl Conversions for RStr {}
+impl Rinternals for RStr {}
+impl Slices for RStr {}
+impl Operators for RStr {}
 
 impl ToVectorValue for bool {
     fn sexptype() -> SEXPTYPE {

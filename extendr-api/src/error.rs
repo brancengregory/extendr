@@ -48,7 +48,7 @@ pub enum Error {
     ExpectedLanguage(Robj),
     ExpectedSpecial(Robj),
     ExpectedBuiltin(Robj),
-    ExpectedRstr(Robj),
+    ExpectedRStr(Robj),
     ExpectedLogical(Robj),
     ExpectedInteger(Robj),
     ExpectedReal(Robj),
@@ -130,8 +130,8 @@ impl std::fmt::Display for Error {
             Error::ExpectedLanguage(robj) => write!(f, "Expected Language got {:?}", robj.rtype()),
             Error::ExpectedSpecial(robj) => write!(f, "Expected Special got {:?}", robj.rtype()),
             Error::ExpectedBuiltin(robj) => write!(f, "Expected Builtin got {:?}", robj.rtype()),
-            Error::ExpectedRstr(robj) => {
-                write!(f, "Expected Rstr got {:?}", robj.rtype())
+            Error::ExpectedRStr(robj) => {
+                write!(f, "Expected RStr got {:?}", robj.rtype())
             }
             Error::ExpectedLogical(robj) => write!(f, "Expected Logicals got {:?}", robj.rtype()),
             Error::ExpectedInteger(robj) => write!(f, "Expected Integers got {:?}", robj.rtype()),

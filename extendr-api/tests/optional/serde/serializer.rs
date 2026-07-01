@@ -72,8 +72,8 @@ fn test_serialize_robj() {
         assert_eq!(to_robj(&s).unwrap(), Robj::from(expected));
 
         #[derive(Serialize)]
-        struct Rstr1(Rstr);
-        let s = Rstr1(Rstr::from("xyz"));
+        struct RStr1(RStr);
+        let s = RStr1(RStr::from("xyz"));
         let expected = r!("xyz");
         assert_eq!(to_robj(&s).unwrap(), expected);
 

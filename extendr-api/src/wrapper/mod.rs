@@ -29,6 +29,9 @@ pub mod strings;
 pub mod symbol;
 pub mod wrapper_macros;
 
+pub use self::rstr::RStr;
+
+#[deprecated(note = "Use RStr instead", since = "0.9.0")]
 pub use self::rstr::Rstr;
 #[cfg(use_r_altlist)]
 pub use altrep::AltListImpl;

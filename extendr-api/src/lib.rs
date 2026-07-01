@@ -479,7 +479,7 @@ pub enum Rtype {
     Language,    // LANGSXP
     Special,     // SPECIALSXP
     Builtin,     // BUILTINSXP
-    Rstr,        // CHARSXP
+    RStr,        // CHARSXP
     Logicals,    // LGLSXP
     Integers,    // INTSXP
     Doubles,     // REALSXP
@@ -511,7 +511,7 @@ pub enum Rany<'a> {
     Language(&'a Language),       // LANGSXP
     Special(&'a Primitive),       // SPECIALSXP
     Builtin(&'a Primitive),       // BUILTINSXP
-    Rstr(&'a Rstr),               // CHARSXP
+    RStr(&'a RStr),               // CHARSXP
     Logicals(&'a Logicals),       // LGLSXP
     Integers(&'a Integers),       // INTSXP
     Doubles(&'a Doubles),         // REALSXP
@@ -543,7 +543,7 @@ pub fn rtype_to_sxp(rtype: Rtype) -> SEXPTYPE {
         Rtype::Language => SEXPTYPE::LANGSXP,
         Rtype::Special => SEXPTYPE::SPECIALSXP,
         Rtype::Builtin => SEXPTYPE::BUILTINSXP,
-        Rtype::Rstr => SEXPTYPE::CHARSXP,
+        Rtype::RStr => SEXPTYPE::CHARSXP,
         Rtype::Logicals => SEXPTYPE::LGLSXP,
         Rtype::Integers => SEXPTYPE::INTSXP,
         Rtype::Doubles => SEXPTYPE::REALSXP,
@@ -577,7 +577,7 @@ pub fn sxp_to_rtype(sxptype: SEXPTYPE) -> Rtype {
         SEXPTYPE::LANGSXP => Rtype::Language,
         SEXPTYPE::SPECIALSXP => Rtype::Special,
         SEXPTYPE::BUILTINSXP => Rtype::Builtin,
-        SEXPTYPE::CHARSXP => Rtype::Rstr,
+        SEXPTYPE::CHARSXP => Rtype::RStr,
         SEXPTYPE::LGLSXP => Rtype::Logicals,
         SEXPTYPE::INTSXP => Rtype::Integers,
         SEXPTYPE::REALSXP => Rtype::Doubles,

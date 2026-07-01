@@ -472,7 +472,7 @@ impl From<ListIter> for Robj {
     }
 }
 
-// TODO: use Rstr or Sym instead of String.
+// TODO: use RStr or Sym instead of String.
 pub trait KeyValue {
     fn key(&self) -> String;
     fn value(self) -> Robj;

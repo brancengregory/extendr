@@ -194,19 +194,19 @@ pub trait Conversions: GetSexp {
         Symbol::try_from(self.as_robj()).ok()
     }
 
-    /// Convert a `CHARSXP` object to a `Rstr` wrapper.
+    /// Convert a `CHARSXP` object to a `RStr` wrapper.
     /// ```
     /// use extendr_api::prelude::*;
     /// test! {
-    ///     let fred = Rstr::from_string("fred");
-    ///     assert_eq!(fred.as_char(), Some(Rstr::from_string("fred")));
+    ///     let fred = RStr::from_string("fred");
+    ///     assert_eq!(fred.as_char(), Some(RStr::from_string("fred")));
     /// }
     /// ```
-    fn as_char(&self) -> Option<Rstr> {
-        Rstr::try_from(self.as_robj()).ok()
+    fn as_char(&self) -> Option<RStr> {
+        RStr::try_from(self.as_robj()).ok()
     }
 
-    /// Convert a raw object to a Rstr wrapper.
+    /// Convert a raw object to a RStr wrapper.
     /// ```
     /// use extendr_api::prelude::*;
     /// test! {
