@@ -504,7 +504,7 @@ pub type Rtype = RType;
 // Todo: convert all Robj types to wrappers.
 // Note: this only works if the wrappers are all just SEXPs.
 #[derive(Debug, PartialEq)]
-pub enum Rany<'a> {
+pub enum RAny<'a> {
     Null(&'a Robj),               // NILSXP
     Symbol(&'a Symbol),           // SYMSXP
     PairList(&'a PairList),       // LISTSXP
@@ -531,6 +531,9 @@ pub enum Rany<'a> {
     S4(&'a S4),                   // S4SXP
     Unknown(&'a Robj),
 }
+
+#[deprecated(note = "Use RAny instead", since = "0.9.0")]
+pub type Rany<'a> = RAny<'a>;
 
 /// Convert extendr's RType to R's SEXPTYPE.
 /// Panics if the type is Unknown.

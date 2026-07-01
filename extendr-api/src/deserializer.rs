@@ -5,7 +5,7 @@ use crate::na::CanBeNA;
 use crate::robj::{Attributes, Length, Robj, Types};
 use crate::scalar::{RBool, RFloat, RInt};
 use crate::wrapper::{Doubles, Integers, List, Logicals, RStr, Strings};
-use crate::Rany;
+use crate::RAny;
 use serde::de::{
     Deserialize, DeserializeSeed, Deserializer, EnumAccess, MapAccess, SeqAccess, VariantAccess,
     Visitor,
@@ -196,11 +196,11 @@ impl<'de> EnumAccess<'de> for &'de Robj {
         V: DeserializeSeed<'de>,
     {
         match self.as_any() {
-            Rany::Strings(s) if s.len() == 1 => {
+            RAny::Strings(s) if s.len() == 1 => {
                 let variant = seed.deserialize(self)?;
                 Ok((variant, self))
             }
-            Rany::List(list) if list.len() == 1 => {
+            RAny::List(list) if list.len() == 1 => {
                 if let Some(keys) = self.get_attrib(crate::wrapper::symbol::names_symbol()) {
                     if let Ok(keys) = Strings::try_from(keys) {
                         let keys = keys.as_slice();
@@ -278,30 +278,30 @@ impl<'de> Deserializer<'de> for &'de Robj {
     {
         let len = self.len();
         match self.as_any() {
-            Rany::Null(_) => self.deserialize_unit(visitor),
-            Rany::Integers(_v) => {
+            RAny::Null(_) => self.deserialize_unit(visitor),
+            RAny::Integers(_v) => {
                 if len == 1 {
                     self.deserialize_i32(visitor)
                 } else {
                     self.deserialize_seq(visitor)
                 }
             }
-            Rany::Doubles(_v) => {
+            RAny::Doubles(_v) => {
                 if len == 1 {
                     self.deserialize_f64(visitor)
                 } else {
                     self.deserialize_seq(visitor)
                 }
             }
-            Rany::Logicals(_v) => {
+            RAny::Logicals(_v) => {
                 if len == 1 {
                     self.deserialize_bool(visitor)
                 } else {
                     self.deserialize_seq(visitor)
                 }
             }
-            Rany::List(_v) => self.deserialize_seq(visitor),
-            Rany::Strings(_v) => {
+            RAny::List(_v) => self.deserialize_seq(visitor),
+            RAny::Strings(_v) => {
                 if len == 1 {
                     self.deserialize_str(visitor)
                 } else {
@@ -319,7 +319,7 @@ impl<'de> Deserializer<'de> for &'de Robj {
     where
         V: Visitor<'de>,
     {
-        if let Rany::Null(_) = self.as_any() {
+        if let RAny::Null(_) = self.as_any() {
             visitor.visit_unit()
         } else {
             Err(Error::ExpectedNull(self.clone()))
@@ -449,7 +449,7 @@ impl<'de> Deserializer<'de> for &'de Robj {
     where
         V: Visitor<'de>,
     {
-        if let Rany::Raw(val) = self.as_any() {
+        if let RAny::Raw(val) = self.as_any() {
             visitor.visit_bytes(val.as_slice())
         } else {
             Err(Error::ExpectedRaw(self.clone()))
@@ -460,7 +460,7 @@ impl<'de> Deserializer<'de> for &'de Robj {
     where
         V: Visitor<'de>,
     {
-        if let Rany::Raw(val) = self.as_any() {
+        if let RAny::Raw(val) = self.as_any() {
             visitor.visit_byte_buf(val.as_slice().to_owned())
         } else {
             Err(Error::ExpectedRaw(self.clone()))
@@ -471,7 +471,7 @@ impl<'de> Deserializer<'de> for &'de Robj {
     where
         V: Visitor<'de>,
     {
-        if let Rany::Null(_) = self.as_any() {
+        if let RAny::Null(_) = self.as_any() {
             visitor.visit_none()
         } else if self.is_na() {
             visitor.visit_none()
@@ -518,25 +518,25 @@ impl<'de> Deserializer<'de> for &'de Robj {
         V: Visitor<'de>,
     {
         match self.as_any() {
-            Rany::List(val) => {
+            RAny::List(val) => {
                 let lg = ListGetter {
                     list: val.as_slice(),
                 };
                 Ok(visitor.visit_seq(lg)?)
             }
-            Rany::Integers(val) => {
+            RAny::Integers(val) => {
                 let lg = SliceGetter { list: val };
                 Ok(visitor.visit_seq(lg)?)
             }
-            Rany::Doubles(val) => {
+            RAny::Doubles(val) => {
                 let lg = SliceGetter { list: val };
                 Ok(visitor.visit_seq(lg)?)
             }
-            Rany::Logicals(val) => {
+            RAny::Logicals(val) => {
                 let lg = SliceGetter { list: val };
                 Ok(visitor.visit_seq(lg)?)
             }
-            Rany::Strings(_val) => {
+            RAny::Strings(_val) => {
                 // Grubby hack that will go away once PRs are merged.
                 // use std::convert::TryInto;
                 // let val : Strings = val.clone().try_into().unwrap();
@@ -553,7 +553,7 @@ impl<'de> Deserializer<'de> for &'de Robj {
         V: Visitor<'de>,
     {
         match self.as_any() {
-            Rany::List(val) => {
+            RAny::List(val) => {
                 if let Some(keys) = self.get_attrib(crate::wrapper::symbol::names_symbol()) {
                     if let Ok(keys) = Strings::try_from(keys) {
                         let keys = keys.as_slice();

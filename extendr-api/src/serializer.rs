@@ -8,7 +8,7 @@ use crate::wrapper::{
     Doubles, Environment, Expressions, Function, Integers, Language, Logicals, PairList, Primitive,
     Promise, RStr, Raw, Symbol, S4,
 };
-use crate::{List, Rany, Robj};
+use crate::{List, RAny, Robj};
 use serde::{ser, Serialize};
 
 impl ser::Error for Error {
@@ -740,31 +740,31 @@ impl ser::Serialize for Robj {
         S: ser::Serializer,
     {
         match self.as_any() {
-            Rany::Null(_) => serializer.serialize_unit(),
-            Rany::Symbol(value) => value.serialize(serializer),
-            Rany::PairList(value) => value.serialize(serializer),
-            Rany::Function(value) => value.serialize(serializer),
-            Rany::Environment(value) => value.serialize(serializer),
-            Rany::Promise(value) => value.serialize(serializer),
-            Rany::Language(value) => value.serialize(serializer),
-            Rany::Special(value) => value.serialize(serializer),
-            Rany::Builtin(value) => value.serialize(serializer),
-            Rany::RStr(value) => value.serialize(serializer),
-            Rany::Logicals(value) => value.serialize(serializer),
-            Rany::Integers(value) => value.serialize(serializer),
-            Rany::Doubles(value) => value.serialize(serializer),
-            Rany::Complexes(_complex) => serializer.serialize_unit(),
-            Rany::Strings(value) => value.serialize(serializer),
-            Rany::Dot(_dot) => serializer.serialize_unit(),
-            Rany::Any(_any) => serializer.serialize_unit(),
-            Rany::List(value) => value.serialize(serializer),
-            Rany::Expressions(value) => value.serialize(serializer),
-            Rany::Bytecode(_bytecode) => serializer.serialize_unit(),
-            Rany::ExternalPtr(_externalptr) => serializer.serialize_unit(),
-            Rany::WeakRef(_weakref) => serializer.serialize_unit(),
-            Rany::Raw(value) => value.serialize(serializer),
-            Rany::S4(value) => value.serialize(serializer),
-            Rany::Unknown(_unknown) => serializer.serialize_unit(),
+            RAny::Null(_) => serializer.serialize_unit(),
+            RAny::Symbol(value) => value.serialize(serializer),
+            RAny::PairList(value) => value.serialize(serializer),
+            RAny::Function(value) => value.serialize(serializer),
+            RAny::Environment(value) => value.serialize(serializer),
+            RAny::Promise(value) => value.serialize(serializer),
+            RAny::Language(value) => value.serialize(serializer),
+            RAny::Special(value) => value.serialize(serializer),
+            RAny::Builtin(value) => value.serialize(serializer),
+            RAny::RStr(value) => value.serialize(serializer),
+            RAny::Logicals(value) => value.serialize(serializer),
+            RAny::Integers(value) => value.serialize(serializer),
+            RAny::Doubles(value) => value.serialize(serializer),
+            RAny::Complexes(_complex) => serializer.serialize_unit(),
+            RAny::Strings(value) => value.serialize(serializer),
+            RAny::Dot(_dot) => serializer.serialize_unit(),
+            RAny::Any(_any) => serializer.serialize_unit(),
+            RAny::List(value) => value.serialize(serializer),
+            RAny::Expressions(value) => value.serialize(serializer),
+            RAny::Bytecode(_bytecode) => serializer.serialize_unit(),
+            RAny::ExternalPtr(_externalptr) => serializer.serialize_unit(),
+            RAny::WeakRef(_weakref) => serializer.serialize_unit(),
+            RAny::Raw(value) => value.serialize(serializer),
+            RAny::S4(value) => value.serialize(serializer),
+            RAny::Unknown(_unknown) => serializer.serialize_unit(),
         }
     }
 }

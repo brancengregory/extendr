@@ -1,8 +1,8 @@
 use crate::wrapper::*;
 // use crate::robj::GetSexp;
 use crate::robj::Attributes;
+use crate::robj::RAny;
 use crate::robj::RInternals;
-use crate::robj::Rany;
 use crate::robj::Robj;
 use crate::robj::Types;
 
@@ -24,31 +24,31 @@ impl std::fmt::Debug for Symbol {
 impl std::fmt::Debug for Robj {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self.as_any() {
-            Rany::Null(_) => write!(f, "()"),
-            Rany::Symbol(value) => value.fmt(f),
-            Rany::PairList(value) => value.fmt(f),
-            Rany::Function(value) => value.fmt(f),
-            Rany::Environment(value) => value.fmt(f),
-            Rany::Promise(value) => value.fmt(f),
-            Rany::Language(value) => value.fmt(f),
-            Rany::Special(value) => value.fmt(f),
-            Rany::Builtin(value) => value.fmt(f),
-            Rany::RStr(value) => value.fmt(f),
-            Rany::Logicals(value) => value.fmt(f),
-            Rany::Integers(value) => value.fmt(f),
-            Rany::Doubles(value) => value.fmt(f),
-            Rany::Complexes(value) => value.fmt(f),
-            Rany::Strings(value) => write!(f, "{:?}", value.as_slice()),
-            Rany::Dot(_dot) => write!(f, "Dot"),
-            Rany::Any(_any) => write!(f, "Any"),
-            Rany::List(value) => value.fmt(f),
-            Rany::Expressions(value) => value.fmt(f),
-            Rany::Bytecode(_bytecode) => write!(f, "Bytecode"),
-            Rany::ExternalPtr(_externalptr) => write!(f, "ExternalPtr"),
-            Rany::WeakRef(_weakref) => write!(f, "Weakref"),
-            Rany::Raw(value) => value.fmt(f),
-            Rany::S4(value) => value.fmt(f),
-            Rany::Unknown(_unknown) => write!(f, "Unknown"),
+            RAny::Null(_) => write!(f, "()"),
+            RAny::Symbol(value) => value.fmt(f),
+            RAny::PairList(value) => value.fmt(f),
+            RAny::Function(value) => value.fmt(f),
+            RAny::Environment(value) => value.fmt(f),
+            RAny::Promise(value) => value.fmt(f),
+            RAny::Language(value) => value.fmt(f),
+            RAny::Special(value) => value.fmt(f),
+            RAny::Builtin(value) => value.fmt(f),
+            RAny::RStr(value) => value.fmt(f),
+            RAny::Logicals(value) => value.fmt(f),
+            RAny::Integers(value) => value.fmt(f),
+            RAny::Doubles(value) => value.fmt(f),
+            RAny::Complexes(value) => value.fmt(f),
+            RAny::Strings(value) => write!(f, "{:?}", value.as_slice()),
+            RAny::Dot(_dot) => write!(f, "Dot"),
+            RAny::Any(_any) => write!(f, "Any"),
+            RAny::List(value) => value.fmt(f),
+            RAny::Expressions(value) => value.fmt(f),
+            RAny::Bytecode(_bytecode) => write!(f, "Bytecode"),
+            RAny::ExternalPtr(_externalptr) => write!(f, "ExternalPtr"),
+            RAny::WeakRef(_weakref) => write!(f, "Weakref"),
+            RAny::Raw(value) => value.fmt(f),
+            RAny::S4(value) => value.fmt(f),
+            RAny::Unknown(_unknown) => write!(f, "Unknown"),
         }?;
         /*
                match self.sexptype() {
